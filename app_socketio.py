@@ -15,6 +15,7 @@ from text_to_speech import text_to_speech
 from database import store_history
 
 
+
 load_dotenv()
 
 
@@ -39,33 +40,56 @@ dg_connection = None
 
 sessionId = None
 
+headers = {
+    "Authorization": f"Token {API_KEY}",
+    "Content-Type": "application/json"
+}
+
 def initialize_deepgram_connection():
     global dg_connection
     # Initialize Deepgram client and connection
+    logging.info("Initializing Deepgram connection")
     dg_connection = deepgram.listen.live.v("1")
 
     def on_open(self, open, **kwargs):
+        logging.info(f"Deepgram connection opened: {open}")
         print(f"\n\n{open}\n\n")
 
     def on_message(self, result, **kwargs):
         transcript = result.channel.alternatives[0].transcript
         if len(transcript) > 0:
-            print(result.channel.alternatives[0].transcript)
+            logging.info(f"Received transcript: {transcript}")
+            # print(transcript)
             resp = batch(sessionId,transcript)
+            logging.info(f"Batch response: {resp}")
+            # with requests.post("https://api.deepgram.com/v1/speak", stream=True, headers=headers, json={"text": resp}) as r:  
+            #     i = 0
+            #     for chunk in r.iter_content(chunk_size=1024):
+            #         i+=1
+            #         if chunk:
+            #             # print(chunk)
+            #             socketio.emit('transcription_update', {'audioBinary': chunk,'transcription': resp})
+            #             # time.sleep(1)
+            #             # print("chunk emmited")
+            #     print(i)
             response = text_to_speech(resp)
             if response.status_code == 200:
+                logging.info("Successfully converted text to speech")
                 socketio.emit('transcription_update', {'audioBinary': response.content,'transcription': resp})
             else:
-                print(f"Error: {response.status_code} - {response.text}")
+                # print(f"Error: {response.status_code} - {response.text}")
+                logging.error(f"Text-to-speech conversion failed: {response.status_code} - {response.text}")
                 socketio.emit('transcription_update', {'transcription': resp})
-            # response = text_to_speech(resp)
             # print(type(response.content))
+            logging.info("Emitted transcription update")
 
     def on_close(self, close, **kwargs):
-        print(f"\n\n{close}\n\n")
+        logging.info(f"Deepgram connection closed: {close}")
+        # print(f"\n\n{close}\n\n")
 
     def on_error(self, error, **kwargs):
-        print(f"\n\n{error}\n\n")
+        # print(f"\n\n{error}\n\n")
+        logging.error(f"Deepgram connection error: {error}")
 
     dg_connection.on(LiveTranscriptionEvents.Open, on_open)
     dg_connection.on(LiveTranscriptionEvents.Transcript, on_message)
@@ -76,18 +100,21 @@ def initialize_deepgram_connection():
     options = LiveOptions(model="nova-2", language="en-IN",endpointing=200)
 
     if dg_connection.start(options) is False: 
-        print("Failed to start connection")
+        logging.error("Failed to start Deepgram connection")
         exit()
+        # print("Failed to start connection")
 
 @socketio.on('audio_stream')
 def handle_audio_stream(data):
     global sessionId
+    logging.info(f"Received audio stream for session ID: {sessionId}")
     if dg_connection:
         dg_connection.send(data)
 
 @socketio.on('toggle_transcription')
 def handle_toggle_transcription(data):
-    print("toggle_transcription", data)
+    # print("toggle_transcription", data)
+    logging.info(f"Received toggle_transcription event: {data}")
     action = data.get("action")
     if action == "start":
         print("Starting Deepgram connection")
@@ -95,11 +122,13 @@ def handle_toggle_transcription(data):
 
 @socketio.on('connect')
 def server_connect():
-    print('Client connected')
+    logging.info('Client connected')
+    # print('Client connected')
 
 @socketio.on('restart_deepgram')
 def restart_deepgram():
-    print('Restarting Deepgram connection')
+    # print('Restarting Deepgram connection')
+    logging.info('Restarting Deepgram connection')
     initialize_deepgram_connection()
 
 
@@ -107,7 +136,9 @@ def restart_deepgram():
 def handle_session_start(data):
     global sessionId
     sessionId = data
-    print(f"Session started with session ID: {sessionId}")
+    logging.info(f"Session started with session ID: {sessionId}")
+    # print(f"Session started with session ID: {sessionId}")
+
 
 if __name__ == '__main__':
     logging.info("Starting SocketIO server.")

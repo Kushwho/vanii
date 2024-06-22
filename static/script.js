@@ -19,7 +19,6 @@ socket.on("transcription_update", (data) => {
   console.log("I am adio_binary " + audioBinary)
   const captions = document.getElementById("captions");
   captions.innerHTML = transcription;
-
   enqueueAudio(audioBinary);
 });
 
@@ -88,13 +87,14 @@ function enqueueAudio(audioBinary) {
     playNextAudio();
   }
 }
-
+let i = 0
 async function playNextAudio() {
   if (audioQueue.length === 0) {
     isPlayingAudio = false;
     return;
   }
-
+  i++
+  console.log(i)
   isPlayingAudio = true;
   const audioBinary = audioQueue.shift();
   await playAudio(audioBinary);

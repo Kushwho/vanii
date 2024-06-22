@@ -1,0 +1,300 @@
+2024-06-22 12:52:13,745 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-06-22 12:52:13,955 [INFO] Starting SocketIO server.
+2024-06-22 12:52:13,965 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5001
+2024-06-22 12:52:13,965 [INFO] [33mPress CTRL+C to quit[0m
+2024-06-22 12:52:13,965 [INFO]  * Restarting with stat
+2024-06-22 12:52:15,504 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-06-22 12:52:15,670 [INFO] Starting SocketIO server.
+2024-06-22 12:52:15,670 [WARNING]  * Debugger is active!
+2024-06-22 12:52:15,670 [INFO]  * Debugger PIN: 761-360-733
+2024-06-22 12:52:15,745 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-06-22 12:52:15,745 [INFO] Starting Flask server.
+2024-06-22 12:52:15,767 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8000
+2024-06-22 12:52:15,767 [INFO] [33mPress CTRL+C to quit[0m
+2024-06-22 12:52:15,776 [INFO]  * Restarting with stat
+2024-06-22 12:52:15,881 [INFO] 127.0.0.1 - - [22/Jun/2024 12:52:15] "GET /socket.io/?EIO=4&transport=polling&t=P0-qmDA HTTP/1.1" 200 -
+2024-06-22 12:52:15,890 [INFO] Client connected
+2024-06-22 12:52:15,891 [INFO] 127.0.0.1 - - [22/Jun/2024 12:52:15] "POST /socket.io/?EIO=4&transport=polling&t=P0-qmVD&sid=2cBDtyQ_2CKHWj1sAAAA HTTP/1.1" 200 -
+2024-06-22 12:52:16,210 [INFO] 127.0.0.1 - - [22/Jun/2024 12:52:16] "GET /socket.io/?EIO=4&transport=polling&t=P0-qmVE&sid=2cBDtyQ_2CKHWj1sAAAA HTTP/1.1" 200 -
+2024-06-22 12:52:16,275 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-06-22 12:52:16,275 [INFO] Starting Flask server.
+2024-06-22 12:52:16,285 [WARNING]  * Debugger is active!
+2024-06-22 12:52:16,287 [INFO]  * Debugger PIN: 761-360-733
+2024-06-22 12:52:16,525 [INFO] 127.0.0.1 - - [22/Jun/2024 12:52:16] "GET /socket.io/?EIO=4&transport=polling&t=P0-qmaK&sid=2cBDtyQ_2CKHWj1sAAAA HTTP/1.1" 200 -
+2024-06-22 12:52:16,526 [INFO] Session started with session ID: 1
+2024-06-22 12:52:16,526 [INFO] 127.0.0.1 - - [22/Jun/2024 12:52:16] "POST /socket.io/?EIO=4&transport=polling&t=P0-qmaL&sid=2cBDtyQ_2CKHWj1sAAAA HTTP/1.1" 200 -
+2024-06-22 12:52:56,944 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-06-22 12:52:57,135 [INFO] Starting SocketIO server.
+2024-06-22 12:52:57,149 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5001
+2024-06-22 12:52:57,149 [INFO] [33mPress CTRL+C to quit[0m
+2024-06-22 12:52:57,149 [INFO]  * Restarting with stat
+2024-06-22 12:52:58,589 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-06-22 12:52:58,771 [INFO] Starting SocketIO server.
+2024-06-22 12:52:58,774 [WARNING]  * Debugger is active!
+2024-06-22 12:52:58,774 [INFO]  * Debugger PIN: 761-360-733
+2024-06-22 12:52:58,952 [INFO] 127.0.0.1 - - [22/Jun/2024 12:52:58] "GET /socket.io/?EIO=4&transport=polling&t=P0-qwTX HTTP/1.1" 200 -
+2024-06-22 12:52:58,969 [INFO] Client connected
+2024-06-22 12:52:58,969 [INFO] 127.0.0.1 - - [22/Jun/2024 12:52:58] "POST /socket.io/?EIO=4&transport=polling&t=P0-qx0M&sid=kSRdai1YphMqRBf4AAAA HTTP/1.1" 200 -
+2024-06-22 12:52:59,290 [INFO] 127.0.0.1 - - [22/Jun/2024 12:52:59] "GET /socket.io/?EIO=4&transport=polling&t=P0-qx0O&sid=kSRdai1YphMqRBf4AAAA HTTP/1.1" 200 -
+2024-06-22 12:52:59,296 [INFO] Session started with session ID: 1
+2024-06-22 12:53:15,813 [INFO]  * Detected change in 'E:\\Desktop\\AI_Applications\\live-flask-starter\\app_socketio.py', reloading
+2024-06-22 12:53:15,884 [INFO]  * Detected change in 'E:\\Desktop\\AI_Applications\\live-flask-starter\\app_socketio.py', reloading
+2024-06-22 12:53:15,946 [INFO]  * Restarting with stat
+2024-06-22 12:53:16,045 [INFO]  * Restarting with stat
+2024-06-22 12:53:16,953 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-06-22 12:53:16,953 [INFO] Starting Flask server.
+2024-06-22 12:53:16,961 [WARNING]  * Debugger is active!
+2024-06-22 12:53:16,971 [INFO]  * Debugger PIN: 761-360-733
+2024-06-22 12:53:19,509 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-06-22 12:53:19,694 [INFO] Starting SocketIO server.
+2024-06-22 12:53:19,694 [WARNING]  * Debugger is active!
+2024-06-22 12:53:19,694 [INFO]  * Debugger PIN: 761-360-733
+2024-06-22 12:53:19,870 [INFO] 127.0.0.1 - - [22/Jun/2024 12:53:19] "GET /socket.io/?EIO=4&transport=polling&t=P0-q_bj HTTP/1.1" 200 -
+2024-06-22 12:53:19,870 [INFO] Client connected
+2024-06-22 12:53:19,870 [INFO] 127.0.0.1 - - [22/Jun/2024 12:53:19] "POST /socket.io/?EIO=4&transport=polling&t=P0-r073&sid=QrD2AFlnFCu7Y9q-AAAA HTTP/1.1" 200 -
+2024-06-22 12:53:20,192 [INFO] 127.0.0.1 - - [22/Jun/2024 12:53:20] "GET /socket.io/?EIO=4&transport=polling&t=P0-r075&sid=QrD2AFlnFCu7Y9q-AAAA HTTP/1.1" 200 -
+2024-06-22 12:53:20,197 [INFO] Session started with session ID: 1
+2024-06-22 12:54:25,016 [INFO] Received toggle_transcription event: {'action': 'start'}
+2024-06-22 12:54:25,025 [INFO] Initializing Deepgram connection
+2024-06-22 12:54:26,309 [INFO] Deepgram connection opened: {
+    "type": "Open"
+}
+2024-06-22 12:54:26,537 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:54:27,553 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:54:28,579 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:54:29,597 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:54:29,895 [INFO] Received transcript: hello
+2024-06-22 12:54:30,613 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:54:31,635 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:54:31,939 [INFO] Inserted new chat history for sessionId: 1
+2024-06-22 12:54:32,654 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:54:32,731 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-06-22 12:54:32,871 [INFO] Updated chat history for sessionId: 1
+2024-06-22 12:54:32,949 [INFO] Batch response: Hello there! It's so wonderful to meet you! I'm Vanii, your World Class Language Teacher, and I'm here to make learning English a fun and engaging experience for you! How are you doing today? Do you have any questions or topics you'd like to explore in English? Let's get started and make some amazing progress together!
+2024-06-22 12:54:33,677 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:54:34,771 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:54:35,715 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:54:36,737 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:54:37,753 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:54:38,694 [INFO] Successfully converted text to speech
+2024-06-22 12:54:38,695 [INFO] Emitted transcription update
+2024-06-22 12:54:38,772 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:54:39,121 [INFO] 127.0.0.1 - - [22/Jun/2024 12:54:39] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2024-06-22 12:54:39,814 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:54:40,814 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:54:41,837 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:54:42,855 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:54:43,873 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:54:44,897 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:54:45,915 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:54:46,933 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:54:47,957 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:54:48,976 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:54:49,995 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:54:51,015 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:54:52,034 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:54:53,057 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:54:54,077 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:54:55,097 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:54:56,115 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:54:57,137 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:54:57,604 [INFO] Received toggle_transcription event: {'action': 'stop'}
+2024-06-22 12:54:57,611 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:58:54,617 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-06-22 12:58:54,774 [INFO] Starting SocketIO server.
+2024-06-22 12:58:54,782 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5001
+2024-06-22 12:58:54,782 [INFO] [33mPress CTRL+C to quit[0m
+2024-06-22 12:58:54,782 [INFO]  * Restarting with stat
+2024-06-22 12:58:56,041 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-06-22 12:58:56,200 [INFO] Starting SocketIO server.
+2024-06-22 12:58:56,203 [WARNING]  * Debugger is active!
+2024-06-22 12:58:56,203 [INFO]  * Debugger PIN: 761-360-733
+2024-06-22 12:58:57,060 [INFO] 127.0.0.1 - - [22/Jun/2024 12:58:57] "GET /socket.io/?EIO=4&transport=polling&t=P0-sIMc HTTP/1.1" 200 -
+2024-06-22 12:58:57,318 [INFO] Client connected
+2024-06-22 12:58:57,318 [INFO] 127.0.0.1 - - [22/Jun/2024 12:58:57] "POST /socket.io/?EIO=4&transport=polling&t=P0-sIRd&sid=KofP4a4EZ_xwUHLbAAAA HTTP/1.1" 200 -
+2024-06-22 12:58:57,374 [INFO] 127.0.0.1 - - [22/Jun/2024 12:58:57] "GET /socket.io/?EIO=4&transport=polling&t=P0-sIRf&sid=KofP4a4EZ_xwUHLbAAAA HTTP/1.1" 200 -
+2024-06-22 12:58:57,381 [INFO] Received toggle_transcription event: {'action': 'start'}
+2024-06-22 12:58:57,381 [INFO] Initializing Deepgram connection
+2024-06-22 12:58:57,383 [INFO] Received audio stream for session ID: None
+2024-06-22 12:58:57,385 [INFO] Received audio stream for session ID: None
+2024-06-22 12:58:57,388 [INFO] Received audio stream for session ID: None
+2024-06-22 12:58:57,389 [INFO] Received audio stream for session ID: None
+2024-06-22 12:58:57,390 [INFO] Received audio stream for session ID: None
+2024-06-22 12:58:57,390 [INFO] Received audio stream for session ID: None
+2024-06-22 12:58:57,392 [INFO] Received audio stream for session ID: None
+2024-06-22 12:58:57,393 [INFO] Received audio stream for session ID: None
+2024-06-22 12:58:57,394 [INFO] Received audio stream for session ID: None
+2024-06-22 12:58:57,395 [INFO] Received audio stream for session ID: None
+2024-06-22 12:58:57,397 [INFO] Received audio stream for session ID: None
+2024-06-22 12:58:57,397 [INFO] Received audio stream for session ID: None
+2024-06-22 12:58:57,397 [INFO] Received audio stream for session ID: None
+2024-06-22 12:58:57,401 [INFO] Received audio stream for session ID: None
+2024-06-22 12:58:57,401 [INFO] Received toggle_transcription event: {'action': 'stop'}
+2024-06-22 12:58:57,401 [INFO] Received audio stream for session ID: None
+2024-06-22 12:58:57,401 [INFO] Session started with session ID: 1
+2024-06-22 12:58:57,554 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-06-22 12:58:57,734 [INFO] Starting SocketIO server.
+2024-06-22 12:58:57,745 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5001
+2024-06-22 12:58:57,745 [INFO] [33mPress CTRL+C to quit[0m
+2024-06-22 12:58:57,745 [INFO]  * Restarting with stat
+2024-06-22 12:58:58,597 [INFO] Deepgram connection opened: {
+    "type": "Open"
+}
+2024-06-22 12:58:59,184 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-06-22 12:58:59,326 [INFO] Starting SocketIO server.
+2024-06-22 12:58:59,335 [WARNING]  * Debugger is active!
+2024-06-22 12:58:59,336 [INFO]  * Debugger PIN: 761-360-733
+2024-06-22 12:59:03,060 [INFO] 127.0.0.1 - - [22/Jun/2024 12:59:03] "GET /socket.io/?EIO=4&transport=polling&t=P0-sJqB HTTP/1.1" 200 -
+2024-06-22 12:59:03,323 [INFO] Client connected
+2024-06-22 12:59:03,323 [INFO] 127.0.0.1 - - [22/Jun/2024 12:59:03] "POST /socket.io/?EIO=4&transport=polling&t=P0-sJvQ&sid=uqzsmWiYjas7XgEMAAAA HTTP/1.1" 200 -
+2024-06-22 12:59:03,374 [INFO] 127.0.0.1 - - [22/Jun/2024 12:59:03] "GET /socket.io/?EIO=4&transport=polling&t=P0-sJvR&sid=uqzsmWiYjas7XgEMAAAA HTTP/1.1" 200 -
+2024-06-22 12:59:03,393 [INFO] Session started with session ID: 1
+2024-06-22 12:59:03,394 [INFO] 127.0.0.1 - - [22/Jun/2024 12:59:03] "POST /socket.io/?EIO=4&transport=polling&t=P0-sJ-U&sid=uqzsmWiYjas7XgEMAAAA HTTP/1.1" 200 -
+2024-06-22 12:59:03,712 [INFO] 127.0.0.1 - - [22/Jun/2024 12:59:03] "GET /socket.io/?EIO=4&transport=polling&t=P0-sJ-N&sid=uqzsmWiYjas7XgEMAAAA HTTP/1.1" 200 -
+2024-06-22 12:59:08,350 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-06-22 12:59:08,359 [INFO] Starting Flask server.
+2024-06-22 12:59:08,392 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8000
+2024-06-22 12:59:08,392 [INFO] [33mPress CTRL+C to quit[0m
+2024-06-22 12:59:08,392 [INFO]  * Restarting with stat
+2024-06-22 12:59:08,828 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-06-22 12:59:08,835 [INFO] Starting Flask server.
+2024-06-22 12:59:08,835 [WARNING]  * Debugger is active!
+2024-06-22 12:59:08,856 [INFO]  * Debugger PIN: 761-360-733
+2024-06-22 12:59:26,735 [INFO] 127.0.0.1 - - [22/Jun/2024 12:59:26] "GET /socket.io/?EIO=4&transport=websocket&sid=uqzsmWiYjas7XgEMAAAA HTTP/1.1" 200 -
+2024-06-22 12:59:27,049 [INFO] Rendering index page.
+2024-06-22 12:59:27,052 [INFO] 127.0.0.1 - - [22/Jun/2024 12:59:27] "GET / HTTP/1.1" 200 -
+2024-06-22 12:59:27,116 [INFO] 127.0.0.1 - - [22/Jun/2024 12:59:27] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2024-06-22 12:59:27,308 [INFO] 127.0.0.1 - - [22/Jun/2024 12:59:27] "[36mGET /static/click.png HTTP/1.1[0m" 304 -
+2024-06-22 12:59:27,404 [INFO] 127.0.0.1 - - [22/Jun/2024 12:59:27] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2024-06-22 12:59:27,431 [INFO] 127.0.0.1 - - [22/Jun/2024 12:59:27] "GET /socket.io/?EIO=4&transport=polling&t=P0-sPro HTTP/1.1" 200 -
+2024-06-22 12:59:27,750 [INFO] Client connected
+2024-06-22 12:59:27,750 [INFO] 127.0.0.1 - - [22/Jun/2024 12:59:27] "POST /socket.io/?EIO=4&transport=polling&t=P0-sPsI&sid=nGr6M4ptjLJHdCKSAAAC HTTP/1.1" 200 -
+2024-06-22 12:59:27,755 [INFO] 127.0.0.1 - - [22/Jun/2024 12:59:27] "GET /socket.io/?EIO=4&transport=polling&t=P0-sPsK&sid=nGr6M4ptjLJHdCKSAAAC HTTP/1.1" 200 -
+2024-06-22 12:59:27,770 [INFO] Session started with session ID: 1
+2024-06-22 12:59:28,301 [INFO] Received toggle_transcription event: {'action': 'start'}
+2024-06-22 12:59:28,315 [INFO] Initializing Deepgram connection
+2024-06-22 12:59:29,530 [INFO] Deepgram connection opened: {
+    "type": "Open"
+}
+2024-06-22 12:59:30,001 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:59:31,024 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:59:32,047 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:59:33,067 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:59:33,364 [INFO] Received transcript: sing as all for me
+2024-06-22 12:59:34,083 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:59:34,291 [INFO] Updated chat history for sessionId: 1
+2024-06-22 12:59:34,989 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-06-22 12:59:35,104 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:59:35,131 [INFO] Updated chat history for sessionId: 1
+2024-06-22 12:59:35,132 [INFO] Batch response: What a fantastic request! Let's have some fun and sing a little ditty together!
+
+(singing)
+"Learning English is fun, fun, fun!
+With Vanii, your teacher, everyone's number one!
+We'll learn and laugh and play all day,
+In the world of English, we'll find our way!"
+
+How was that? Did I get you singing along?
+2024-06-22 12:59:36,124 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:59:37,142 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:59:38,164 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:59:38,306 [INFO] Successfully converted text to speech
+2024-06-22 12:59:38,308 [INFO] Emitted transcription update
+2024-06-22 12:59:38,684 [INFO] 127.0.0.1 - - [22/Jun/2024 12:59:38] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2024-06-22 12:59:39,183 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:59:40,202 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:59:41,221 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:59:42,240 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:59:43,263 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:59:44,284 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:59:45,301 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:59:46,326 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:59:47,346 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:59:48,361 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:59:49,384 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:59:50,405 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:59:51,426 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:59:52,441 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:59:53,478 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:59:54,483 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:59:55,505 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:59:56,521 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:59:57,543 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:59:58,563 [INFO] Received audio stream for session ID: 1
+2024-06-22 12:59:59,583 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:00,602 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:01,626 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:02,644 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:03,663 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:04,685 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:05,707 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:06,073 [INFO] Received transcript: what is the meaning of name mohita
+2024-06-22 13:00:06,187 [INFO] Updated chat history for sessionId: 1
+2024-06-22 13:00:06,726 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:06,976 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-06-22 13:00:07,090 [INFO] Updated chat history for sessionId: 1
+2024-06-22 13:00:08,125 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:08,763 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:09,781 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:10,323 [INFO] Successfully converted text to speech
+2024-06-22 13:00:10,324 [INFO] Emitted transcription update
+2024-06-22 13:00:10,806 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:11,825 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:12,856 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:13,864 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:14,885 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:15,907 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:16,923 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:17,945 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:18,966 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:19,982 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:21,009 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:22,024 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:23,044 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:24,063 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:25,087 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:26,105 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:27,125 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:28,144 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:29,165 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:30,182 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:31,204 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:32,222 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:33,244 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:34,263 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:35,283 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:36,304 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:37,326 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:38,342 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:39,363 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:40,381 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:41,403 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:42,422 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:43,441 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:44,462 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:45,487 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:46,506 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:47,522 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:48,542 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:49,563 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:50,586 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:51,603 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:00:52,428 [INFO] Received toggle_transcription event: {'action': 'stop'}
+2024-06-22 13:00:52,449 [INFO] Received audio stream for session ID: 1
+2024-06-22 13:01:02,388 [INFO] 127.0.0.1 - - [22/Jun/2024 13:01:02] "GET /socket.io/?EIO=4&transport=websocket&sid=nGr6M4ptjLJHdCKSAAAC HTTP/1.1" 200 -
+2024-06-22 13:01:02,698 [INFO] Rendering index page.
+2024-06-22 13:01:02,702 [INFO] 127.0.0.1 - - [22/Jun/2024 13:01:02] "GET / HTTP/1.1" 200 -
+2024-06-22 13:01:02,748 [INFO] 127.0.0.1 - - [22/Jun/2024 13:01:02] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2024-06-22 13:01:02,964 [INFO] 127.0.0.1 - - [22/Jun/2024 13:01:02] "[36mGET /static/click.png HTTP/1.1[0m" 304 -
+2024-06-22 13:01:03,056 [INFO] 127.0.0.1 - - [22/Jun/2024 13:01:03] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2024-06-22 13:01:03,377 [INFO] 127.0.0.1 - - [22/Jun/2024 13:01:03] "GET /socket.io/?EIO=4&transport=polling&t=P0-snCQ HTTP/1.1" 200 -
+2024-06-22 13:01:03,631 [INFO] Client connected
+2024-06-22 13:01:03,635 [INFO] 127.0.0.1 - - [22/Jun/2024 13:01:03] "POST /socket.io/?EIO=4&transport=polling&t=P0-snHO&sid=01QErgeeHdhEheEwAAAE HTTP/1.1" 200 -
+2024-06-22 13:01:03,698 [INFO] 127.0.0.1 - - [22/Jun/2024 13:01:03] "GET /socket.io/?EIO=4&transport=polling&t=P0-snHQ&sid=01QErgeeHdhEheEwAAAE HTTP/1.1" 200 -
+2024-06-22 13:01:03,718 [INFO] Session started with session ID: 1
