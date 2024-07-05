@@ -4,18 +4,23 @@ let microphone;
 let audioQueue = [];
 let isPlayingAudio = false;
 
+const sessionId = "1"; 
 const socket_port = 5001;
 socket = io("http://" + window.location.hostname + ":" + socket_port.toString());
 
 socket.on('connect', () => {
-  socket.emit('session_start', "1");
+  socket.emit('session_start', { sessionId });
+  socket.emit('join', {sessionId});
 });
 
 socket.on("transcription_update", (data) => {
-  const { transcription, audioBinary } = data;
-  const captions = document.getElementById("captions");
-  captions.innerHTML = transcription;
-  enqueueAudio(audioBinary);
+  const { transcription, audioBinary, sessionId : responseSessionId } = data;
+  console.log(responseSessionId)
+  if (responseSessionId === sessionId) {
+    const captions = document.getElementById("captions");
+    captions.innerHTML = transcription;
+    enqueueAudio(audioBinary);
+  }
 });
 
 async function getMicrophone() {
@@ -37,7 +42,7 @@ async function openMicrophone(microphone, socket) {
     };
     microphone.ondataavailable = async (event) => {
       if (event.data.size > 0) {
-        socket.emit("audio_stream", event.data);
+        socket.emit("audio_stream", {data : event.data , sessionId});
       }
     };
     microphone.start(1000);
@@ -45,6 +50,7 @@ async function openMicrophone(microphone, socket) {
 }
 
 async function startRecording() {
+  socket.emit('join', {sessionId});
   isRecording = true;
   microphone = await getMicrophone();
   await openMicrophone(microphone, socket);
@@ -54,7 +60,8 @@ async function stopRecording() {
   if (isRecording) {
     microphone.stop();
     microphone.stream.getTracks().forEach((track) => track.stop());
-    socket.emit("toggle_transcription", { action: "stop" });
+    socket.emit("toggle_transcription", { action: "stop" , sessionId });
+    socket.emit("leave" , {sessionId})
     microphone = null;
     isRecording = false;
     document.body.classList.remove("recording");
@@ -66,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   recordButton.addEventListener("click", () => {
     if (!isRecording) {
-      socket.emit("toggle_transcription", { action: "start" });
+      socket.emit("toggle_transcription", { action: "start" , sessionId });
       startRecording().catch((error) => console.error("Error starting recording:", error));
     } else {
       stopRecording().catch((error) => console.error("Error stopping recording:", error));
