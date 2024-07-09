@@ -395,3 +395,1411 @@ Would you like to learn more about WebSockets or practice some English vocabular
 2024-07-05 22:10:11,591 [INFO] Audio sent for session ID: 1
 2024-07-05 22:10:12,608 [INFO] Received audio stream for session ID: 1
 2024-07-05 22:10:12,609 [INFO] Audio sent for session ID: 1
+2024-07-09 16:27:17,244 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-07-09 16:27:17,566 [INFO] Starting SocketIO server.
+2024-07-09 16:27:17,582 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5001
+2024-07-09 16:27:17,582 [INFO] [33mPress CTRL+C to quit[0m
+2024-07-09 16:27:17,582 [INFO]  * Restarting with stat
+2024-07-09 16:27:19,798 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-07-09 16:27:19,874 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-07-09 16:27:19,874 [INFO] Starting Flask server.
+2024-07-09 16:27:19,890 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8000
+2024-07-09 16:27:19,890 [INFO] [33mPress CTRL+C to quit[0m
+2024-07-09 16:27:19,890 [INFO]  * Restarting with stat
+2024-07-09 16:27:19,962 [INFO] Starting SocketIO server.
+2024-07-09 16:27:19,962 [WARNING]  * Debugger is active!
+2024-07-09 16:27:19,962 [INFO]  * Debugger PIN: 761-360-733
+2024-07-09 16:27:20,370 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-07-09 16:27:20,370 [INFO] Starting Flask server.
+2024-07-09 16:27:20,389 [WARNING]  * Debugger is active!
+2024-07-09 16:27:20,393 [INFO]  * Debugger PIN: 761-360-733
+2024-07-09 16:28:02,589 [INFO] Rendering index page.
+2024-07-09 16:28:02,605 [INFO] 127.0.0.1 - - [09/Jul/2024 16:28:02] "GET / HTTP/1.1" 200 -
+2024-07-09 16:28:02,978 [INFO] 127.0.0.1 - - [09/Jul/2024 16:28:02] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2024-07-09 16:28:03,057 [INFO] 127.0.0.1 - - [09/Jul/2024 16:28:03] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2024-07-09 16:28:03,057 [INFO] 127.0.0.1 - - [09/Jul/2024 16:28:03] "[36mGET /static/click.png HTTP/1.1[0m" 304 -
+2024-07-09 16:28:03,386 [INFO] 127.0.0.1 - - [09/Jul/2024 16:28:03] "GET /socket.io/?EIO=4&transport=polling&t=P2N9BAo HTTP/1.1" 200 -
+2024-07-09 16:28:03,654 [INFO] Client connected
+2024-07-09 16:28:03,654 [INFO] 127.0.0.1 - - [09/Jul/2024 16:28:03] "POST /socket.io/?EIO=4&transport=polling&t=P2N9BFx&sid=AwbfqVzE8tibvNpzAAAA HTTP/1.1" 200 -
+2024-07-09 16:28:03,716 [INFO] 127.0.0.1 - - [09/Jul/2024 16:28:03] "GET /socket.io/?EIO=4&transport=polling&t=P2N9BF-&sid=AwbfqVzE8tibvNpzAAAA HTTP/1.1" 200 -
+2024-07-09 16:28:04,043 [INFO] Session started with session ID: 1
+2024-07-09 16:28:04,043 [INFO] 127.0.0.1 - - [09/Jul/2024 16:28:04] "POST /socket.io/?EIO=4&transport=polling&t=P2N9BL2&sid=AwbfqVzE8tibvNpzAAAA HTTP/1.1" 200 -
+2024-07-09 16:28:04,359 [INFO] Room has been created for sessionId 1
+2024-07-09 16:28:04,359 [INFO] 127.0.0.1 - - [09/Jul/2024 16:28:04] "POST /socket.io/?EIO=4&transport=polling&t=P2N9BQ4&sid=AwbfqVzE8tibvNpzAAAA HTTP/1.1" 200 -
+2024-07-09 16:28:04,359 [INFO] 127.0.0.1 - - [09/Jul/2024 16:28:04] "GET /socket.io/?EIO=4&transport=polling&t=P2N9BL0&sid=AwbfqVzE8tibvNpzAAAA HTTP/1.1" 200 -
+2024-07-09 16:28:05,492 [INFO] 127.0.0.1 - - [09/Jul/2024 16:28:05] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2024-07-09 16:28:05,801 [INFO] 127.0.0.1 - - [09/Jul/2024 16:28:05] "GET /socket.io/?EIO=4&transport=polling&t=P2N9BV1&sid=AwbfqVzE8tibvNpzAAAA HTTP/1.1" 200 -
+2024-07-09 16:28:08,302 [INFO] Received toggle_transcription event: {'action': 'start', 'sessionId': '1'}
+2024-07-09 16:28:08,302 [INFO] Room has been created for sessionId 1
+2024-07-09 16:28:08,302 [INFO] Starting Deepgram connection
+2024-07-09 16:28:08,302 [INFO] Initializing Deepgram connection
+2024-07-09 16:28:09,433 [INFO] Deepgram connection opened: {
+    "type": "Open"
+}
+2024-07-09 16:28:09,963 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:09,964 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:11,045 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:11,291 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:12,002 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:12,004 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:13,024 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:13,027 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:14,044 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:14,045 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:15,148 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:15,157 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:15,516 [INFO] Received transcript: hello
+2024-07-09 16:28:16,127 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:16,137 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:16,961 [INFO] Updated chat history for sessionId: 1
+2024-07-09 16:28:17,122 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:17,123 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:18,123 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:18,124 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:18,320 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-09 16:28:18,462 [INFO] Updated chat history for sessionId: 1
+2024-07-09 16:28:18,463 [INFO] It took 2.946042060852051 seconds for generating responses.
+2024-07-09 16:28:18,463 [INFO] Batch response: Hello! It's great to see you again! "Hello" is a classic greeting, and it's always nice to start a conversation with a friendly hello. How are you doing today?
+2024-07-09 16:28:19,145 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:19,146 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:20,167 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:20,168 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:20,536 [INFO] It took 2.072338104248047 seconds for text to speech
+2024-07-09 16:28:20,959 [INFO] 127.0.0.1 - - [09/Jul/2024 16:28:20] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2024-07-09 16:28:21,181 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:21,182 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:22,205 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:22,207 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:23,225 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:23,226 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:24,243 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:24,245 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:25,263 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:25,264 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:26,285 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:26,287 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:27,304 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:27,306 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:28,323 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:28,324 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:29,343 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:29,344 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:30,369 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:30,372 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:31,388 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:31,389 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:32,403 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:32,404 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:33,422 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:33,423 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:34,442 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:34,442 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:35,368 [INFO] Received transcript: my name is bawish i'm
+2024-07-09 16:28:35,465 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:35,466 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:35,489 [INFO] Updated chat history for sessionId: 1
+2024-07-09 16:28:36,283 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-09 16:28:36,381 [INFO] Updated chat history for sessionId: 1
+2024-07-09 16:28:36,381 [INFO] It took 1.0130012035369873 seconds for generating responses.
+2024-07-09 16:28:36,382 [INFO] Batch response: Nice to meet you, Bawish! "I'm" is a great way to start a sentence, and I'm curious to know what you're going to say next!
+2024-07-09 16:28:36,485 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:36,487 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:37,503 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:37,504 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:38,323 [INFO] It took 1.9412400722503662 seconds for text to speech
+2024-07-09 16:28:38,521 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:38,522 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:38,891 [INFO] Received transcript: and i am from and i have end up to do
+2024-07-09 16:28:38,988 [INFO] Updated chat history for sessionId: 1
+2024-07-09 16:28:39,542 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:39,543 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:39,781 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-09 16:28:39,903 [INFO] Updated chat history for sessionId: 1
+2024-07-09 16:28:39,904 [INFO] It took 1.0117907524108887 seconds for generating responses.
+2024-07-09 16:28:39,905 [INFO] Batch response: You're sharing some information about yourself, Bawish! "And I am from" is a great way to introduce your hometown or origin. "I have" is a present perfect tense, and "end up" is a phrasal verb that means to arrive at a place or situation. You're doing wonderfully! Can you tell me more about where you're from and what you've been up to?
+2024-07-09 16:28:40,560 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:40,561 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:41,582 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:41,583 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:42,605 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:42,606 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:42,652 [INFO] It took 2.7451117038726807 seconds for text to speech
+2024-07-09 16:28:42,656 [INFO] Received transcript: coding what do you love
+2024-07-09 16:28:42,768 [INFO] Updated chat history for sessionId: 1
+2024-07-09 16:28:43,566 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-09 16:28:43,627 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:43,629 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:43,703 [INFO] Updated chat history for sessionId: 1
+2024-07-09 16:28:43,703 [INFO] It took 1.046180248260498 seconds for generating responses.
+2024-07-09 16:28:43,704 [INFO] Batch response: Coding is a great topic! "What do you love" is a great way to ask about someone's interests or passions. As a language teacher, I love helping people improve their English skills and explore new topics. But I'm curious, what do you love about coding?
+2024-07-09 16:28:44,646 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:44,647 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:45,664 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:45,665 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:46,684 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:46,686 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:47,705 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:47,706 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:48,516 [INFO] It took 4.811582565307617 seconds for text to speech
+2024-07-09 16:28:48,730 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:48,731 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:49,746 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:49,748 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:50,764 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:50,765 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:51,784 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:51,786 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:52,813 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:52,815 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:53,828 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:53,834 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:54,842 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:54,844 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:55,864 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:55,866 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:56,885 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:56,887 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:57,927 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:57,928 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:58,929 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:58,933 [INFO] Audio sent for session ID: 1
+2024-07-09 16:28:59,945 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:28:59,948 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:00,963 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:29:00,964 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:01,983 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:29:01,984 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:03,006 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:29:03,009 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:04,026 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:29:04,028 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:05,045 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:29:05,047 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:06,062 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:29:06,063 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:07,083 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:29:07,084 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:08,105 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:29:08,106 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:09,121 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:29:09,121 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:10,141 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:29:10,142 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:11,161 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:29:11,161 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:12,182 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:29:12,183 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:13,202 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:29:13,203 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:14,221 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:29:14,223 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:15,243 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:29:15,244 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:16,262 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:29:16,264 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:17,283 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:29:17,285 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:18,303 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:29:18,304 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:19,324 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:29:19,325 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:20,344 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:29:20,347 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:21,365 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:29:21,367 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:22,385 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:29:22,387 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:23,401 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:29:23,402 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:24,425 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:29:24,427 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:25,443 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:29:25,445 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:26,467 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:29:26,468 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:27,484 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:29:27,486 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:28,504 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:29:28,506 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:29,524 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:29:29,526 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:30,555 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:29:30,556 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:31,561 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:29:31,562 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:32,586 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:29:32,588 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:33,607 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:29:33,609 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:34,622 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:29:34,623 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:35,651 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:29:35,653 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:36,663 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:29:36,666 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:37,685 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:29:37,687 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:38,704 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:29:38,707 [INFO] Audio sent for session ID: 1
+2024-07-09 16:29:39,174 [INFO] 127.0.0.1 - - [09/Jul/2024 16:29:39] "GET /socket.io/?EIO=4&transport=websocket&sid=AwbfqVzE8tibvNpzAAAA HTTP/1.1" 200 -
+2024-07-09 16:29:39,511 [INFO] Rendering index page.
+2024-07-09 16:29:39,513 [INFO] 127.0.0.1 - - [09/Jul/2024 16:29:39] "GET / HTTP/1.1" 200 -
+2024-07-09 16:29:39,576 [INFO] 127.0.0.1 - - [09/Jul/2024 16:29:39] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2024-07-09 16:29:39,762 [INFO] 127.0.0.1 - - [09/Jul/2024 16:29:39] "[36mGET /static/click.png HTTP/1.1[0m" 304 -
+2024-07-09 16:29:39,871 [INFO] 127.0.0.1 - - [09/Jul/2024 16:29:39] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2024-07-09 16:29:40,187 [INFO] 127.0.0.1 - - [09/Jul/2024 16:29:40] "GET /socket.io/?EIO=4&transport=polling&t=P2N9Ypf HTTP/1.1" 200 -
+2024-07-09 16:29:40,445 [INFO] Client connected
+2024-07-09 16:29:40,445 [INFO] 127.0.0.1 - - [09/Jul/2024 16:29:40] "POST /socket.io/?EIO=4&transport=polling&t=P2N9Yua&sid=HnrYWKU1ov919aORAAAC HTTP/1.1" 200 -
+2024-07-09 16:29:40,503 [INFO] 127.0.0.1 - - [09/Jul/2024 16:29:40] "GET /socket.io/?EIO=4&transport=polling&t=P2N9Yuc&sid=HnrYWKU1ov919aORAAAC HTTP/1.1" 200 -
+2024-07-09 16:29:40,513 [INFO] 127.0.0.1 - - [09/Jul/2024 16:29:40] "GET /socket.io/?EIO=4&transport=polling&t=P2N9YzU&sid=HnrYWKU1ov919aORAAAC HTTP/1.1" 200 -
+2024-07-09 16:29:40,822 [INFO] Session started with session ID: 1
+2024-07-09 16:29:40,823 [INFO] 127.0.0.1 - - [09/Jul/2024 16:29:40] "POST /socket.io/?EIO=4&transport=polling&t=P2N9YzU.0&sid=HnrYWKU1ov919aORAAAC HTTP/1.1" 200 -
+2024-07-09 16:29:40,833 [INFO] Room has been created for sessionId 1
+2024-07-09 16:30:18,201 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-07-09 16:30:18,373 [INFO] Starting SocketIO server.
+2024-07-09 16:30:18,373 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5001
+2024-07-09 16:30:18,373 [INFO] [33mPress CTRL+C to quit[0m
+2024-07-09 16:30:18,373 [INFO]  * Restarting with stat
+2024-07-09 16:30:19,835 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-07-09 16:30:20,048 [INFO] Starting SocketIO server.
+2024-07-09 16:30:20,063 [WARNING]  * Debugger is active!
+2024-07-09 16:30:20,063 [INFO]  * Debugger PIN: 761-360-733
+2024-07-09 16:30:20,305 [INFO] 127.0.0.1 - - [09/Jul/2024 16:30:20] "GET /socket.io/?EIO=4&transport=polling&t=P2N9hk6 HTTP/1.1" 200 -
+2024-07-09 16:30:20,324 [INFO] Client connected
+2024-07-09 16:30:20,325 [INFO] 127.0.0.1 - - [09/Jul/2024 16:30:20] "POST /socket.io/?EIO=4&transport=polling&t=P2N9ihS&sid=Lf2E63fhVLFWxsYGAAAA HTTP/1.1" 200 -
+2024-07-09 16:30:20,630 [INFO] 127.0.0.1 - - [09/Jul/2024 16:30:20] "GET /socket.io/?EIO=4&transport=polling&t=P2N9ihU&sid=Lf2E63fhVLFWxsYGAAAA HTTP/1.1" 200 -
+2024-07-09 16:30:20,637 [INFO] Session started with session ID: 1
+2024-07-09 16:30:20,638 [INFO] Room has been created for sessionId 1
+2024-07-09 16:30:22,751 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-07-09 16:30:22,751 [INFO] Starting Flask server.
+2024-07-09 16:30:22,806 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8000
+2024-07-09 16:30:22,810 [INFO] [33mPress CTRL+C to quit[0m
+2024-07-09 16:30:22,813 [INFO]  * Restarting with stat
+2024-07-09 16:30:23,430 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-07-09 16:30:23,430 [INFO] Starting Flask server.
+2024-07-09 16:30:23,437 [WARNING]  * Debugger is active!
+2024-07-09 16:30:23,453 [INFO]  * Debugger PIN: 761-360-733
+2024-07-09 16:30:36,289 [INFO] Received toggle_transcription event: {'action': 'start', 'sessionId': '1'}
+2024-07-09 16:30:36,289 [INFO] Starting Deepgram connection
+2024-07-09 16:30:36,296 [INFO] Room has been created for sessionId 1
+2024-07-09 16:30:36,296 [INFO] Initializing Deepgram connection
+2024-07-09 16:30:37,440 [INFO] Deepgram connection opened: {
+    "type": "Open"
+}
+2024-07-09 16:30:38,060 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:30:38,061 [INFO] Audio sent for session ID: 1
+2024-07-09 16:30:39,083 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:30:39,084 [INFO] Audio sent for session ID: 1
+2024-07-09 16:30:40,101 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:30:40,102 [INFO] Audio sent for session ID: 1
+2024-07-09 16:30:41,120 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:30:41,122 [INFO] Audio sent for session ID: 1
+2024-07-09 16:30:42,141 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:30:42,143 [INFO] Audio sent for session ID: 1
+2024-07-09 16:30:43,162 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:30:43,164 [INFO] Audio sent for session ID: 1
+2024-07-09 16:30:43,455 [INFO] Received transcript: hello
+2024-07-09 16:30:44,177 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:30:44,178 [INFO] Audio sent for session ID: 1
+2024-07-09 16:30:45,197 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:30:45,198 [INFO] Audio sent for session ID: 1
+2024-07-09 16:30:45,237 [INFO] Updated chat history for sessionId: 1
+2024-07-09 16:30:46,217 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:30:46,218 [INFO] Audio sent for session ID: 1
+2024-07-09 16:30:46,433 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-09 16:30:46,545 [INFO] Updated chat history for sessionId: 1
+2024-07-09 16:30:46,546 [INFO] It took 3.0892930030822754 seconds for generating responses.
+2024-07-09 16:30:46,546 [INFO] Batch response: Hello again! It's great to see you again, Bawish! "Hello" is a friendly greeting, and it's always nice to start a conversation with a smile. How's your day going so far?
+2024-07-09 16:30:47,237 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:30:47,238 [INFO] Audio sent for session ID: 1
+2024-07-09 16:30:48,260 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:30:48,261 [INFO] Audio sent for session ID: 1
+2024-07-09 16:30:48,772 [INFO] It took 2.225263833999634 seconds for text to speech
+2024-07-09 16:30:49,108 [INFO] 127.0.0.1 - - [09/Jul/2024 16:30:49] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2024-07-09 16:30:49,282 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:30:49,284 [INFO] Audio sent for session ID: 1
+2024-07-09 16:30:50,298 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:30:50,298 [INFO] Audio sent for session ID: 1
+2024-07-09 16:30:51,324 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:30:51,326 [INFO] Audio sent for session ID: 1
+2024-07-09 16:30:52,339 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:30:52,341 [INFO] Audio sent for session ID: 1
+2024-07-09 16:30:53,359 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:30:53,360 [INFO] Audio sent for session ID: 1
+2024-07-09 16:30:54,381 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:30:54,383 [INFO] Audio sent for session ID: 1
+2024-07-09 16:30:55,399 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:30:55,400 [INFO] Audio sent for session ID: 1
+2024-07-09 16:30:56,429 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:30:56,430 [INFO] Audio sent for session ID: 1
+2024-07-09 16:30:57,453 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:30:57,455 [INFO] Audio sent for session ID: 1
+2024-07-09 16:30:58,461 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:30:58,463 [INFO] Audio sent for session ID: 1
+2024-07-09 16:30:59,480 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:30:59,481 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:00,500 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:00,502 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:01,521 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:01,522 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:02,540 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:02,541 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:03,560 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:03,561 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:04,580 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:04,582 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:05,603 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:05,605 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:06,618 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:06,619 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:07,007 [INFO] Received transcript: hi i'm babish i'm from
+2024-07-09 16:31:07,153 [INFO] Updated chat history for sessionId: 1
+2024-07-09 16:31:07,641 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:07,642 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:08,104 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-09 16:31:08,241 [INFO] Updated chat history for sessionId: 1
+2024-07-09 16:31:08,242 [INFO] It took 1.233696699142456 seconds for generating responses.
+2024-07-09 16:31:08,243 [INFO] Batch response: Hi Babish! It's great to meet you! "I'm from" is a great way to introduce your hometown or origin. I'm curious to know where you're from!
+2024-07-09 16:31:08,659 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:08,660 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:09,680 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:09,681 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:10,069 [INFO] It took 1.8249123096466064 seconds for text to speech
+2024-07-09 16:31:10,700 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:10,701 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:11,722 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:11,723 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:12,738 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:12,739 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:13,758 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:13,759 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:14,778 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:14,779 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:15,802 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:15,804 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:16,818 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:16,819 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:17,839 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:17,839 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:18,860 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:18,861 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:19,878 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:19,879 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:20,899 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:20,900 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:21,922 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:21,923 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:22,940 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:22,941 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:23,963 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:23,965 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:24,980 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:24,981 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:25,999 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:26,000 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:27,018 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:27,019 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:28,039 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:28,039 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:29,060 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:29,061 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:30,078 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:30,079 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:31,101 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:31,103 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:32,119 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:32,120 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:33,140 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:33,141 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:34,163 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:34,164 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:35,180 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:35,182 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:36,200 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:36,202 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:37,221 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:37,222 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:38,238 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:38,239 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:39,261 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:39,263 [INFO] Audio sent for session ID: 1
+2024-07-09 16:31:40,283 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:31:40,284 [INFO] Audio sent for session ID: 1
+2024-07-09 16:45:37,025 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-07-09 16:45:37,261 [INFO] Starting SocketIO server.
+2024-07-09 16:45:37,293 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5001
+2024-07-09 16:45:37,294 [INFO] [33mPress CTRL+C to quit[0m
+2024-07-09 16:45:37,295 [INFO]  * Restarting with stat
+2024-07-09 16:45:39,015 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-07-09 16:45:39,215 [INFO] Starting SocketIO server.
+2024-07-09 16:45:39,215 [WARNING]  * Debugger is active!
+2024-07-09 16:45:39,230 [INFO]  * Debugger PIN: 761-360-733
+2024-07-09 16:45:46,635 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-07-09 16:45:46,635 [INFO] Starting Flask server.
+2024-07-09 16:45:46,657 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8000
+2024-07-09 16:45:46,657 [INFO] [33mPress CTRL+C to quit[0m
+2024-07-09 16:45:46,657 [INFO]  * Restarting with stat
+2024-07-09 16:45:47,112 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-07-09 16:45:47,112 [INFO] Starting Flask server.
+2024-07-09 16:45:47,128 [WARNING]  * Debugger is active!
+2024-07-09 16:45:47,134 [INFO]  * Debugger PIN: 761-360-733
+2024-07-09 16:46:00,492 [INFO] Rendering index page.
+2024-07-09 16:46:00,492 [INFO] 127.0.0.1 - - [09/Jul/2024 16:46:00] "GET / HTTP/1.1" 200 -
+2024-07-09 16:46:00,865 [INFO] 127.0.0.1 - - [09/Jul/2024 16:46:00] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2024-07-09 16:46:01,055 [INFO] 127.0.0.1 - - [09/Jul/2024 16:46:01] "[36mGET /static/click.png HTTP/1.1[0m" 304 -
+2024-07-09 16:46:01,057 [INFO] 127.0.0.1 - - [09/Jul/2024 16:46:01] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2024-07-09 16:46:01,368 [INFO] 127.0.0.1 - - [09/Jul/2024 16:46:01] "GET /socket.io/?EIO=4&transport=polling&t=P2NDIMc HTTP/1.1" 200 -
+2024-07-09 16:46:01,645 [INFO] Client connected
+2024-07-09 16:46:01,645 [INFO] 127.0.0.1 - - [09/Jul/2024 16:46:01] "POST /socket.io/?EIO=4&transport=polling&t=P2NDIRl&sid=3XpCGvZhIp5hpeJkAAAA HTTP/1.1" 200 -
+2024-07-09 16:46:01,708 [INFO] 127.0.0.1 - - [09/Jul/2024 16:46:01] "GET /socket.io/?EIO=4&transport=polling&t=P2NDIRo&sid=3XpCGvZhIp5hpeJkAAAA HTTP/1.1" 200 -
+2024-07-09 16:46:01,724 [INFO] 127.0.0.1 - - [09/Jul/2024 16:46:01] "GET /socket.io/?EIO=4&transport=polling&t=P2NDIWt&sid=3XpCGvZhIp5hpeJkAAAA HTTP/1.1" 200 -
+2024-07-09 16:46:02,030 [INFO] Session started with session ID: 1
+2024-07-09 16:46:02,031 [INFO] 127.0.0.1 - - [09/Jul/2024 16:46:02] "POST /socket.io/?EIO=4&transport=polling&t=P2NDIWt.0&sid=3XpCGvZhIp5hpeJkAAAA HTTP/1.1" 200 -
+2024-07-09 16:46:02,038 [INFO] Room has been created for sessionId 1
+2024-07-09 16:46:02,894 [INFO] Received toggle_transcription event: {'action': 'start', 'sessionId': '1'}
+2024-07-09 16:46:02,895 [INFO] Starting Deepgram connection
+2024-07-09 16:46:02,896 [INFO] Room has been created for sessionId 1
+2024-07-09 16:46:02,896 [INFO] Initializing Deepgram connection
+2024-07-09 16:46:03,925 [INFO] Deepgram connection opened: {
+    "type": "Open"
+}
+2024-07-09 16:46:04,479 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:04,480 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:05,497 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:05,499 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:06,541 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:06,544 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:07,538 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:07,539 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:08,780 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:08,783 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:09,599 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:09,606 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:09,934 [INFO] Received transcript: hello
+2024-07-09 16:46:10,598 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:10,599 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:10,939 [INFO] Processing buffered transcripts: hello
+2024-07-09 16:46:11,623 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:11,624 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:11,968 [INFO] Updated chat history for sessionId: 1
+2024-07-09 16:46:12,639 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:12,640 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:13,142 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-09 16:46:13,318 [INFO] Updated chat history for sessionId: 1
+2024-07-09 16:46:13,319 [INFO] It took 2.3781161308288574 seconds for generating responses.
+2024-07-09 16:46:13,319 [INFO] Batch response: Hello again, Babish! It's great to see you again! "Hello" is a friendly greeting, and it's always nice to start a conversation with a smile. How's your day going so far?
+2024-07-09 16:46:13,662 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:13,666 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:14,681 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:14,683 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:15,699 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:15,701 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:16,722 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:16,724 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:17,738 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:17,740 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:18,761 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:18,763 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:19,350 [INFO] It took 6.030094623565674 seconds for text to speech
+2024-07-09 16:46:19,721 [INFO] 127.0.0.1 - - [09/Jul/2024 16:46:19] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2024-07-09 16:46:19,784 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:19,786 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:20,800 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:20,801 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:21,818 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:21,818 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:22,842 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:22,845 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:23,860 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:23,862 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:24,881 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:24,883 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:25,898 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:25,901 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:26,919 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:26,920 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:27,946 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:27,948 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:28,959 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:28,960 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:29,977 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:29,979 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:31,003 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:31,005 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:32,018 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:32,019 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:33,041 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:33,042 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:34,060 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:34,062 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:35,211 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:35,311 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:36,493 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:36,540 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:37,146 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:37,148 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:38,228 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:38,483 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:39,161 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:39,164 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:40,193 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:40,198 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:41,201 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:41,203 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:42,266 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:42,442 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:43,311 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:43,431 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:43,781 [INFO] Received transcript: my introduction is like i am from zoom
+2024-07-09 16:46:44,321 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:44,555 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:44,798 [INFO] Processing buffered transcripts: my introduction is like i am from zoom
+2024-07-09 16:46:44,992 [INFO] Updated chat history for sessionId: 1
+2024-07-09 16:46:45,296 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:45,301 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:46,355 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:46,514 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:46,703 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-09 16:46:46,838 [INFO] Updated chat history for sessionId: 1
+2024-07-09 16:46:46,840 [INFO] It took 2.0398566722869873 seconds for generating responses.
+2024-07-09 16:46:46,841 [INFO] Batch response: You're introducing yourself as being from Zoom! That's a unique one, Babish! "I am from" is a great way to introduce your origin, and Zoom is definitely a recognizable name. Are you referring to the video conferencing platform or something else?
+2024-07-09 16:46:47,331 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:47,336 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:48,338 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:48,339 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:48,662 [INFO] Received transcript: i love to do coding i studied in iit jupur what did you do
+2024-07-09 16:46:49,358 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:49,359 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:49,722 [INFO] It took 2.879774570465088 seconds for text to speech
+2024-07-09 16:46:50,378 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:50,380 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:50,737 [INFO] Processing buffered transcripts: i love to do coding i studied in iit jupur what did you do
+2024-07-09 16:46:50,847 [INFO] Updated chat history for sessionId: 1
+2024-07-09 16:46:51,397 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:51,398 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:51,773 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-09 16:46:51,884 [INFO] Updated chat history for sessionId: 1
+2024-07-09 16:46:51,885 [INFO] It took 1.1476590633392334 seconds for generating responses.
+2024-07-09 16:46:51,886 [INFO] Batch response: You're a coding enthusiast and an IIT Jupur alumnus! That's impressive, Babish! "I love to do" is a great way to express your passion for coding, and studying at IIT Jupur is a significant achievement.
+
+As for me, I'm a language teacher, and I love helping people improve their English skills. I didn't attend IIT Jupur, but I'm always excited to learn about new technologies and innovations. What kind of coding do you enjoy doing, and what projects have you worked on?
+2024-07-09 16:46:52,419 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:52,420 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:53,438 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:53,439 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:54,462 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:54,463 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:55,479 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:55,480 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:56,498 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:56,500 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:57,516 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:57,517 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:58,541 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:58,542 [INFO] Audio sent for session ID: 1
+2024-07-09 16:46:59,562 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:46:59,563 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:00,578 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:00,578 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:01,278 [INFO] It took 9.389000654220581 seconds for text to speech
+2024-07-09 16:47:01,598 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:01,598 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:02,618 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:02,619 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:03,640 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:03,641 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:04,660 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:04,662 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:05,679 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:05,681 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:06,699 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:06,701 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:07,721 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:07,723 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:08,740 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:08,742 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:09,760 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:09,761 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:10,781 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:10,783 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:11,967 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:11,968 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:12,819 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:12,820 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:13,844 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:13,847 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:14,858 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:14,859 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:15,876 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:15,877 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:16,896 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:16,897 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:17,917 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:17,917 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:18,938 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:18,940 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:19,962 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:19,965 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:20,980 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:20,983 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:22,000 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:22,001 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:23,038 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:23,043 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:24,053 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:24,057 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:25,062 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:25,064 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:26,081 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:26,084 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:27,102 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:27,104 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:28,123 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:28,126 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:29,143 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:29,145 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:30,164 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:30,167 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:31,184 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:31,185 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:32,206 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:32,210 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:33,219 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:33,220 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:34,239 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:34,241 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:35,258 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:35,259 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:36,282 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:36,284 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:37,300 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:37,302 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:38,320 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:38,322 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:39,339 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:39,341 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:40,359 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:40,360 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:41,377 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:41,379 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:42,401 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:42,402 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:43,424 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:43,425 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:44,440 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:44,442 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:45,460 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:45,461 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:46,481 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:46,483 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:47,502 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:47,503 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:48,519 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:48,520 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:48,916 [INFO] Received transcript: hello i am
+2024-07-09 16:47:49,541 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:49,543 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:49,922 [INFO] Processing buffered transcripts: hello i am
+2024-07-09 16:47:50,042 [INFO] Inserted new chat history for sessionId: 1
+2024-07-09 16:47:50,558 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:50,560 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:50,699 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-09 16:47:50,835 [INFO] Updated chat history for sessionId: 1
+2024-07-09 16:47:50,836 [INFO] It took 0.9127850532531738 seconds for generating responses.
+2024-07-09 16:47:50,838 [INFO] Batch response: Wonderful to meet you! You're starting with a great introduction! The correct way to say "I am" is "I'm". So, it would be "Hello, I'm [your name]". How's your day going so far?
+2024-07-09 16:47:51,578 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:51,579 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:52,442 [INFO] It took 1.603193998336792 seconds for text to speech
+2024-07-09 16:47:52,601 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:52,602 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:53,095 [INFO] Received transcript: i am from jokul rajasthan i love to do coding i study in iit jokul
+2024-07-09 16:47:53,616 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:53,617 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:54,110 [INFO] Processing buffered transcripts: i am from jokul rajasthan i love to do coding i study in iit jokul
+2024-07-09 16:47:54,512 [INFO] Updated chat history for sessionId: 1
+2024-07-09 16:47:54,637 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:54,638 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:55,116 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-09 16:47:55,232 [INFO] Updated chat history for sessionId: 1
+2024-07-09 16:47:55,233 [INFO] It took 1.1215236186981201 seconds for generating responses.
+2024-07-09 16:47:55,234 [INFO] Batch response: Hi from Jokul, Rajasthan! That's amazing that you're into coding and studying at IIT Jokul! You're doing great, keep it up!
+
+Just a tiny correction: it's "I'm from Jokul, Rajasthan" instead of "I am from Jokul, Rajasthan". And, instead of "I study in IIT Jokul", it's "I'm studying at IIT Jokul". You're doing fantastic, and I'm excited to help you with any English language questions you may have!
+2024-07-09 16:47:55,658 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:55,660 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:56,680 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:56,682 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:57,705 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:57,707 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:57,824 [INFO] It took 2.588721990585327 seconds for text to speech
+2024-07-09 16:47:58,722 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:58,724 [INFO] Audio sent for session ID: 1
+2024-07-09 16:47:59,740 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:47:59,742 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:00,760 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:00,761 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:01,780 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:01,782 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:02,799 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:02,800 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:03,817 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:03,817 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:04,838 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:04,838 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:05,858 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:05,859 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:06,880 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:06,881 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:07,900 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:07,902 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:08,921 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:08,923 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:09,938 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:09,939 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:10,957 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:10,957 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:11,977 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:11,978 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:12,998 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:12,999 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:14,017 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:14,018 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:15,038 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:15,040 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:16,058 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:16,060 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:17,081 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:17,083 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:18,097 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:18,099 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:19,121 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:19,124 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:20,140 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:20,141 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:21,161 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:21,163 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:22,179 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:22,182 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:23,200 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:23,201 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:24,217 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:24,219 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:25,238 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:25,240 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:26,258 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:26,258 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:27,277 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:27,278 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:28,301 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:28,303 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:29,317 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:29,318 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:30,339 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:30,340 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:31,361 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:31,362 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:32,381 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:32,383 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:33,401 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:33,402 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:34,422 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:34,423 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:35,438 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:35,438 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:36,459 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:36,461 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:37,482 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:37,483 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:38,501 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:38,503 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:39,520 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:39,521 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:40,540 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:40,542 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:41,558 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:41,559 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:42,581 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:42,582 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:43,597 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:43,598 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:44,620 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:44,622 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:45,639 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:45,640 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:46,657 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:46,659 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:47,678 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:47,679 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:48,703 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:48,705 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:49,720 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:49,722 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:50,574 [INFO]  * Detected change in 'E:\\Desktop\\AI_Applications\\live-flask-starter\\app_socketio.py', reloading
+2024-07-09 16:48:50,626 [INFO]  * Restarting with stat
+2024-07-09 16:48:50,638 [INFO]  * Detected change in 'E:\\Desktop\\AI_Applications\\live-flask-starter\\app_socketio.py', reloading
+2024-07-09 16:48:50,737 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:50,738 [INFO] Audio sent for session ID: 1
+2024-07-09 16:48:51,278 [INFO]  * Restarting with stat
+2024-07-09 16:48:54,542 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-07-09 16:48:54,548 [INFO] Starting Flask server.
+2024-07-09 16:48:54,571 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-07-09 16:48:54,579 [WARNING]  * Debugger is active!
+2024-07-09 16:48:54,592 [INFO]  * Debugger PIN: 761-360-733
+2024-07-09 16:48:54,967 [INFO] Starting SocketIO server.
+2024-07-09 16:48:54,970 [WARNING]  * Debugger is active!
+2024-07-09 16:48:54,977 [INFO]  * Debugger PIN: 761-360-733
+2024-07-09 16:48:55,514 [INFO] 127.0.0.1 - - [09/Jul/2024 16:48:55] "GET /socket.io/?EIO=4&transport=polling&t=P2NDyCi HTTP/1.1" 200 -
+2024-07-09 16:48:55,526 [INFO] Client connected
+2024-07-09 16:48:55,527 [INFO] 127.0.0.1 - - [09/Jul/2024 16:48:55] "POST /socket.io/?EIO=4&transport=polling&t=P2NDyyW&sid=3qyY1-c6t0otDwQTAAAA HTTP/1.1" 200 -
+2024-07-09 16:48:55,843 [INFO] 127.0.0.1 - - [09/Jul/2024 16:48:55] "GET /socket.io/?EIO=4&transport=polling&t=P2NDyyY&sid=3qyY1-c6t0otDwQTAAAA HTTP/1.1" 200 -
+2024-07-09 16:48:55,857 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:55,860 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:55,866 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:55,867 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:55,871 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:55,874 [INFO] Session started with session ID: 1
+2024-07-09 16:48:55,876 [INFO] Room has been created for sessionId 1
+2024-07-09 16:48:56,861 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:57,881 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:48:58,598 [INFO]  * Detected change in 'E:\\Desktop\\AI_Applications\\live-flask-starter\\app_socketio.py', reloading
+2024-07-09 16:48:59,014 [INFO]  * Restarting with stat
+2024-07-09 16:48:59,436 [INFO]  * Detected change in 'E:\\Desktop\\AI_Applications\\live-flask-starter\\app_socketio.py', reloading
+2024-07-09 16:48:59,541 [INFO]  * Restarting with stat
+2024-07-09 16:49:00,360 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-07-09 16:49:00,362 [INFO] Starting Flask server.
+2024-07-09 16:49:00,373 [WARNING]  * Debugger is active!
+2024-07-09 16:49:00,383 [INFO]  * Debugger PIN: 761-360-733
+2024-07-09 16:49:01,787 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-07-09 16:49:02,058 [INFO] Starting SocketIO server.
+2024-07-09 16:49:02,060 [WARNING]  * Debugger is active!
+2024-07-09 16:49:02,064 [INFO]  * Debugger PIN: 761-360-733
+2024-07-09 16:49:02,295 [INFO] 127.0.0.1 - - [09/Jul/2024 16:49:02] "GET /socket.io/?EIO=4&transport=polling&t=P2ND-8f HTTP/1.1" 200 -
+2024-07-09 16:49:02,296 [INFO]  * Detected change in 'E:\\Desktop\\AI_Applications\\live-flask-starter\\app_socketio.py', reloading
+2024-07-09 16:49:02,301 [INFO] Client connected
+2024-07-09 16:49:02,302 [INFO] 127.0.0.1 - - [09/Jul/2024 16:49:02] "POST /socket.io/?EIO=4&transport=polling&t=P2ND-cQ&sid=UZxXgXJcfcZJVd-5AAAA HTTP/1.1" 200 -
+2024-07-09 16:49:02,353 [INFO]  * Restarting with stat
+2024-07-09 16:49:02,607 [INFO] 127.0.0.1 - - [09/Jul/2024 16:49:02] "GET /socket.io/?EIO=4&transport=polling&t=P2ND-cR&sid=UZxXgXJcfcZJVd-5AAAA HTTP/1.1" 200 -
+2024-07-09 16:49:02,613 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:02,614 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:02,615 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:02,616 [INFO] Session started with session ID: 1
+2024-07-09 16:49:02,617 [INFO] Room has been created for sessionId 1
+2024-07-09 16:49:02,756 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-07-09 16:49:02,757 [INFO] Starting Flask server.
+2024-07-09 16:49:02,763 [WARNING]  * Debugger is active!
+2024-07-09 16:49:02,766 [INFO]  * Debugger PIN: 761-360-733
+2024-07-09 16:49:02,977 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:03,997 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:05,025 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:06,041 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:06,209 [INFO]  * Detected change in 'E:\\Desktop\\AI_Applications\\live-flask-starter\\app_socketio.py', reloading
+2024-07-09 16:49:06,714 [INFO]  * Restarting with stat
+2024-07-09 16:49:07,067 [INFO]  * Detected change in 'E:\\Desktop\\AI_Applications\\live-flask-starter\\app_socketio.py', reloading
+2024-07-09 16:49:07,217 [INFO]  * Restarting with stat
+2024-07-09 16:49:08,061 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-07-09 16:49:08,063 [INFO] Starting Flask server.
+2024-07-09 16:49:08,076 [WARNING]  * Debugger is active!
+2024-07-09 16:49:08,085 [INFO]  * Debugger PIN: 761-360-733
+2024-07-09 16:49:09,423 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-07-09 16:49:09,576 [INFO] Starting SocketIO server.
+2024-07-09 16:49:09,577 [WARNING]  * Debugger is active!
+2024-07-09 16:49:09,580 [INFO]  * Debugger PIN: 761-360-733
+2024-07-09 16:49:09,733 [INFO] 127.0.0.1 - - [09/Jul/2024 16:49:09] "GET /socket.io/?EIO=4&transport=polling&t=P2NE05b HTTP/1.1" 200 -
+2024-07-09 16:49:09,738 [INFO] Client connected
+2024-07-09 16:49:09,740 [INFO] 127.0.0.1 - - [09/Jul/2024 16:49:09] "POST /socket.io/?EIO=4&transport=polling&t=P2NE0Qe&sid=XDZfKWsaVHPv7_x1AAAA HTTP/1.1" 200 -
+2024-07-09 16:49:09,981 [INFO]  * Detected change in 'E:\\Desktop\\AI_Applications\\live-flask-starter\\app_socketio.py', reloading
+2024-07-09 16:49:10,028 [INFO]  * Restarting with stat
+2024-07-09 16:49:10,055 [INFO] 127.0.0.1 - - [09/Jul/2024 16:49:10] "GET /socket.io/?EIO=4&transport=polling&t=P2NE0Qf&sid=XDZfKWsaVHPv7_x1AAAA HTTP/1.1" 200 -
+2024-07-09 16:49:10,075 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:10,077 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:10,079 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:10,081 [INFO] Session started with session ID: 1
+2024-07-09 16:49:10,082 [INFO] Room has been created for sessionId 1
+2024-07-09 16:49:10,118 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:10,609 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-07-09 16:49:10,611 [INFO] Starting Flask server.
+2024-07-09 16:49:10,623 [WARNING]  * Debugger is active!
+2024-07-09 16:49:10,626 [INFO]  * Debugger PIN: 761-360-733
+2024-07-09 16:49:11,142 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:12,158 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:13,182 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:13,639 [INFO]  * Detected change in 'E:\\Desktop\\AI_Applications\\live-flask-starter\\app_socketio.py', reloading
+2024-07-09 16:49:13,792 [INFO]  * Restarting with stat
+2024-07-09 16:49:13,810 [INFO]  * Detected change in 'E:\\Desktop\\AI_Applications\\live-flask-starter\\app_socketio.py', reloading
+2024-07-09 16:49:14,327 [INFO]  * Restarting with stat
+2024-07-09 16:49:14,825 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-07-09 16:49:14,827 [INFO] Starting Flask server.
+2024-07-09 16:49:14,842 [WARNING]  * Debugger is active!
+2024-07-09 16:49:14,854 [INFO]  * Debugger PIN: 761-360-733
+2024-07-09 16:49:16,966 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-07-09 16:49:17,359 [INFO] Starting SocketIO server.
+2024-07-09 16:49:17,362 [WARNING]  * Debugger is active!
+2024-07-09 16:49:17,368 [INFO]  * Debugger PIN: 761-360-733
+2024-07-09 16:49:17,760 [INFO] 127.0.0.1 - - [09/Jul/2024 16:49:17] "GET /socket.io/?EIO=4&transport=polling&t=P2NE1ox HTTP/1.1" 200 -
+2024-07-09 16:49:17,771 [INFO] Client connected
+2024-07-09 16:49:17,772 [INFO] 127.0.0.1 - - [09/Jul/2024 16:49:17] "POST /socket.io/?EIO=4&transport=polling&t=P2NE2O6&sid=3QbylJDq-1g1K3eJAAAA HTTP/1.1" 200 -
+2024-07-09 16:49:18,078 [INFO] 127.0.0.1 - - [09/Jul/2024 16:49:18] "GET /socket.io/?EIO=4&transport=polling&t=P2NE2O9&sid=3QbylJDq-1g1K3eJAAAA HTTP/1.1" 200 -
+2024-07-09 16:49:18,090 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:18,092 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:18,097 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:18,101 [INFO] Session started with session ID: 1
+2024-07-09 16:49:18,106 [INFO] Room has been created for sessionId 1
+2024-07-09 16:49:18,280 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:19,312 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:20,395 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:21,341 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:22,361 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:23,378 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:23,443 [INFO]  * Detected change in 'E:\\Desktop\\AI_Applications\\live-flask-starter\\app_socketio.py', reloading
+2024-07-09 16:49:23,623 [INFO]  * Detected change in 'E:\\Desktop\\AI_Applications\\live-flask-starter\\app_socketio.py', reloading
+2024-07-09 16:49:23,631 [INFO]  * Restarting with stat
+2024-07-09 16:49:23,676 [INFO]  * Restarting with stat
+2024-07-09 16:49:24,873 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-07-09 16:49:25,010 [INFO] Starting SocketIO server.
+2024-07-09 16:49:25,011 [WARNING]  * Debugger is active!
+2024-07-09 16:49:25,014 [INFO]  * Debugger PIN: 761-360-733
+2024-07-09 16:49:25,176 [INFO] 127.0.0.1 - - [09/Jul/2024 16:49:25] "GET /socket.io/?EIO=4&transport=polling&t=P2NE3_c HTTP/1.1" 200 -
+2024-07-09 16:49:25,183 [INFO] Client connected
+2024-07-09 16:49:25,184 [INFO] 127.0.0.1 - - [09/Jul/2024 16:49:25] "POST /socket.io/?EIO=4&transport=polling&t=P2NE4By&sid=GWpvc2gJ0YFML2pFAAAA HTTP/1.1" 200 -
+2024-07-09 16:49:25,487 [INFO] 127.0.0.1 - - [09/Jul/2024 16:49:25] "GET /socket.io/?EIO=4&transport=polling&t=P2NE4Bz&sid=GWpvc2gJ0YFML2pFAAAA HTTP/1.1" 200 -
+2024-07-09 16:49:25,494 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:25,496 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:25,496 [INFO] Session started with session ID: 1
+2024-07-09 16:49:25,497 [INFO] Room has been created for sessionId 1
+2024-07-09 16:49:26,240 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-07-09 16:49:26,241 [INFO] Starting Flask server.
+2024-07-09 16:49:26,247 [WARNING]  * Debugger is active!
+2024-07-09 16:49:26,251 [INFO]  * Debugger PIN: 761-360-733
+2024-07-09 16:49:26,437 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:27,459 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:28,480 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:28,775 [INFO]  * Detected change in 'E:\\Desktop\\AI_Applications\\live-flask-starter\\app_socketio.py', reloading
+2024-07-09 16:49:28,831 [INFO]  * Detected change in 'E:\\Desktop\\AI_Applications\\live-flask-starter\\app_socketio.py', reloading
+2024-07-09 16:49:28,891 [INFO]  * Restarting with stat
+2024-07-09 16:49:28,992 [INFO]  * Restarting with stat
+2024-07-09 16:49:29,654 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-07-09 16:49:29,656 [INFO] Starting Flask server.
+2024-07-09 16:49:29,675 [WARNING]  * Debugger is active!
+2024-07-09 16:49:29,682 [INFO]  * Debugger PIN: 761-360-733
+2024-07-09 16:49:31,722 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-07-09 16:49:32,058 [INFO] Starting SocketIO server.
+2024-07-09 16:49:32,061 [WARNING]  * Debugger is active!
+2024-07-09 16:49:32,072 [INFO]  * Debugger PIN: 761-360-733
+2024-07-09 16:49:32,411 [INFO] 127.0.0.1 - - [09/Jul/2024 16:49:32] "GET /socket.io/?EIO=4&transport=polling&t=P2NE5TM HTTP/1.1" 200 -
+2024-07-09 16:49:32,426 [INFO] Client connected
+2024-07-09 16:49:32,427 [INFO] 127.0.0.1 - - [09/Jul/2024 16:49:32] "POST /socket.io/?EIO=4&transport=polling&t=P2NE5z6&sid=uNY8VeC5OM26jIjsAAAA HTTP/1.1" 200 -
+2024-07-09 16:49:32,735 [INFO] 127.0.0.1 - - [09/Jul/2024 16:49:32] "GET /socket.io/?EIO=4&transport=polling&t=P2NE5z8&sid=uNY8VeC5OM26jIjsAAAA HTTP/1.1" 200 -
+2024-07-09 16:49:32,749 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:32,755 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:32,776 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:32,785 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:32,788 [INFO] Session started with session ID: 1
+2024-07-09 16:49:32,791 [INFO] Room has been created for sessionId 1
+2024-07-09 16:49:33,580 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:34,599 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:52,593 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-07-09 16:49:52,737 [INFO] Starting SocketIO server.
+2024-07-09 16:49:52,746 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5001
+2024-07-09 16:49:52,746 [INFO] [33mPress CTRL+C to quit[0m
+2024-07-09 16:49:52,747 [INFO]  * Restarting with stat
+2024-07-09 16:49:54,029 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-07-09 16:49:54,182 [INFO] Starting SocketIO server.
+2024-07-09 16:49:54,184 [WARNING]  * Debugger is active!
+2024-07-09 16:49:54,186 [INFO]  * Debugger PIN: 761-360-733
+2024-07-09 16:49:57,836 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-07-09 16:49:57,837 [INFO] Starting Flask server.
+2024-07-09 16:49:57,873 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8000
+2024-07-09 16:49:57,874 [INFO] [33mPress CTRL+C to quit[0m
+2024-07-09 16:49:57,876 [INFO]  * Restarting with stat
+2024-07-09 16:49:58,388 [INFO] 127.0.0.1 - - [09/Jul/2024 16:49:58] "GET /socket.io/?EIO=4&transport=polling&t=P2NECIl HTTP/1.1" 200 -
+2024-07-09 16:49:58,533 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-07-09 16:49:58,534 [INFO] Starting Flask server.
+2024-07-09 16:49:58,548 [WARNING]  * Debugger is active!
+2024-07-09 16:49:58,555 [INFO]  * Debugger PIN: 761-360-733
+2024-07-09 16:49:58,711 [INFO] Client connected
+2024-07-09 16:49:58,713 [INFO] 127.0.0.1 - - [09/Jul/2024 16:49:58] "POST /socket.io/?EIO=4&transport=polling&t=P2NECIu&sid=Sil4jm6y_VCwoZ2KAAAA HTTP/1.1" 200 -
+2024-07-09 16:49:58,713 [INFO] 127.0.0.1 - - [09/Jul/2024 16:49:58] "GET /socket.io/?EIO=4&transport=polling&t=P2NECIv&sid=Sil4jm6y_VCwoZ2KAAAA HTTP/1.1" 200 -
+2024-07-09 16:49:58,729 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:58,735 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:58,739 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:58,740 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:58,744 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:58,751 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:58,752 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:58,753 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:58,757 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:58,757 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:58,761 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:58,763 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:58,764 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:58,766 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:58,768 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:58,769 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:58,770 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:58,771 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:58,772 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:58,774 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:58,776 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:58,777 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:58,779 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:49:58,780 [INFO] Session started with session ID: 1
+2024-07-09 16:49:58,781 [INFO] Room has been created for sessionId 1
+2024-07-09 16:49:59,079 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:50:00,100 [INFO] Received audio stream for session ID: 1
+2024-07-09 16:50:01,086 [INFO] 127.0.0.1 - - [09/Jul/2024 16:50:01] "GET /socket.io/?EIO=4&transport=websocket&sid=Sil4jm6y_VCwoZ2KAAAA HTTP/1.1" 200 -
+2024-07-09 16:50:01,405 [INFO] Rendering index page.
+2024-07-09 16:50:01,409 [INFO] 127.0.0.1 - - [09/Jul/2024 16:50:01] "GET / HTTP/1.1" 200 -
+2024-07-09 16:50:01,600 [INFO] 127.0.0.1 - - [09/Jul/2024 16:50:01] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2024-07-09 16:50:01,652 [INFO] 127.0.0.1 - - [09/Jul/2024 16:50:01] "[36mGET /static/click.png HTTP/1.1[0m" 304 -
+2024-07-09 16:50:01,762 [INFO] 127.0.0.1 - - [09/Jul/2024 16:50:01] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2024-07-09 16:50:01,780 [INFO] 127.0.0.1 - - [09/Jul/2024 16:50:01] "GET /socket.io/?EIO=4&transport=polling&t=P2NED7l HTTP/1.1" 200 -
+2024-07-09 16:50:02,162 [INFO] Client connected
+2024-07-09 16:50:02,162 [INFO] 127.0.0.1 - - [09/Jul/2024 16:50:02] "POST /socket.io/?EIO=4&transport=polling&t=P2NED8v&sid=PqAuRJQwiEwtOICqAAAC HTTP/1.1" 200 -
+2024-07-09 16:50:02,162 [INFO] 127.0.0.1 - - [09/Jul/2024 16:50:02] "GET /socket.io/?EIO=4&transport=polling&t=P2NED8y&sid=PqAuRJQwiEwtOICqAAAC HTTP/1.1" 200 -
+2024-07-09 16:50:02,192 [INFO] Session started with session ID: 1
+2024-07-09 16:50:02,192 [INFO] Room has been created for sessionId 1
+2024-07-09 16:50:50,362 [INFO]  * Detected change in 'E:\\Desktop\\AI_Applications\\live-flask-starter\\app_socketio.py', reloading
+2024-07-09 16:50:50,362 [INFO]  * Detected change in 'E:\\Desktop\\AI_Applications\\live-flask-starter\\app_socketio.py', reloading
+2024-07-09 16:50:50,418 [INFO]  * Restarting with stat
+2024-07-09 16:50:50,591 [INFO]  * Restarting with stat
+2024-07-09 16:50:50,994 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-07-09 16:50:50,994 [INFO] Starting Flask server.
+2024-07-09 16:50:50,994 [WARNING]  * Debugger is active!
+2024-07-09 16:50:51,007 [INFO]  * Debugger PIN: 761-360-733
+2024-07-09 16:50:51,991 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-07-09 16:50:52,124 [INFO] Starting SocketIO server.
+2024-07-09 16:50:52,124 [WARNING]  * Debugger is active!
+2024-07-09 16:50:52,124 [INFO]  * Debugger PIN: 761-360-733
+2024-07-09 16:50:52,695 [INFO] 127.0.0.1 - - [09/Jul/2024 16:50:52] "GET /socket.io/?EIO=4&transport=polling&t=P2NEPUV HTTP/1.1" 200 -
+2024-07-09 16:50:52,965 [INFO] Client connected
+2024-07-09 16:50:52,965 [INFO] 127.0.0.1 - - [09/Jul/2024 16:50:52] "POST /socket.io/?EIO=4&transport=polling&t=P2NEPZM&sid=fyhI51FAZaRqaXcgAAAA HTTP/1.1" 200 -
+2024-07-09 16:50:53,007 [INFO] 127.0.0.1 - - [09/Jul/2024 16:50:53] "GET /socket.io/?EIO=4&transport=polling&t=P2NEPZN&sid=fyhI51FAZaRqaXcgAAAA HTTP/1.1" 200 -
+2024-07-09 16:50:53,015 [INFO] 127.0.0.1 - - [09/Jul/2024 16:50:53] "GET /socket.io/?EIO=4&transport=polling&t=P2NEPeD&sid=fyhI51FAZaRqaXcgAAAA HTTP/1.1" 200 -
+2024-07-09 16:50:53,329 [INFO] Session started with session ID: 1
+2024-07-09 16:50:53,329 [INFO] 127.0.0.1 - - [09/Jul/2024 16:50:53] "POST /socket.io/?EIO=4&transport=polling&t=P2NEPeE&sid=fyhI51FAZaRqaXcgAAAA HTTP/1.1" 200 -
+2024-07-09 16:50:53,329 [INFO] Room has been created for sessionId 1
+2024-07-09 18:40:12,576 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-07-09 18:40:12,756 [INFO] Starting SocketIO server.
+2024-07-09 18:40:12,772 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5001
+2024-07-09 18:40:12,772 [INFO] [33mPress CTRL+C to quit[0m
+2024-07-09 18:40:12,772 [INFO]  * Restarting with stat
+2024-07-09 18:40:15,589 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-07-09 18:40:15,589 [INFO] Starting Flask server.
+2024-07-09 18:40:15,614 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8000
+2024-07-09 18:40:15,626 [INFO] [33mPress CTRL+C to quit[0m
+2024-07-09 18:40:15,630 [INFO]  * Restarting with stat
+2024-07-09 18:40:16,101 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-07-09 18:40:16,101 [INFO] Starting Flask server.
+2024-07-09 18:40:16,101 [WARNING]  * Debugger is active!
+2024-07-09 18:40:16,114 [INFO]  * Debugger PIN: 761-360-733
+2024-07-09 18:40:16,246 [INFO] MongoDB URI: mongodb+srv://aswanib133:bhavesh123@cluster0.fchyxuo.mongodb.net/chat_history
+2024-07-09 18:40:16,421 [INFO] Starting SocketIO server.
+2024-07-09 18:40:16,421 [WARNING]  * Debugger is active!
+2024-07-09 18:40:16,421 [INFO]  * Debugger PIN: 761-360-733
+2024-07-09 18:40:35,853 [INFO] Rendering index page.
+2024-07-09 18:40:35,860 [INFO] 127.0.0.1 - - [09/Jul/2024 18:40:35] "GET / HTTP/1.1" 200 -
+2024-07-09 18:40:36,186 [INFO] 127.0.0.1 - - [09/Jul/2024 18:40:36] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2024-07-09 18:40:36,209 [INFO] 127.0.0.1 - - [09/Jul/2024 18:40:36] "[36mGET /static/click.png HTTP/1.1[0m" 304 -
+2024-07-09 18:40:36,211 [INFO] 127.0.0.1 - - [09/Jul/2024 18:40:36] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2024-07-09 18:40:36,560 [INFO] 127.0.0.1 - - [09/Jul/2024 18:40:36] "GET /socket.io/?EIO=4&transport=polling&t=P2NdWtG HTTP/1.1" 200 -
+2024-07-09 18:40:36,809 [INFO] Client connected
+2024-07-09 18:40:36,809 [INFO] 127.0.0.1 - - [09/Jul/2024 18:40:36] "POST /socket.io/?EIO=4&transport=polling&t=P2NdWyH&sid=PHUoFER6xVJJ3AZGAAAA HTTP/1.1" 200 -
+2024-07-09 18:40:36,873 [INFO] 127.0.0.1 - - [09/Jul/2024 18:40:36] "GET /socket.io/?EIO=4&transport=polling&t=P2NdWyI&sid=PHUoFER6xVJJ3AZGAAAA HTTP/1.1" 200 -
+2024-07-09 18:40:36,885 [INFO] Session started with session ID: 1
+2024-07-09 18:40:36,886 [INFO] 127.0.0.1 - - [09/Jul/2024 18:40:36] "POST /socket.io/?EIO=4&transport=polling&t=P2NdX1C.0&sid=PHUoFER6xVJJ3AZGAAAA HTTP/1.1" 200 -
+2024-07-09 18:40:37,187 [INFO] 127.0.0.1 - - [09/Jul/2024 18:40:37] "GET /socket.io/?EIO=4&transport=polling&t=P2NdX1C&sid=PHUoFER6xVJJ3AZGAAAA HTTP/1.1" 200 -
+2024-07-09 18:40:37,193 [INFO] Room has been created for sessionId 1
+2024-07-09 18:40:38,360 [INFO] 127.0.0.1 - - [09/Jul/2024 18:40:38] "GET /socket.io/?EIO=4&transport=websocket&sid=PHUoFER6xVJJ3AZGAAAA HTTP/1.1" 200 -
+2024-07-09 18:40:38,379 [INFO] Rendering index page.
+2024-07-09 18:40:38,381 [INFO] 127.0.0.1 - - [09/Jul/2024 18:40:38] "GET / HTTP/1.1" 200 -
+2024-07-09 18:40:38,679 [INFO] 127.0.0.1 - - [09/Jul/2024 18:40:38] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2024-07-09 18:40:38,716 [INFO] 127.0.0.1 - - [09/Jul/2024 18:40:38] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2024-07-09 18:40:38,716 [INFO] 127.0.0.1 - - [09/Jul/2024 18:40:38] "[36mGET /static/click.png HTTP/1.1[0m" 304 -
+2024-07-09 18:40:39,034 [INFO] 127.0.0.1 - - [09/Jul/2024 18:40:39] "GET /socket.io/?EIO=4&transport=polling&t=P2NdXT- HTTP/1.1" 200 -
+2024-07-09 18:40:39,292 [INFO] Client connected
+2024-07-09 18:40:39,292 [INFO] 127.0.0.1 - - [09/Jul/2024 18:40:39] "POST /socket.io/?EIO=4&transport=polling&t=P2NdXYz&sid=0RKbld3j36xXCI8IAAAC HTTP/1.1" 200 -
+2024-07-09 18:40:39,354 [INFO] 127.0.0.1 - - [09/Jul/2024 18:40:39] "GET /socket.io/?EIO=4&transport=polling&t=P2NdXY-&sid=0RKbld3j36xXCI8IAAAC HTTP/1.1" 200 -
+2024-07-09 18:40:39,364 [INFO] Session started with session ID: 1
+2024-07-09 18:40:39,364 [INFO] 127.0.0.1 - - [09/Jul/2024 18:40:39] "POST /socket.io/?EIO=4&transport=polling&t=P2NdXdy.0&sid=0RKbld3j36xXCI8IAAAC HTTP/1.1" 200 -
+2024-07-09 18:40:39,676 [INFO] 127.0.0.1 - - [09/Jul/2024 18:40:39] "GET /socket.io/?EIO=4&transport=polling&t=P2NdXdy&sid=0RKbld3j36xXCI8IAAAC HTTP/1.1" 200 -
+2024-07-09 18:40:39,684 [INFO] Room has been created for sessionId 1
+2024-07-09 18:40:40,793 [INFO] Received toggle_transcription event: {'action': 'start', 'sessionId': '1'}
+2024-07-09 18:40:40,797 [INFO] Starting Deepgram connection
+2024-07-09 18:40:40,797 [INFO] Room has been created for sessionId 1
+2024-07-09 18:40:40,799 [INFO] Initializing Deepgram connection
+2024-07-09 18:40:42,047 [INFO] Deepgram connection opened: {
+    "type": "Open"
+}
+2024-07-09 18:40:42,397 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:40:42,399 [INFO] Audio sent for session ID: 1
+2024-07-09 18:40:43,419 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:40:43,420 [INFO] Audio sent for session ID: 1
+2024-07-09 18:40:44,438 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:40:44,440 [INFO] Audio sent for session ID: 1
+2024-07-09 18:40:45,461 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:40:45,464 [INFO] Audio sent for session ID: 1
+2024-07-09 18:40:46,484 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:40:46,485 [INFO] Audio sent for session ID: 1
+2024-07-09 18:40:47,502 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:40:47,504 [INFO] Audio sent for session ID: 1
+2024-07-09 18:40:47,955 [INFO] Received transcript: hello
+2024-07-09 18:40:48,518 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:40:48,520 [INFO] Audio sent for session ID: 1
+2024-07-09 18:40:48,957 [INFO] Processing buffered transcripts: hello
+2024-07-09 18:40:49,538 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:40:49,539 [INFO] Audio sent for session ID: 1
+2024-07-09 18:40:49,866 [INFO] Updated chat history for sessionId: 1
+2024-07-09 18:40:50,559 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:40:50,743 [INFO] Audio sent for session ID: 1
+2024-07-09 18:40:50,810 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-09 18:40:51,023 [INFO] Updated chat history for sessionId: 1
+2024-07-09 18:40:51,023 [INFO] It took 2.0653865337371826 seconds for generating responses.
+2024-07-09 18:40:51,024 [INFO] Batch response: Hello! That's a great start! You're doing wonderfully! Just a tiny correction: instead of saying "hello", you can say "Hi" or "Hello, how are you?" to make it a bit more conversational. Keep going, you're doing great!
+2024-07-09 18:40:51,582 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:40:51,584 [INFO] Audio sent for session ID: 1
+2024-07-09 18:40:52,600 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:40:52,602 [INFO] Audio sent for session ID: 1
+2024-07-09 18:40:53,176 [INFO] It took 2.1502459049224854 seconds for text to speech
+2024-07-09 18:40:53,619 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:40:53,621 [INFO] Audio sent for session ID: 1
+2024-07-09 18:40:54,638 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:40:54,639 [INFO] Audio sent for session ID: 1
+2024-07-09 18:40:55,668 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:40:55,669 [INFO] Audio sent for session ID: 1
+2024-07-09 18:40:56,679 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:40:56,680 [INFO] Audio sent for session ID: 1
+2024-07-09 18:40:57,699 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:40:57,700 [INFO] Audio sent for session ID: 1
+2024-07-09 18:40:58,717 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:40:58,718 [INFO] Audio sent for session ID: 1
+2024-07-09 18:40:59,742 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:40:59,745 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:00,759 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:00,761 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:01,781 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:01,782 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:02,802 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:02,803 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:03,818 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:03,819 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:04,840 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:04,841 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:05,112 [INFO] 127.0.0.1 - - [09/Jul/2024 18:41:05] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2024-07-09 18:41:05,861 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:05,861 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:06,881 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:06,883 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:07,900 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:07,900 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:08,921 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:08,922 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:09,938 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:09,940 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:10,957 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:10,959 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:11,979 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:11,980 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:13,004 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:13,005 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:14,019 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:14,021 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:15,038 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:15,039 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:16,066 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:16,067 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:17,082 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:17,083 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:18,099 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:18,100 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:19,120 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:19,122 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:20,143 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:20,144 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:21,163 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:21,164 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:22,180 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:22,180 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:23,199 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:23,200 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:24,219 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:24,221 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:25,237 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:25,238 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:25,843 [INFO] Received transcript: so bonnie tell me one thing where is wrong and who made you
+2024-07-09 18:41:26,296 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:26,298 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:26,859 [INFO] Processing buffered transcripts: so bonnie tell me one thing where is wrong and who made you
+2024-07-09 18:41:26,982 [INFO] Inserted new chat history for sessionId: 1
+2024-07-09 18:41:27,279 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:27,281 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:27,628 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-09 18:41:27,784 [INFO] Updated chat history for sessionId: 1
+2024-07-09 18:41:27,785 [INFO] It took 0.9255120754241943 seconds for generating responses.
+2024-07-09 18:41:27,786 [INFO] Batch response: Sweetie, I'm Vanii, not Bonnie! And, I'm a "World Class Language Teacher", not a bonnie!
+
+Now, let's get to the correction: I'm not a human, I'm an AI designed to assist with language learning. I was created by a team of experts in natural language processing and machine learning.
+2024-07-09 18:41:28,300 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:28,397 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:29,319 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:29,322 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:30,289 [INFO] It took 2.5022904872894287 seconds for text to speech
+2024-07-09 18:41:30,348 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:30,351 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:31,360 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:31,362 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:32,380 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:32,381 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:33,429 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:33,431 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:34,422 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:34,423 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:35,445 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:35,446 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:36,460 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:36,462 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:37,484 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:37,486 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:38,501 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:38,504 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:39,518 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:39,519 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:40,545 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:40,547 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:41,560 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:41,562 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:42,645 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:42,701 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:43,597 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:43,598 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:44,620 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:44,622 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:45,637 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:45,638 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:46,658 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:46,660 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:47,683 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:47,685 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:48,702 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:48,705 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:49,719 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:49,720 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:50,745 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:50,747 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:51,760 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:51,761 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:52,778 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:52,779 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:53,798 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:53,799 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:54,824 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:54,826 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:55,839 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:55,841 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:56,857 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:56,859 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:57,881 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:57,886 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:58,902 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:58,903 [INFO] Audio sent for session ID: 1
+2024-07-09 18:41:59,923 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:41:59,924 [INFO] Audio sent for session ID: 1
+2024-07-09 18:42:00,938 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:42:00,941 [INFO] Audio sent for session ID: 1
+2024-07-09 18:42:01,959 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:42:01,960 [INFO] Audio sent for session ID: 1
+2024-07-09 18:42:02,982 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:42:02,983 [INFO] Audio sent for session ID: 1
+2024-07-09 18:42:03,997 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:42:03,999 [INFO] Audio sent for session ID: 1
+2024-07-09 18:42:05,023 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:42:05,024 [INFO] Audio sent for session ID: 1
+2024-07-09 18:42:06,042 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:42:06,044 [INFO] Audio sent for session ID: 1
+2024-07-09 18:42:07,060 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:42:07,062 [INFO] Audio sent for session ID: 1
+2024-07-09 18:42:08,080 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:42:08,082 [INFO] Audio sent for session ID: 1
+2024-07-09 18:42:09,103 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:42:09,104 [INFO] Audio sent for session ID: 1
+2024-07-09 18:42:09,772 [INFO] Received transcript: my name is pavish aswani i am from
+2024-07-09 18:42:10,122 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:42:10,124 [INFO] Audio sent for session ID: 1
+2024-07-09 18:42:10,774 [INFO] Processing buffered transcripts: my name is pavish aswani i am from
+2024-07-09 18:42:10,893 [INFO] Updated chat history for sessionId: 1
+2024-07-09 18:42:11,138 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:42:11,139 [INFO] Audio sent for session ID: 1
+2024-07-09 18:42:11,514 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-09 18:42:11,665 [INFO] Updated chat history for sessionId: 1
+2024-07-09 18:42:11,667 [INFO] It took 0.89231276512146 seconds for generating responses.
+2024-07-09 18:42:11,668 [INFO] Batch response: Hi Pavish Aswani! I'm thrilled to meet you! You're from...?
+2024-07-09 18:42:12,161 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:42:12,164 [INFO] Audio sent for session ID: 1
+2024-07-09 18:42:13,177 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:42:13,178 [INFO] Audio sent for session ID: 1
+2024-07-09 18:42:13,274 [INFO] It took 1.6057372093200684 seconds for text to speech
+2024-07-09 18:42:14,196 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:42:14,197 [INFO] Audio sent for session ID: 1
+2024-07-09 18:42:14,739 [INFO] Received transcript: jopur pakistan i studied iit jopur
+2024-07-09 18:42:15,220 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:42:15,222 [INFO] Audio sent for session ID: 1
+2024-07-09 18:42:15,777 [INFO] Processing buffered transcripts: jopur pakistan i studied iit jopur
+2024-07-09 18:42:15,904 [INFO] Updated chat history for sessionId: 1
+2024-07-09 18:42:16,241 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:42:16,242 [INFO] Audio sent for session ID: 1
+2024-07-09 18:42:16,949 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-07-09 18:42:17,040 [INFO] Updated chat history for sessionId: 1
+2024-07-09 18:42:17,043 [INFO] It took 1.2650327682495117 seconds for generating responses.
+2024-07-09 18:42:17,044 [INFO] Batch response: Wow, Pavish! You're from Jopur, Pakistan, and you've studied at IIT Jopur! That's impressive! IIT is a prestigious institution, and I'm sure you must have worked hard to get there. What's your favorite subject or area of interest in your studies?
+2024-07-09 18:42:17,259 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:42:17,261 [INFO] Audio sent for session ID: 1
+2024-07-09 18:42:18,279 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:42:18,280 [INFO] Audio sent for session ID: 1
+2024-07-09 18:42:19,295 [INFO] It took 2.2501585483551025 seconds for text to speech
+2024-07-09 18:42:19,297 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:42:19,299 [INFO] Audio sent for session ID: 1
+2024-07-09 18:42:20,320 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:42:20,321 [INFO] Audio sent for session ID: 1
+2024-07-09 18:42:21,341 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:42:21,342 [INFO] Audio sent for session ID: 1
+2024-07-09 18:42:22,360 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:42:22,361 [INFO] Audio sent for session ID: 1
+2024-07-09 18:42:23,378 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:42:23,379 [INFO] Audio sent for session ID: 1
+2024-07-09 18:42:24,398 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:42:24,399 [INFO] Audio sent for session ID: 1
+2024-07-09 18:42:25,418 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:42:25,419 [INFO] Audio sent for session ID: 1
+2024-07-09 18:42:26,440 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:42:26,444 [INFO] Audio sent for session ID: 1
+2024-07-09 18:42:27,458 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:42:27,459 [INFO] Audio sent for session ID: 1
+2024-07-09 18:42:28,481 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:42:28,485 [INFO] Audio sent for session ID: 1
+2024-07-09 18:42:29,501 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:42:29,502 [INFO] Audio sent for session ID: 1
+2024-07-09 18:42:30,518 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:42:30,519 [INFO] Audio sent for session ID: 1
+2024-07-09 18:42:31,540 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:42:31,543 [INFO] Audio sent for session ID: 1
+2024-07-09 18:42:32,559 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:42:32,560 [INFO] Audio sent for session ID: 1
+2024-07-09 18:42:33,581 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:42:33,583 [INFO] Audio sent for session ID: 1
+2024-07-09 18:42:34,601 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:42:34,603 [INFO] Audio sent for session ID: 1
+2024-07-09 18:42:35,621 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:42:35,622 [INFO] Audio sent for session ID: 1
+2024-07-09 18:42:36,640 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:42:36,642 [INFO] Audio sent for session ID: 1
+2024-07-09 18:42:37,661 [INFO] Received audio stream for session ID: 1
+2024-07-09 18:42:37,663 [INFO] Audio sent for session ID: 1
