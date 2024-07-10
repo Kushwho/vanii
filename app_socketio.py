@@ -41,7 +41,7 @@ def buffer_transcripts(transcript, sessionId):
         # Restart timer for processing buffered transcripts
         if buffer_timer is not None:
             buffer_timer.cancel()
-        buffer_timer = Timer(1.0, process_transcripts, [sessionId])
+        buffer_timer = Timer(1.5, process_transcripts, [sessionId])
         buffer_timer.start()
 
 # Process buffered transcripts and convert them to speech
@@ -89,12 +89,17 @@ def initialize_deepgram_connection(sessionId):
     def on_error(self, error, **kwargs):
         logging.error(f"Deepgram connection error: {error}")
 
+    def on_utterance_end(self, end, **kwargs):
+        logging.info(f"Utterance end detected: {end}")
+        process_transcripts(sessionId)
+
     dg_connection.on(LiveTranscriptionEvents.Open, on_open)
     dg_connection.on(LiveTranscriptionEvents.Transcript, on_message)
     dg_connection.on(LiveTranscriptionEvents.Close, on_close)
     dg_connection.on(LiveTranscriptionEvents.Error, on_error)
+    # dg_connection.on(LiveTranscriptionEvents.UtteranceEnd, on_utterance_end)
 
-    options = LiveOptions(model="nova-2", language="en", endpointing=1200)
+    options = LiveOptions(model="nova-2", language="en", endpointing=1200)  
 
     if dg_connection.start(options) is False:
         logging.error("Failed to start Deepgram connection")

@@ -3,6 +3,7 @@ let socket;
 let microphone;
 let audioQueue = [];
 let isPlayingAudio = false;
+let currentAudio = null;
 
 const sessionId = "1"; 
 const socket_port = 5001;
@@ -14,7 +15,7 @@ socket.on('connect', () => {
 });
 
 socket.on("transcription_update", (data) => {
-  const { transcription, audioBinary, sessionId : responseSessionId } = data;
+  const { transcription, audioBinary, sessionId: responseSessionId } = data;
   console.log(responseSessionId)
   if (responseSessionId === sessionId) {
     const captions = document.getElementById("captions");
@@ -42,7 +43,7 @@ async function openMicrophone(microphone, socket) {
     };
     microphone.ondataavailable = async (event) => {
       if (event.data.size > 0) {
-        socket.emit("audio_stream", {data : event.data , sessionId});
+        socket.emit("audio_stream", {data: event.data, sessionId});
       }
     };
     microphone.start(1000);
@@ -58,10 +59,17 @@ async function startRecording() {
 
 async function stopRecording() {
   if (isRecording) {
+    clearQueue();
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      currentAudio = null;
+    }
+    isPlayingAudio = false; // Reset isPlayingAudio flag
     microphone.stop();
     microphone.stream.getTracks().forEach((track) => track.stop());
-    socket.emit("toggle_transcription", { action: "stop" , sessionId });
-    socket.emit("leave" , {sessionId})
+    socket.emit("toggle_transcription", { action: "stop", sessionId });
+    socket.emit("leave", {sessionId});
     microphone = null;
     isRecording = false;
     document.body.classList.remove("recording");
@@ -73,8 +81,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   recordButton.addEventListener("click", () => {
     if (!isRecording) {
-      socket.emit("toggle_transcription", { action: "start" , sessionId });
-      startRecording().catch((error) => console.error("Error starting recording:", error));
+      socket.emit("toggle_transcription", { action: "start", sessionId });
+      startRecording()
+        .then(() => {
+          if (audioQueue.length > 0 && !isPlayingAudio) {
+            playNextAudio();
+          }
+        })
+        .catch((error) => console.error("Error starting recording:", error));
     } else {
       stopRecording().catch((error) => console.error("Error stopping recording:", error));
     }
@@ -103,15 +117,19 @@ async function playAudio(audioBinary) {
   try {
     const audioBlob = new Blob([audioBinary], { type: 'audio/mpeg' });
     const audioUrl = URL.createObjectURL(audioBlob);
-    const audio = new Audio(audioUrl);
+    currentAudio = new Audio(audioUrl);
 
     return new Promise((resolve) => {
-      audio.onended = () => {
+      currentAudio.onended = () => {
         resolve();
       };
-      audio.play();
+      currentAudio.play();
     });
   } catch (error) {
     console.error("Error playing audio:", error);
   }
+}
+
+function clearQueue() {
+  audioQueue = [];
 }
