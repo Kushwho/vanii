@@ -1,11 +1,13 @@
 import logging
 from app import db
-
+from langchain_core.chat_history import BaseChatMessageHistory
+from langchain_community.chat_message_histories import ChatMessageHistory
+from langchain_core.messages import HumanMessage,AIMessage
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-
+store = {}
 
 
 def validate_session_id(sessionId):
@@ -41,5 +43,10 @@ def store_history(sessionId, obj):
     except Exception as e:
         logger.error(f"Unexpected error: {e}")
 
+def get_session_history(session_id:str)->BaseChatMessageHistory:
+    if session_id not in store:
+        store[session_id]=ChatMessageHistory()
+    return store[session_id]
 
-
+def save_history_and_clear_store(sessionId):
+    pass

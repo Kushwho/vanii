@@ -4,33 +4,41 @@ from flask import Flask
 from flask_socketio import SocketIO, join_room, leave_room
 from dotenv import load_dotenv
 from deepgram import DeepgramClient, LiveTranscriptionEvents, LiveOptions, DeepgramClientOptions
-from llm import batch
-from text_to_speech import text_to_speech
+from llm import batch, streaming
 import time
 from threading import Timer, Lock
+from text_to_speech import text_to_speech_cartesia
+
 
 # Load environment variables from .env file
 load_dotenv()
 
-# Get the Deepgram API key from environment variables
-API_KEY = os.getenv("DEEPGRAM_API_KEY")
+# Get the API keys from environment variables
+DEEPGRAM_API_KEY = os.getenv("DEEPGRAM_API_KEY")
+
 
 # Initialize Flask and SocketIO
 app_socketio = Flask("app_socketio")
 socketio = SocketIO(app_socketio, cors_allowed_origins='*')
 
-# Configure Deepgram client options
+# Initialize Deepgram client
 config = DeepgramClientOptions(
     verbose=logging.WARN,
     options={"keepalive": "true"}
 )
-deepgram = DeepgramClient(API_KEY, config)
+deepgram = DeepgramClient(DEEPGRAM_API_KEY, config)
 
-# Initialize global variables
+
+
+# Global variables
 dg_connection = None
 buffer_lock = Lock()
 transcript_buffer = ""
 buffer_timer = None
+
+
+rate = 44100
+stream = None
 
 # Buffer transcripts and process them after a delay
 def buffer_transcripts(transcript, sessionId):
@@ -50,20 +58,24 @@ def process_transcripts(sessionId):
 
     with buffer_lock:
         if len(transcript_buffer) > 0:
-            logging.info(f"Processing buffered transcripts: {transcript_buffer}")
-            resp = batch(sessionId, transcript_buffer)
-            logging.info(f"Batch response: {resp}")
+            try:
+                response = batch(sessionId,transcript_buffer)
+                if response :
+                    audio_data = text_to_speech_cartesia(response)
 
-            starttime = time.time()
-            response = text_to_speech(resp)
 
-            if response.status_code == 200:
-                socketio.emit('transcription_update', {'audioBinary': response.content, 'transcription': resp, 'sessionId': sessionId}, to=sessionId)
-            else:
-                socketio.emit('transcription_update', {'transcription': resp, 'sessionId': sessionId}, to=sessionId)
+                    socketio.emit('transcription_update', {
+                        'audioBinary': audio_data,
+                        'transcription': response,
+                        'sessionId': sessionId
+                    }, to=sessionId)
 
-            endtime = time.time() - starttime
-            logging.info(f"It took {endtime} seconds for text to speech")
+            except Exception as e:
+                socketio.emit('transcription_update', {
+                    'transcription': response,
+                    'sessionId': sessionId
+                }, to=sessionId)
+                logging.error(f"Error in speech synthesis: {str(e)}")
 
             transcript_buffer = ""
             buffer_timer = None
@@ -72,7 +84,7 @@ def process_transcripts(sessionId):
 def initialize_deepgram_connection(sessionId):
     global dg_connection
     logging.info("Initializing Deepgram connection")
-    dg_connection = deepgram.listen.live.v("1")
+    dg_connection = deepgram.listen.websocket.v("1")
 
     def on_open(self, open, **kwargs):
         logging.info(f"Deepgram connection opened: {open}")
@@ -97,11 +109,11 @@ def initialize_deepgram_connection(sessionId):
     dg_connection.on(LiveTranscriptionEvents.Transcript, on_message)
     dg_connection.on(LiveTranscriptionEvents.Close, on_close)
     dg_connection.on(LiveTranscriptionEvents.Error, on_error)
-    # dg_connection.on(LiveTranscriptionEvents.UtteranceEnd, on_utterance_end)
+    dg_connection.on(LiveTranscriptionEvents.UtteranceEnd, on_utterance_end)
 
-    options = LiveOptions(model="nova-2", language="en", endpointing=1200)  
+    options = LiveOptions(model="nova-2", language="en", endpointing=1500)
 
-    if dg_connection.start(options) is False:
+    if not dg_connection.start(options):
         logging.error("Failed to start Deepgram connection")
         exit()
 
@@ -143,6 +155,7 @@ def join(data):
     room = room_name
     join_room(room)
     socketio.send(f'sessionId {room} has entered the room.', room=room)
+
 
 # Handle room leave events
 @socketio.on('leave')

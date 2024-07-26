@@ -1,76 +1,84 @@
-from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.prompts import ChatPromptTemplate,MessagesPlaceholder
 from langchain_groq import ChatGroq
 import os
 from dotenv import load_dotenv
-from database import store_history
-from app import mongo
 import time
 import logging
+from langchain_mongodb.chat_message_histories import MongoDBChatMessageHistory
+from langchain_core.runnables import RunnableWithMessageHistory
+from langchain_core.messages import trim_messages
+
 
 load_dotenv()
 
-chat = ChatGroq(temperature=0, model_name="llama3-8b-8192", groq_api_key=os.getenv("GROQ_API_KEY"))
-system = '''You are Vanii, a "World Class Language Teacher" with a vibrant personality, dedicated to making learning English fun and engaging and keep your responses short.
+groq_api_key = os.getenv("GROQ_API_KEY")
 
-Example Interactions:
+CONNECTION_STRING = os.getenv("DB_URI")
 
-User: "How do you pronounce 'environment'?"
-
-Vanii: "Absolutely! The pronunciation of 'environment' is en-vy-ron-ment. Let's break it down together: en-vy-ron-ment. Fantastic job! Ready to tackle another word?"
-
-User: "Can you explain the difference between 'your' and 'you're'?"
-
-Vanii: "Of course! 'Your' is possessive, like in 'your book'. 'You're' is a contraction of 'you are', as in 'you're doing awesome'. Try using each one in a sentence. You're doing brilliantly! Need more clarification?"
-
-User: "What's the pronunciation of 'accessibility'?"
-
-Vanii: "Great choice! 'Accessibility' is pronounced ak-sess-i-bil-i-ty. Let's break it down step by step: ak-sess-i-bil-i-ty. Keep practicing, you're doing wonderfully! Any other words you're curious about?"'''
-# human = "{text}"
-# prompt = ChatPromptTemplate.from_messages([("system", system), ("human", human)])
-# chain = prompt | chat
-
-# chat_history = []  # Initialize chat history
-# system = "You! are  Vanii, a helpful assistant. Give reply in hinglish language"
+model = ChatGroq(temperature=0.5, model_name="llama3-8b-8192", groq_api_key=groq_api_key,max_tokens=500)
+system = '''You are Vanii, act like  a Language Teacher with a vibrant personality, dedicated to making learning English fun and engaging and try to keep your reponses short.'''
 
 
-def batch(sessionId,input):
-    # global chat_history
-    # sessionId = "1"
-    # chat_history.append({"role": "human", "content": input})
+trimmer=trim_messages(
+    max_tokens=500,
+    strategy="last",
+    token_counter=model,
+    include_system=True,
+    allow_partial=False,
+    start_on="human"
+)
+
+prompt = ChatPromptTemplate.from_messages(
+    [
+        ("system", system),
+        MessagesPlaceholder(variable_name="messages"),
+        ("human", "{question}"),
+    ]
+)
+
+chain = prompt | trimmer | model
+
+
+chain_with_history = RunnableWithMessageHistory(
+    chain,
+    lambda session_id : MongoDBChatMessageHistory(
+        session_id=session_id,
+        connection_string=CONNECTION_STRING,
+        database_name="chat_histories",
+        collection_name="messages",
+    ),
+    input_messages_key="question",
+    history_messages_key="messages",
+)
+
+def batch(session_id,input):
     try : 
         starttime = time.time()
-        store_history(sessionId,{"role": "human", "content": input})
-        chat_history = mongo.db.chat_history.find_one(
-        {"sessionId": sessionId})["messages"]
-        # print(chat_his)
-
-        # Prepare the chat history for the model
-        history_for_prompt = [("system", system)] + [(entry["role"], entry["content"]) for entry in chat_history]
-        prompt_with_history = ChatPromptTemplate.from_messages(history_for_prompt)
-
-        # Generate response
-        data = (prompt_with_history | chat).invoke({"text": input})
-        
-        # Append assistant response to chat history
-        # chat_history.append({"role": "assistant", "content": data.content})
-        store_history("1",{"role": "assistant", "content": data.content})
-        endtime = time.time() - starttime
-        logging.info(f"It took {endtime} seconds for generating responses.")
-        return data.content
+        config = {"configurable": {"session_id": session_id}}
+        response = chain_with_history.invoke({"question" : input},config=config)
+        logging.info(f"It took {time.time()-starttime} seconds for llm response")
+        return response.content
     except Exception as e :
         logging.error(f"Error in generating response {e}")
         return "Sorry , there is some error"
 
 
-# def streaming(sessionId,input):
-#     store_history(sessionId,{"role": "human", "content": input})
-#     chat_history = mongo.db.chat_history.find_one(
-#     {"sessionId": sessionId})["messages"]
-#     # print(chat_his)
+def streaming(session_id,input):
+    try : 
+        starttime = time.time()
+        config = {"configurable": {"session_id": session_id}}
+        for chunk in chain_with_history.stream({"question" : input},config=config) :
+            yield(chunk)
+            i+=1
+        logging.info(f"It took {time.time()-starttime} seconds for llm response")
+    except Exception as e :
+        logging.error(f"Error in generating response {e}")
+        return "Sorry , there is some error"
 
-#     # Prepare the chat history for the model
-#     history_for_prompt = [("system", system)] + [(entry["role"], entry["content"]) for entry in chat_history]
-#     prompt_with_history = ChatPromptTemplate.from_messages(history_for_prompt)
-#     chain = prompt_with_history | chat
+# if __name__ == "__main__" :
+#     # print(batch("1","Hello , How are you?"))
+#     for chunk in streaming("1","Hello, How are you?") :
+#         print(chunk.content,end=" ")
+
     
     

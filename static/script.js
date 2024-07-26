@@ -5,7 +5,7 @@ let audioQueue = [];
 let isPlayingAudio = false;
 let currentAudio = null;
 
-const sessionId = "1"; 
+const sessionId = "3"; 
 const socket_port = 5001;
 socket = io("http://" + window.location.hostname + ":" + socket_port.toString());
 
@@ -17,6 +17,8 @@ socket.on('connect', () => {
 socket.on("transcription_update", (data) => {
   const { transcription, audioBinary, sessionId: responseSessionId } = data;
   console.log(responseSessionId)
+  console.log("I am audio binary")
+  console.log(audioBinary)
   if (responseSessionId === sessionId) {
     const captions = document.getElementById("captions");
     captions.innerHTML = transcription;
@@ -115,20 +117,35 @@ async function playNextAudio() {
 
 async function playAudio(audioBinary) {
   try {
-    const audioBlob = new Blob([audioBinary], { type: 'audio/mpeg' });
-    const audioUrl = URL.createObjectURL(audioBlob);
-    currentAudio = new Audio(audioUrl);
+    if (!audioBinary) {
+      throw new Error('No audio data received');
+    }
 
-    return new Promise((resolve) => {
-      currentAudio.onended = () => {
-        resolve();
-      };
-      currentAudio.play();
-    });
+    // Convert ArrayBuffer to Float32Array for PCM 32-bit float format
+    const float32Array = new Float32Array(audioBinary);
+
+    // Create an audio context
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+    // Create an audio buffer and populate it with the PCM data
+    const audioBuffer = audioContext.createBuffer(1, float32Array.length, 44100);
+    audioBuffer.copyToChannel(float32Array, 0);
+
+    // Create a buffer source, set its buffer, and connect to the audio context
+    const bufferSource = audioContext.createBufferSource();
+    bufferSource.buffer = audioBuffer;
+    bufferSource.connect(audioContext.destination);
+
+    // Play the audio
+    bufferSource.start();
+    bufferSource.onended = () => {
+      audioContext.close();
+    };
   } catch (error) {
     console.error("Error playing audio:", error);
   }
 }
+
 
 function clearQueue() {
   audioQueue = [];
