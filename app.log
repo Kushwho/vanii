@@ -84,3 +84,25 @@
 2024-07-27 00:58:38,366 [INFO] 127.0.0.1 - - [27/Jul/2024 00:58:38] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
 2024-07-27 00:58:38,526 [INFO] 127.0.0.1 - - [27/Jul/2024 00:58:38] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
 2024-07-27 00:58:38,535 [INFO] 127.0.0.1 - - [27/Jul/2024 00:58:38] "[36mGET /static/click.png HTTP/1.1[0m" 304 -
+2024-07-27 17:04:42,410 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-07-27 17:04:42,410 [INFO] Starting Flask server.
+2024-07-27 17:04:42,434 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8000
+2024-07-27 17:04:42,434 [INFO] [33mPress CTRL+C to quit[0m
+2024-07-27 17:04:42,441 [INFO]  * Restarting with stat
+2024-07-27 17:04:42,726 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-07-27 17:04:42,726 [INFO] Starting Flask server.
+2024-07-27 17:04:42,726 [WARNING]  * Debugger is active!
+2024-07-27 17:04:42,770 [INFO]  * Debugger PIN: 573-068-401
+2024-07-27 17:05:00,352 [INFO] Rendering index page.
+2024-07-27 17:05:00,352 [INFO] 127.0.0.1 - - [27/Jul/2024 17:05:00] "GET / HTTP/1.1" 200 -
+2024-07-27 17:05:00,684 [INFO] 127.0.0.1 - - [27/Jul/2024 17:05:00] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2024-07-27 17:05:00,726 [INFO] 127.0.0.1 - - [27/Jul/2024 17:05:00] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2024-07-27 17:05:00,726 [INFO] 127.0.0.1 - - [27/Jul/2024 17:05:00] "[36mGET /static/click.png HTTP/1.1[0m" 304 -
+2024-07-27 17:05:00,901 [INFO] 127.0.0.1 - - [27/Jul/2024 17:05:00] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2024-07-27 17:05:15,695 [INFO] 127.0.0.1 - - [27/Jul/2024 17:05:15] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2024-07-27 17:05:31,450 [INFO] Rendering index page.
+2024-07-27 17:05:31,451 [INFO] 127.0.0.1 - - [27/Jul/2024 17:05:31] "GET / HTTP/1.1" 200 -
+2024-07-27 17:05:31,774 [INFO] 127.0.0.1 - - [27/Jul/2024 17:05:31] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2024-07-27 17:05:31,779 [INFO] 127.0.0.1 - - [27/Jul/2024 17:05:31] "[36mGET /static/click.png HTTP/1.1[0m" 304 -
+2024-07-27 17:05:31,779 [INFO] 127.0.0.1 - - [27/Jul/2024 17:05:31] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
