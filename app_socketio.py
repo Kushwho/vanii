@@ -5,9 +5,19 @@ from flask_socketio import SocketIO, join_room, leave_room
 from dotenv import load_dotenv
 from deepgram import DeepgramClient, LiveTranscriptionEvents, LiveOptions, DeepgramClientOptions
 from llm import batch
-from text_to_speech import text_to_speech
+from text_to_speech import text_to_speech, text_to_speech_cartesia
 import time
 from threading import Timer, Lock
+
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s [%(levelname)s] %(message)s',
+    handlers=[
+        logging.FileHandler("app_socketio.log"),
+        logging.StreamHandler()
+    ]
+)
 
 # Load environment variables from .env file
 load_dotenv()
@@ -56,7 +66,7 @@ def process_transcripts(sessionId):
 
             starttime = time.time()
             response = text_to_speech(resp)
-
+            # print(type(response.content))
             if response.status_code == 200:
                 socketio.emit('transcription_update', {'audioBinary': response.content, 'transcription': resp, 'sessionId': sessionId}, to=sessionId)
             else:
@@ -72,7 +82,7 @@ def process_transcripts(sessionId):
 def initialize_deepgram_connection(sessionId):
     global dg_connection
     logging.info("Initializing Deepgram connection")
-    dg_connection = deepgram.listen.live.v("1")
+    dg_connection = deepgram.listen.websocket.v("1")
 
     def on_open(self, open, **kwargs):
         logging.info(f"Deepgram connection opened: {open}")
