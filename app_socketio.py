@@ -92,6 +92,9 @@ def initialize_deepgram_connection(sessionId):
         if len(transcript) > 0:
             logging.info(f"Received transcript: {transcript}")
             buffer_transcripts(transcript, sessionId)
+    
+    def on_metadata(self,metadata,**kwargs) :
+        logging.info(f"Received metadata: {metadata}")
 
     def on_close(self, close, **kwargs):
         logging.info(f"Deepgram connection closed: {close}")
@@ -107,6 +110,7 @@ def initialize_deepgram_connection(sessionId):
     dg_connection.on(LiveTranscriptionEvents.Transcript, on_message)
     dg_connection.on(LiveTranscriptionEvents.Close, on_close)
     dg_connection.on(LiveTranscriptionEvents.Error, on_error)
+    dg_connection.on(LiveTranscriptionEvents.Metadata, on_metadata)
     # dg_connection.on(LiveTranscriptionEvents.UtteranceEnd, on_utterance_end)
 
     options = LiveOptions(model="nova-2", language="en", endpointing=1200)  

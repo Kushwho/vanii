@@ -42,11 +42,8 @@ chain = prompt | trimmer | model
 
 chain_with_history = RunnableWithMessageHistory(
     chain,
-    lambda session_id : MongoDBChatMessageHistory(
-        session_id=session_id,
-        connection_string=CONNECTION_STRING,
-        database_name="chat_histories",
-        collection_name="messages",
+    lambda session_id: RedisChatMessageHistory(
+        session_id, url="redis://default:WJPYPYdl0E4ubckkyUypk7rLxuJTIjMH@redis-17577.c212.ap-south-1-1.ec2.cloud.redislabs.com:17577"
     ),
     input_messages_key="question",
     history_messages_key="messages",
