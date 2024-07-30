@@ -4,7 +4,8 @@ import os
 from dotenv import load_dotenv
 import time
 import logging
-from langchain_mongodb.chat_message_histories import MongoDBChatMessageHistory
+# from langchain_mongodb.chat_message_histories import MongoDBChatMessageHistory
+from langchain_community.chat_message_histories import MongoDBChatMessageHistory
 from langchain_core.runnables import RunnableWithMessageHistory
 from langchain_core.messages import trim_messages
 

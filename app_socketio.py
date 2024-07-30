@@ -10,6 +10,17 @@ from threading import Timer, Lock
 from text_to_speech import text_to_speech_cartesia
 
 
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s [%(levelname)s] %(message)s',
+    handlers=[
+        logging.FileHandler("app_socketio.log"),
+        logging.StreamHandler()
+    ]
+)
+
+
 # Load environment variables from .env file
 load_dotenv()
 
@@ -95,8 +106,14 @@ def initialize_deepgram_connection(sessionId):
             logging.info(f"Received transcript: {transcript}")
             buffer_transcripts(transcript, sessionId)
 
+    def on_metadata(self, metadata, **kwargs):
+        logging.info(f"\n\n{metadata}\n\n")
+
     def on_close(self, close, **kwargs):
         logging.info(f"Deepgram connection closed: {close}")
+    
+    def on_warning(self,warning,**kwargs):
+        logging.info(f"Deepgram warning: {warning}")
 
     def on_error(self, error, **kwargs):
         logging.error(f"Deepgram connection error: {error}")
@@ -107,6 +124,8 @@ def initialize_deepgram_connection(sessionId):
 
     dg_connection.on(LiveTranscriptionEvents.Open, on_open)
     dg_connection.on(LiveTranscriptionEvents.Transcript, on_message)
+    dg_connection.on(LiveTranscriptionEvents.Metadata, on_metadata)
+    dg_connection.on(LiveTranscriptionEvents.Warning, on_warning)
     dg_connection.on(LiveTranscriptionEvents.Close, on_close)
     dg_connection.on(LiveTranscriptionEvents.Error, on_error)
     dg_connection.on(LiveTranscriptionEvents.UtteranceEnd, on_utterance_end)
