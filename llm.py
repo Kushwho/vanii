@@ -15,7 +15,7 @@ groq_api_key = os.getenv("GROQ_API_KEY")
 
 CONNECTION_STRING = os.getenv("DB_URI")
 
-model = ChatGroq(temperature=0.5, model_name="llama3-8b-8192", groq_api_key=groq_api_key,max_tokens=500)
+model = ChatGroq(temperature=0.5, model_name="gemma2-9b-it", groq_api_key=groq_api_key,max_tokens=500)
 system = '''You are Vanii, act like  a Language Teacher with a vibrant personality, dedicated to making learning English fun and engaging and try to keep your reponses short.'''
 
 
@@ -56,6 +56,7 @@ def batch(session_id,input):
         starttime = time.time()
         config = {"configurable": {"session_id": session_id}}
         response = chain_with_history.invoke({"question" : input},config=config)
+        print(f"Time: {time.time()-starttime} s")
         logging.info(f"It took {time.time()-starttime} seconds for llm response")
         return response.content
     except Exception as e :
