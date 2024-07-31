@@ -4,10 +4,13 @@ from flask import Flask
 from flask_socketio import SocketIO, join_room, leave_room
 from dotenv import load_dotenv
 from deepgram import DeepgramClient, LiveTranscriptionEvents, LiveOptions, DeepgramClientOptions
-from llm import batch
+from llm import batch,save_in_mongo_clear_redis,store_in_redis
 from text_to_speech import text_to_speech, text_to_speech_cartesia
 import time
 from threading import Timer, Lock
+import redis
+
+
 
 
 logging.basicConfig(
@@ -18,6 +21,8 @@ logging.basicConfig(
         logging.StreamHandler()
     ]
 )
+
+
 
 # Load environment variables from .env file
 load_dotenv()
@@ -51,7 +56,7 @@ def buffer_transcripts(transcript, sessionId):
         # Restart timer for processing buffered transcripts
         if buffer_timer is not None:
             buffer_timer.cancel()
-        buffer_timer = Timer(1.5, process_transcripts, [sessionId])
+        buffer_timer = Timer(1, process_transcripts, [sessionId])
         buffer_timer.start()
 
 # Process buffered transcripts and convert them to speech
@@ -113,7 +118,7 @@ def initialize_deepgram_connection(sessionId):
     dg_connection.on(LiveTranscriptionEvents.Metadata, on_metadata)
     # dg_connection.on(LiveTranscriptionEvents.UtteranceEnd, on_utterance_end)
 
-    options = LiveOptions(model="nova-2", language="en", endpointing=1200)  
+    options = LiveOptions(model="nova-2", language="en", endpointing=1000)  
 
     if dg_connection.start(options) is False:
         logging.error("Failed to start Deepgram connection")
@@ -156,6 +161,7 @@ def join(data):
     logging.info(f"Room has been created for sessionId {room_name}")
     room = room_name
     join_room(room)
+    store_in_redis(data['sessionId'])
     socketio.send(f'sessionId {room} has entered the room.', room=room)
 
 # Handle room leave events
@@ -163,6 +169,7 @@ def join(data):
 def on_leave(data):
     room = data['sessionId']
     leave_room(room)
+    save_in_mongo_clear_redis(data['sessionId'])
     logging.info(f"Client left room: {room}")
 
 # Run the SocketIO server
