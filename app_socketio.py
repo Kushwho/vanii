@@ -1,4 +1,3 @@
-import logging
 import os
 from flask import Flask
 from flask_socketio import SocketIO, join_room, leave_room
@@ -12,20 +11,8 @@ from utils import log_event
 from config import Config
 from models import db
 import redis
-
-
-
-
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s [%(levelname)s] %(message)s',
-    handlers=[
-        logging.FileHandler("app_socketio.log"),
-        logging.StreamHandler()
-    ]
-)
-
-
+from log_config import logger
+import logging
 
 # Load environment variables from .env file
 load_dotenv()
@@ -78,9 +65,9 @@ def process_transcripts(sessionId):
 
     with buffer_lock:
         if len(transcript_buffer) > 0:
-            logging.info(f"Processing buffered transcripts: {transcript_buffer}")
+            logger.info(f"Processing buffered transcripts: {transcript_buffer}")
             resp = batch(sessionId, transcript_buffer)
-            logging.info(f"Batch response: {resp}")
+            logger.info(f"Batch response: {resp}")
 
             starttime = time.time()
             response = text_to_speech(resp)
@@ -90,7 +77,7 @@ def process_transcripts(sessionId):
                 socketio.emit('transcription_update', {'transcription': resp, 'sessionId': sessionId}, to=sessionId)
 
             endtime = time.time() - starttime
-            logging.info(f"It took {endtime} seconds for text to speech")
+            logger.info(f"It took {endtime} seconds for text to speech")
 
             transcript_buffer = ""
             buffer_timer = None
@@ -98,7 +85,7 @@ def process_transcripts(sessionId):
 # Initialize Deepgram connection for a session
 def initialize_deepgram_connection(sessionId):
     global dg_connection
-    logging.info("Initializing Deepgram connection")
+    logger.info("Initializing Deepgram connection")
     dg_connection = deepgram.listen.websocket.v("1")
 
     def on_open(self, open, **kwargs):
@@ -150,11 +137,11 @@ def handle_audio_stream(data):
 #Handle transcription toggle events
 @socketio.on('toggle_transcription')
 def handle_toggle_transcription(data):
-    logging.info(f"Received toggle_transcription event: {data}")
+    logger.info(f"Received toggle_transcription event: {data}")
     action = data.get("action")
     sessionId = data.get("sessionId")
     if action == "start":
-        logging.info("Starting Deepgram connection")
+        logger.info("Starting Deepgram connection")
         # log_event('UserMicOn', {'page': 'index'})
         initialize_deepgram_connection(sessionId)
 

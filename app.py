@@ -6,17 +6,17 @@ from config import Config
 from models import db
 from utils import log_event
 import os
-
+from log_config import logger
 load_dotenv()
 
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s [%(levelname)s] %(message)s',
-    handlers=[
-        logging.FileHandler("app.log"),
-        logging.StreamHandler()
-    ]
-)
+# logging.basicConfig(
+#     level=logging.INFO,
+#     format='%(asctime)s [%(levelname)s] %(message)s',
+#     handlers=[
+#         logging.FileHandler("app.log"),
+#         logging.StreamHandler()
+#     ]
+# )
 
 app = Flask("app_http")
 app.config.from_object(Config)
@@ -30,7 +30,7 @@ logging.info("MongoDB URI: %s", os.getenv("DB_URI"))
 
 @app.route('/')
 def index():
-    logging.info("Rendering index page.")
+    logger.info('Index route accessed')
     log_event('page_view', {'page': 'index'})
     return render_template('index.html')
 
