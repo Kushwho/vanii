@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 2024-07-27 00:49:52,999 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
 2024-07-27 00:49:53,003 [INFO] Starting Flask server.
 2024-07-27 00:49:53,060 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
@@ -225,3 +226,358 @@
 2024-07-30 00:04:08,148 [INFO] 127.0.0.1 - - [30/Jul/2024 00:04:08] "[36mGET /static/click.png HTTP/1.1[0m" 304 -
 2024-07-30 00:04:08,150 [INFO] 127.0.0.1 - - [30/Jul/2024 00:04:08] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
 2024-07-30 00:04:08,169 [INFO] 127.0.0.1 - - [30/Jul/2024 00:04:08] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+=======
+2024-07-31 00:05:39,651 [INFO]  * Detected change in 'E:\\Desktop\\vanii\\app_socketio.py', reloading
+2024-07-31 00:05:39,702 [INFO]  * Restarting with stat
+2024-07-31 00:05:40,176 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-07-31 00:05:40,176 [INFO] Starting Flask server.
+2024-07-31 00:05:40,176 [WARNING]  * Debugger is active!
+2024-07-31 00:05:40,191 [INFO]  * Debugger PIN: 573-068-401
+2024-07-31 00:05:45,356 [INFO]  * Detected change in 'E:\\Desktop\\vanii\\app_socketio.py', reloading
+2024-07-31 00:05:45,429 [INFO]  * Restarting with stat
+2024-07-31 00:05:45,826 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-07-31 00:05:45,826 [INFO] Starting Flask server.
+2024-07-31 00:05:45,844 [WARNING]  * Debugger is active!
+2024-07-31 00:05:45,850 [INFO]  * Debugger PIN: 573-068-401
+2024-07-31 00:05:47,938 [INFO]  * Detected change in 'E:\\Desktop\\vanii\\app_socketio.py', reloading
+2024-07-31 00:05:47,978 [INFO]  * Restarting with stat
+2024-07-31 00:05:48,380 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-07-31 00:05:48,391 [INFO] Starting Flask server.
+2024-07-31 00:05:48,396 [WARNING]  * Debugger is active!
+2024-07-31 00:05:48,403 [INFO]  * Debugger PIN: 573-068-401
+2024-07-31 00:05:49,482 [INFO]  * Detected change in 'E:\\Desktop\\vanii\\app_socketio.py', reloading
+2024-07-31 00:05:49,564 [INFO]  * Restarting with stat
+2024-07-31 00:05:49,933 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-07-31 00:05:49,940 [INFO] Starting Flask server.
+2024-07-31 00:05:49,957 [WARNING]  * Debugger is active!
+2024-07-31 00:05:49,998 [INFO]  * Debugger PIN: 573-068-401
+2024-07-31 00:11:00,047 [INFO]  * Detected change in 'E:\\Desktop\\vanii\\llm.py', reloading
+2024-07-31 00:11:00,131 [INFO]  * Restarting with stat
+2024-07-31 00:11:00,714 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-07-31 00:11:00,721 [INFO] Starting Flask server.
+2024-07-31 00:11:00,730 [WARNING]  * Debugger is active!
+2024-07-31 00:11:00,739 [INFO]  * Debugger PIN: 573-068-401
+2024-07-31 00:12:17,181 [INFO]  * Detected change in 'E:\\Desktop\\vanii\\llm.py', reloading
+2024-07-31 00:12:17,286 [INFO]  * Restarting with stat
+2024-07-31 00:12:17,929 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-07-31 00:12:17,929 [INFO] Starting Flask server.
+2024-07-31 00:12:17,944 [WARNING]  * Debugger is active!
+2024-07-31 00:12:17,952 [INFO]  * Debugger PIN: 573-068-401
+2024-07-31 00:12:21,143 [INFO]  * Detected change in 'E:\\Desktop\\vanii\\llm.py', reloading
+2024-07-31 00:12:21,254 [INFO]  * Restarting with stat
+2024-07-31 00:12:21,892 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-07-31 00:12:21,903 [INFO] Starting Flask server.
+2024-07-31 00:12:21,907 [WARNING]  * Debugger is active!
+2024-07-31 00:12:21,929 [INFO]  * Debugger PIN: 573-068-401
+2024-07-31 00:12:38,545 [INFO]  * Detected change in 'E:\\Desktop\\vanii\\llm.py', reloading
+2024-07-31 00:12:38,629 [INFO]  * Restarting with stat
+2024-07-31 00:12:39,116 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-07-31 00:12:39,116 [INFO] Starting Flask server.
+2024-07-31 00:12:39,132 [WARNING]  * Debugger is active!
+2024-07-31 00:12:39,155 [INFO]  * Debugger PIN: 573-068-401
+2024-07-31 00:13:17,347 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-07-31 00:13:17,354 [INFO] Starting Flask server.
+2024-07-31 00:13:17,389 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8000
+2024-07-31 00:13:17,391 [INFO] [33mPress CTRL+C to quit[0m
+2024-07-31 00:13:17,397 [INFO]  * Restarting with stat
+2024-07-31 00:13:17,936 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-07-31 00:13:17,936 [INFO] Starting Flask server.
+2024-07-31 00:13:17,946 [WARNING]  * Debugger is active!
+2024-07-31 00:13:17,961 [INFO]  * Debugger PIN: 573-068-401
+2024-07-31 00:13:23,721 [INFO] Rendering index page.
+2024-07-31 00:13:23,727 [INFO] 127.0.0.1 - - [31/Jul/2024 00:13:23] "GET / HTTP/1.1" 200 -
+2024-07-31 00:13:24,030 [INFO] 127.0.0.1 - - [31/Jul/2024 00:13:24] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2024-07-31 00:13:24,045 [INFO] 127.0.0.1 - - [31/Jul/2024 00:13:24] "[36mGET /static/click.png HTTP/1.1[0m" 304 -
+2024-07-31 00:13:24,060 [INFO] 127.0.0.1 - - [31/Jul/2024 00:13:24] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2024-07-31 00:14:47,093 [INFO] Rendering index page.
+2024-07-31 00:14:47,093 [INFO] 127.0.0.1 - - [31/Jul/2024 00:14:47] "GET / HTTP/1.1" 200 -
+2024-07-31 00:14:47,120 [INFO] 127.0.0.1 - - [31/Jul/2024 00:14:47] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2024-07-31 00:14:47,328 [INFO] 127.0.0.1 - - [31/Jul/2024 00:14:47] "[36mGET /static/click.png HTTP/1.1[0m" 304 -
+2024-07-31 00:14:47,428 [INFO] 127.0.0.1 - - [31/Jul/2024 00:14:47] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2024-07-31 00:15:56,365 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-07-31 00:15:56,371 [INFO] Starting Flask server.
+2024-07-31 00:15:56,471 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8000
+2024-07-31 00:15:56,471 [INFO] [33mPress CTRL+C to quit[0m
+2024-07-31 00:15:56,485 [INFO]  * Restarting with stat
+2024-07-31 00:15:57,056 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-07-31 00:15:57,056 [INFO] Starting Flask server.
+2024-07-31 00:15:57,080 [WARNING]  * Debugger is active!
+2024-07-31 00:15:57,089 [INFO]  * Debugger PIN: 573-068-401
+2024-07-31 00:16:02,459 [INFO] Rendering index page.
+2024-07-31 00:16:02,466 [INFO] 127.0.0.1 - - [31/Jul/2024 00:16:02] "GET / HTTP/1.1" 200 -
+2024-07-31 00:16:02,771 [INFO] 127.0.0.1 - - [31/Jul/2024 00:16:02] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2024-07-31 00:16:02,784 [INFO] 127.0.0.1 - - [31/Jul/2024 00:16:02] "[36mGET /static/click.png HTTP/1.1[0m" 304 -
+2024-07-31 00:16:02,788 [INFO] 127.0.0.1 - - [31/Jul/2024 00:16:02] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2024-07-31 00:16:28,396 [INFO] 127.0.0.1 - - [31/Jul/2024 00:16:28] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2024-07-31 00:30:41,166 [INFO]  * Detected change in 'E:\\Desktop\\vanii\\app_socketio.py', reloading
+2024-07-31 00:30:41,239 [INFO]  * Restarting with stat
+2024-07-31 00:30:41,855 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-07-31 00:30:41,856 [INFO] Starting Flask server.
+2024-07-31 00:30:41,866 [WARNING]  * Debugger is active!
+2024-07-31 00:30:41,871 [INFO]  * Debugger PIN: 573-068-401
+2024-07-31 00:30:45,034 [INFO]  * Detected change in 'E:\\Desktop\\vanii\\app_socketio.py', reloading
+2024-07-31 00:30:45,185 [INFO]  * Restarting with stat
+2024-07-31 00:30:45,776 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-07-31 00:30:45,776 [INFO] Starting Flask server.
+2024-07-31 00:30:45,791 [WARNING]  * Debugger is active!
+2024-07-31 00:30:45,802 [INFO]  * Debugger PIN: 573-068-401
+2024-07-31 00:30:51,074 [INFO]  * Detected change in 'E:\\Desktop\\vanii\\app_socketio.py', reloading
+2024-07-31 00:30:51,181 [INFO]  * Restarting with stat
+2024-07-31 00:30:51,638 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-07-31 00:30:51,639 [INFO] Starting Flask server.
+2024-07-31 00:30:51,650 [WARNING]  * Debugger is active!
+2024-07-31 00:30:51,662 [INFO]  * Debugger PIN: 573-068-401
+2024-07-31 00:30:53,769 [INFO]  * Detected change in 'E:\\Desktop\\vanii\\app_socketio.py', reloading
+2024-07-31 00:30:53,856 [INFO]  * Restarting with stat
+2024-07-31 00:30:54,417 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-07-31 00:30:54,417 [INFO] Starting Flask server.
+2024-07-31 00:30:54,423 [WARNING]  * Debugger is active!
+2024-07-31 00:30:54,436 [INFO]  * Debugger PIN: 573-068-401
+2024-07-31 00:31:00,708 [INFO]  * Detected change in 'E:\\Desktop\\vanii\\app_socketio.py', reloading
+2024-07-31 00:31:00,774 [INFO]  * Restarting with stat
+2024-07-31 00:31:01,403 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-07-31 00:31:01,403 [INFO] Starting Flask server.
+2024-07-31 00:31:01,419 [WARNING]  * Debugger is active!
+2024-07-31 00:31:01,419 [INFO]  * Debugger PIN: 573-068-401
+2024-07-31 00:31:04,606 [INFO]  * Detected change in 'E:\\Desktop\\vanii\\app_socketio.py', reloading
+2024-07-31 00:31:04,734 [INFO]  * Restarting with stat
+2024-07-31 00:31:05,257 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-07-31 00:31:05,257 [INFO] Starting Flask server.
+2024-07-31 00:31:05,276 [WARNING]  * Debugger is active!
+2024-07-31 00:31:05,281 [INFO]  * Debugger PIN: 573-068-401
+2024-07-31 00:31:12,583 [INFO]  * Detected change in 'E:\\Desktop\\vanii\\app_socketio.py', reloading
+2024-07-31 00:31:12,675 [INFO]  * Restarting with stat
+2024-07-31 00:31:13,133 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-07-31 00:31:13,149 [INFO] Starting Flask server.
+2024-07-31 00:31:13,160 [WARNING]  * Debugger is active!
+2024-07-31 00:31:13,167 [INFO]  * Debugger PIN: 573-068-401
+2024-07-31 00:31:17,338 [INFO]  * Detected change in 'E:\\Desktop\\vanii\\app_socketio.py', reloading
+2024-07-31 00:31:17,431 [INFO]  * Restarting with stat
+2024-07-31 00:31:17,959 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-07-31 00:31:17,959 [INFO] Starting Flask server.
+2024-07-31 00:31:17,975 [WARNING]  * Debugger is active!
+2024-07-31 00:31:17,984 [INFO]  * Debugger PIN: 573-068-401
+2024-07-31 00:31:27,379 [INFO]  * Detected change in 'E:\\Desktop\\vanii\\app_socketio.py', reloading
+2024-07-31 00:31:27,479 [INFO]  * Restarting with stat
+2024-07-31 00:31:28,135 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-07-31 00:31:28,135 [INFO] Starting Flask server.
+2024-07-31 00:31:28,152 [WARNING]  * Debugger is active!
+2024-07-31 00:31:28,166 [INFO]  * Debugger PIN: 573-068-401
+2024-07-31 00:31:34,440 [INFO]  * Detected change in 'E:\\Desktop\\vanii\\app_socketio.py', reloading
+2024-07-31 00:31:34,532 [INFO]  * Restarting with stat
+2024-07-31 00:31:35,076 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-07-31 00:31:35,076 [INFO] Starting Flask server.
+2024-07-31 00:31:35,091 [WARNING]  * Debugger is active!
+2024-07-31 00:31:35,097 [INFO]  * Debugger PIN: 573-068-401
+2024-07-31 00:31:40,300 [INFO]  * Detected change in 'E:\\Desktop\\vanii\\app_socketio.py', reloading
+2024-07-31 00:31:40,400 [INFO]  * Restarting with stat
+2024-07-31 00:31:40,923 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-07-31 00:31:40,930 [INFO] Starting Flask server.
+2024-07-31 00:31:40,934 [WARNING]  * Debugger is active!
+2024-07-31 00:31:40,944 [INFO]  * Debugger PIN: 573-068-401
+>>>>>>> c434aa3be7ddbb5d0f068978aadd10ad7199bfcb
+2024-08-01 22:38:57,552 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-08-01 22:38:57,554 [INFO] Starting Flask server.
+2024-08-01 22:38:57,658 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8000
+2024-08-01 22:38:57,661 [INFO] [33mPress CTRL+C to quit[0m
+2024-08-01 22:38:57,665 [INFO]  * Restarting with stat
+2024-08-01 22:38:58,889 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-08-01 22:38:58,891 [INFO] Starting Flask server.
+2024-08-01 22:38:58,917 [WARNING]  * Debugger is active!
+2024-08-01 22:38:58,944 [INFO]  * Debugger PIN: 128-987-512
+2024-08-01 22:39:55,190 [INFO] Rendering index page.
+2024-08-01 22:39:55,381 [INFO] 127.0.0.1 - - [01/Aug/2024 22:39:55] "GET / HTTP/1.1" 200 -
+2024-08-01 22:39:55,688 [INFO] 127.0.0.1 - - [01/Aug/2024 22:39:55] "GET /static/style.css HTTP/1.1" 200 -
+2024-08-01 22:39:55,689 [INFO] 127.0.0.1 - - [01/Aug/2024 22:39:55] "GET /static/click.png HTTP/1.1" 200 -
+2024-08-01 22:39:55,738 [INFO] 127.0.0.1 - - [01/Aug/2024 22:39:55] "GET /static/script.js HTTP/1.1" 200 -
+2024-08-01 22:39:56,209 [INFO] 127.0.0.1 - - [01/Aug/2024 22:39:56] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2024-08-01 22:40:06,700 [INFO] 127.0.0.1 - - [01/Aug/2024 22:40:06] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2024-08-01 22:45:11,968 [INFO]  * Detected change in 'C:\\Users\\kusha\\OneDrive\\Desktop\\Vanii-backend-Cartesia\\vanii\\app_socketio.py', reloading
+2024-08-01 22:45:12,163 [INFO]  * Restarting with stat
+2024-08-01 22:45:13,675 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-08-01 22:45:13,676 [INFO] Starting Flask server.
+2024-08-01 22:45:13,700 [WARNING]  * Debugger is active!
+2024-08-01 22:45:13,714 [INFO]  * Debugger PIN: 128-987-512
+2024-08-01 22:45:17,082 [INFO]  * Detected change in 'C:\\Users\\kusha\\OneDrive\\Desktop\\Vanii-backend-Cartesia\\vanii\\app_socketio.py', reloading
+2024-08-01 22:45:17,296 [INFO]  * Restarting with stat
+2024-08-01 22:45:18,615 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-08-01 22:45:18,616 [INFO] Starting Flask server.
+2024-08-01 22:45:18,637 [WARNING]  * Debugger is active!
+2024-08-01 22:45:18,648 [INFO]  * Debugger PIN: 128-987-512
+2024-08-01 22:45:20,941 [INFO]  * Detected change in 'C:\\Users\\kusha\\OneDrive\\Desktop\\Vanii-backend-Cartesia\\vanii\\app_socketio.py', reloading
+2024-08-01 22:45:21,193 [INFO]  * Restarting with stat
+2024-08-01 22:45:22,792 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-08-01 22:45:22,794 [INFO] Starting Flask server.
+2024-08-01 22:45:22,830 [WARNING]  * Debugger is active!
+2024-08-01 22:45:22,854 [INFO]  * Debugger PIN: 128-987-512
+2024-08-01 22:46:13,964 [INFO] Rendering index page.
+2024-08-01 22:46:13,971 [INFO] 127.0.0.1 - - [01/Aug/2024 22:46:13] "GET / HTTP/1.1" 200 -
+2024-08-01 22:46:14,320 [INFO] 127.0.0.1 - - [01/Aug/2024 22:46:14] "[36mGET /static/click.png HTTP/1.1[0m" 304 -
+2024-08-01 22:46:14,331 [INFO] 127.0.0.1 - - [01/Aug/2024 22:46:14] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2024-08-01 22:46:14,337 [INFO] 127.0.0.1 - - [01/Aug/2024 22:46:14] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2024-08-01 22:47:41,634 [INFO]  * Detected change in 'C:\\Users\\kusha\\OneDrive\\Desktop\\Vanii-backend-Cartesia\\vanii\\app_socketio.py', reloading
+2024-08-01 22:47:41,796 [INFO]  * Restarting with stat
+2024-08-01 22:47:43,291 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-08-01 22:47:43,293 [INFO] Starting Flask server.
+2024-08-01 22:47:43,313 [WARNING]  * Debugger is active!
+2024-08-01 22:47:43,326 [INFO]  * Debugger PIN: 128-987-512
+2024-08-01 22:48:09,530 [INFO]  * Detected change in 'C:\\Users\\kusha\\OneDrive\\Desktop\\Vanii-backend-Cartesia\\vanii\\app.py', reloading
+2024-08-01 22:48:09,698 [INFO]  * Restarting with stat
+2024-08-01 22:48:11,378 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-08-01 22:48:11,379 [INFO] Starting Flask server.
+2024-08-01 22:48:11,400 [WARNING]  * Debugger is active!
+2024-08-01 22:48:11,413 [INFO]  * Debugger PIN: 128-987-512
+2024-08-01 22:48:12,641 [INFO]  * Detected change in 'C:\\Users\\kusha\\OneDrive\\Desktop\\Vanii-backend-Cartesia\\vanii\\app.py', reloading
+2024-08-01 22:48:12,814 [INFO]  * Restarting with stat
+2024-08-01 22:48:17,626 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-08-01 22:48:17,627 [INFO] Starting Flask server.
+2024-08-01 22:48:17,662 [WARNING]  * Debugger is active!
+2024-08-01 22:48:17,677 [INFO]  * Debugger PIN: 128-987-512
+2024-08-01 22:48:49,506 [INFO]  * Detected change in 'C:\\Users\\kusha\\OneDrive\\Desktop\\Vanii-backend-Cartesia\\vanii\\app.py', reloading
+2024-08-01 22:48:49,693 [INFO]  * Restarting with stat
+2024-08-01 22:48:52,891 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-08-01 22:48:52,892 [INFO] Starting Flask server.
+2024-08-01 22:48:52,911 [WARNING]  * Debugger is active!
+2024-08-01 22:48:52,922 [INFO]  * Debugger PIN: 128-987-512
+2024-08-01 22:52:17,038 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-08-01 22:52:17,042 [INFO] Starting Flask server.
+2024-08-01 22:52:17,135 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8000
+2024-08-01 22:52:17,136 [INFO] [33mPress CTRL+C to quit[0m
+2024-08-01 22:52:17,141 [INFO]  * Restarting with stat
+2024-08-01 22:52:20,698 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-08-01 22:52:20,701 [INFO] Starting Flask server.
+2024-08-01 22:52:20,751 [WARNING]  * Debugger is active!
+2024-08-01 22:52:20,788 [INFO]  * Debugger PIN: 128-987-512
+2024-08-01 22:52:29,535 [INFO] Rendering index page.
+2024-08-01 22:52:29,842 [INFO] 127.0.0.1 - - [01/Aug/2024 22:52:29] "GET / HTTP/1.1" 200 -
+2024-08-01 22:52:30,102 [INFO] 127.0.0.1 - - [01/Aug/2024 22:52:30] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2024-08-01 22:52:30,103 [INFO] 127.0.0.1 - - [01/Aug/2024 22:52:30] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2024-08-01 22:52:30,106 [INFO] 127.0.0.1 - - [01/Aug/2024 22:52:30] "[36mGET /static/click.png HTTP/1.1[0m" 304 -
+2024-08-01 23:08:42,593 [INFO] 127.0.0.1 - - [01/Aug/2024 23:08:42] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2024-08-01 23:08:42,598 [INFO] 127.0.0.1 - - [01/Aug/2024 23:08:42] "[36mGET /static/click.png HTTP/1.1[0m" 304 -
+2024-08-01 23:08:42,598 [INFO] 127.0.0.1 - - [01/Aug/2024 23:08:42] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2024-08-01 23:17:09,659 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-08-01 23:17:09,662 [INFO] Starting Flask server.
+2024-08-01 23:17:09,726 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8000
+2024-08-01 23:17:09,728 [INFO] [33mPress CTRL+C to quit[0m
+2024-08-01 23:17:09,735 [INFO]  * Restarting with stat
+2024-08-01 23:17:13,151 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-08-01 23:17:13,155 [INFO] Starting Flask server.
+2024-08-01 23:17:13,199 [WARNING]  * Debugger is active!
+2024-08-01 23:17:13,222 [INFO]  * Debugger PIN: 128-987-512
+2024-08-01 23:17:13,345 [INFO] Rendering index page.
+2024-08-01 23:17:13,680 [INFO] 127.0.0.1 - - [01/Aug/2024 23:17:13] "GET / HTTP/1.1" 200 -
+2024-08-01 23:17:13,952 [INFO] 127.0.0.1 - - [01/Aug/2024 23:17:13] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2024-08-01 23:17:13,953 [INFO] 127.0.0.1 - - [01/Aug/2024 23:17:13] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2024-08-01 23:17:13,954 [INFO] 127.0.0.1 - - [01/Aug/2024 23:17:13] "[36mGET /static/click.png HTTP/1.1[0m" 304 -
+2024-08-01 23:32:11,840 [INFO]  * Detected change in 'C:\\Users\\kusha\\OneDrive\\Desktop\\Vanii-backend-Cartesia\\vanii\\app_socketio.py', reloading
+2024-08-01 23:32:12,250 [INFO]  * Restarting with stat
+2024-08-01 23:32:16,453 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-08-01 23:32:16,455 [INFO] Starting Flask server.
+2024-08-01 23:32:16,480 [WARNING]  * Debugger is active!
+2024-08-01 23:32:16,500 [INFO]  * Debugger PIN: 128-987-512
+2024-08-01 23:32:17,675 [INFO]  * Detected change in 'C:\\Users\\kusha\\OneDrive\\Desktop\\Vanii-backend-Cartesia\\vanii\\app_socketio.py', reloading
+2024-08-01 23:32:17,823 [INFO]  * Restarting with stat
+2024-08-01 23:32:21,421 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-08-01 23:32:21,423 [INFO] Starting Flask server.
+2024-08-01 23:32:21,459 [WARNING]  * Debugger is active!
+2024-08-01 23:32:21,480 [INFO]  * Debugger PIN: 128-987-512
+2024-08-01 23:32:42,425 [INFO]  * Detected change in 'C:\\Users\\kusha\\OneDrive\\Desktop\\Vanii-backend-Cartesia\\vanii\\app_socketio.py', reloading
+2024-08-01 23:32:42,570 [INFO]  * Restarting with stat
+2024-08-01 23:32:45,797 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-08-01 23:32:45,799 [INFO] Starting Flask server.
+2024-08-01 23:32:45,818 [WARNING]  * Debugger is active!
+2024-08-01 23:32:45,829 [INFO]  * Debugger PIN: 128-987-512
+2024-08-01 23:37:07,472 [INFO]  * Detected change in 'C:\\Users\\kusha\\OneDrive\\Desktop\\Vanii-backend-Cartesia\\vanii\\app_socketio.py', reloading
+2024-08-01 23:37:07,628 [INFO]  * Restarting with stat
+2024-08-01 23:37:10,809 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-08-01 23:37:10,819 [INFO] Starting Flask server.
+2024-08-01 23:37:10,850 [WARNING]  * Debugger is active!
+2024-08-01 23:37:10,866 [INFO]  * Debugger PIN: 128-987-512
+2024-08-01 23:51:06,458 [INFO]  * Detected change in 'C:\\Users\\kusha\\OneDrive\\Desktop\\Vanii-backend-Cartesia\\vanii\\app_socketio.py', reloading
+2024-08-01 23:51:06,728 [INFO]  * Restarting with stat
+2024-08-01 23:51:11,425 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-08-01 23:51:11,427 [INFO] Starting Flask server.
+2024-08-01 23:51:11,447 [WARNING]  * Debugger is active!
+2024-08-01 23:51:11,467 [INFO]  * Debugger PIN: 128-987-512
+2024-08-01 23:51:13,734 [INFO]  * Detected change in 'C:\\Users\\kusha\\OneDrive\\Desktop\\Vanii-backend-Cartesia\\vanii\\app_socketio.py', reloading
+2024-08-01 23:51:13,867 [INFO]  * Restarting with stat
+2024-08-01 23:51:16,732 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-08-01 23:51:16,734 [INFO] Starting Flask server.
+2024-08-01 23:51:16,769 [WARNING]  * Debugger is active!
+2024-08-01 23:51:16,790 [INFO]  * Debugger PIN: 128-987-512
+2024-08-01 23:51:25,840 [INFO]  * Detected change in 'C:\\Users\\kusha\\OneDrive\\Desktop\\Vanii-backend-Cartesia\\vanii\\app_socketio.py', reloading
+2024-08-01 23:51:25,994 [INFO]  * Restarting with stat
+2024-08-01 23:51:29,199 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-08-01 23:51:29,201 [INFO] Starting Flask server.
+2024-08-01 23:51:29,228 [WARNING]  * Debugger is active!
+2024-08-01 23:51:29,239 [INFO]  * Debugger PIN: 128-987-512
+2024-08-01 23:51:30,510 [INFO]  * Detected change in 'C:\\Users\\kusha\\OneDrive\\Desktop\\Vanii-backend-Cartesia\\vanii\\app_socketio.py', reloading
+2024-08-01 23:51:30,653 [INFO]  * Restarting with stat
+2024-08-01 23:51:33,967 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-08-01 23:51:33,969 [INFO] Starting Flask server.
+2024-08-01 23:51:34,008 [WARNING]  * Debugger is active!
+2024-08-01 23:51:34,030 [INFO]  * Debugger PIN: 128-987-512
+2024-08-01 23:52:02,276 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-08-01 23:52:02,277 [INFO] Starting Flask server.
+2024-08-01 23:52:02,321 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8000
+2024-08-01 23:52:02,322 [INFO] [33mPress CTRL+C to quit[0m
+2024-08-01 23:52:02,325 [INFO]  * Restarting with stat
+2024-08-01 23:52:05,473 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-08-01 23:52:05,475 [INFO] Starting Flask server.
+2024-08-01 23:52:05,516 [WARNING]  * Debugger is active!
+2024-08-01 23:52:05,539 [INFO]  * Debugger PIN: 128-987-512
+2024-08-01 23:52:08,713 [INFO] Rendering index page.
+2024-08-01 23:52:09,011 [INFO] 127.0.0.1 - - [01/Aug/2024 23:52:09] "GET / HTTP/1.1" 200 -
+2024-08-01 23:52:09,296 [INFO] 127.0.0.1 - - [01/Aug/2024 23:52:09] "[36mGET /static/click.png HTTP/1.1[0m" 304 -
+2024-08-01 23:52:09,308 [INFO] 127.0.0.1 - - [01/Aug/2024 23:52:09] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2024-08-01 23:52:09,309 [INFO] 127.0.0.1 - - [01/Aug/2024 23:52:09] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2024-08-01 23:52:14,399 [INFO] 127.0.0.1 - - [01/Aug/2024 23:52:14] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2024-08-01 23:53:36,459 [INFO]  * Detected change in 'C:\\Users\\kusha\\OneDrive\\Desktop\\Vanii-backend-Cartesia\\vanii\\app_socketio.py', reloading
+2024-08-01 23:53:36,674 [INFO]  * Restarting with stat
+2024-08-01 23:53:39,636 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-08-01 23:53:39,638 [INFO] Starting Flask server.
+2024-08-01 23:53:39,659 [WARNING]  * Debugger is active!
+2024-08-01 23:53:39,683 [INFO]  * Debugger PIN: 128-987-512
+2024-08-01 23:55:03,759 [INFO]  * Detected change in 'C:\\Users\\kusha\\OneDrive\\Desktop\\Vanii-backend-Cartesia\\vanii\\app_socketio.py', reloading
+2024-08-01 23:55:03,949 [INFO]  * Restarting with stat
+2024-08-01 23:55:07,132 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-08-01 23:55:07,136 [INFO] Starting Flask server.
+2024-08-01 23:55:07,162 [WARNING]  * Debugger is active!
+2024-08-01 23:55:07,178 [INFO]  * Debugger PIN: 128-987-512
+2024-08-01 23:55:18,099 [INFO]  * Detected change in 'C:\\Users\\kusha\\OneDrive\\Desktop\\Vanii-backend-Cartesia\\vanii\\app_socketio.py', reloading
+2024-08-01 23:55:18,275 [INFO]  * Restarting with stat
+2024-08-01 23:55:21,365 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-08-01 23:55:21,368 [INFO] Starting Flask server.
+2024-08-01 23:55:21,403 [WARNING]  * Debugger is active!
+2024-08-01 23:55:21,424 [INFO]  * Debugger PIN: 128-987-512
+2024-08-01 23:55:24,795 [INFO]  * Detected change in 'C:\\Users\\kusha\\OneDrive\\Desktop\\Vanii-backend-Cartesia\\vanii\\app_socketio.py', reloading
+2024-08-01 23:55:24,991 [INFO]  * Restarting with stat
+2024-08-01 23:55:28,166 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-08-01 23:55:28,168 [INFO] Starting Flask server.
+2024-08-01 23:55:28,200 [WARNING]  * Debugger is active!
+2024-08-01 23:55:28,221 [INFO]  * Debugger PIN: 128-987-512
+2024-08-01 23:55:53,747 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-08-01 23:55:53,750 [INFO] Starting Flask server.
+2024-08-01 23:55:53,849 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8000
+2024-08-01 23:55:53,851 [INFO] [33mPress CTRL+C to quit[0m
+2024-08-01 23:55:53,860 [INFO]  * Restarting with stat
+2024-08-01 23:55:57,456 [INFO] MongoDB URI: mongodb+srv://vanii123ai:jqerC5xnhiWCoKpG@vanii0.9iaqxbk.mongodb.net/
+2024-08-01 23:55:57,457 [INFO] Starting Flask server.
+2024-08-01 23:55:57,483 [WARNING]  * Debugger is active!
+2024-08-01 23:55:57,495 [INFO]  * Debugger PIN: 128-987-512
+2024-08-01 23:55:57,594 [INFO] Rendering index page.
+2024-08-01 23:55:57,892 [INFO] 127.0.0.1 - - [01/Aug/2024 23:55:57] "GET / HTTP/1.1" 200 -
+2024-08-01 23:55:58,136 [INFO] 127.0.0.1 - - [01/Aug/2024 23:55:58] "[36mGET /static/click.png HTTP/1.1[0m" 304 -
+2024-08-01 23:55:58,144 [INFO] 127.0.0.1 - - [01/Aug/2024 23:55:58] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2024-08-01 23:55:58,144 [INFO] 127.0.0.1 - - [01/Aug/2024 23:55:58] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2024-08-01 23:56:06,469 [INFO] 127.0.0.1 - - [01/Aug/2024 23:56:06] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2024-08-01 23:56:06,474 [INFO] 127.0.0.1 - - [01/Aug/2024 23:56:06] "[36mGET /static/click.png HTTP/1.1[0m" 304 -
+2024-08-01 23:56:06,474 [INFO] 127.0.0.1 - - [01/Aug/2024 23:56:06] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
