@@ -12,19 +12,29 @@ app = Flask("app_http")
 app.config.from_object(Config)
 db.init_app(app)
 
-with app.app_context():
-    db.create_all()
+# with app.app_context():
+#     db.create_all()
+# logging.info("MongoDB URI: %s", os.getenv("DB_URI"))
 
-logger = setup_logging()
-
-logging.info("MongoDB URI: %s", os.getenv("DB_URI"))
+def configure_app(use_cloudwatch):
+    with app.app_context():
+        db.create_all()
+    
+    # Set up logging
+    logger = setup_logging(use_cloudwatch)
+    
+    # Configure Flask to use our logger
+    app.logger.handlers = logger.handlers
+    app.logger.setLevel(logger.level)
 
 @app.route('/')
 def index():
-    logger.info('Index route accessed')
+    app.logger.info('Index route accessed')
     log_event('page_view', {'page': 'index'})
     return render_template('index.html')
 
+configure_app(use_cloudwatch=True)
+
 if __name__ == '__main__':
-    logging.info("Starting Flask server.")
-    app.run(debug=True)
+    app.logger.info("Starting Flask server.")
+    app.run()

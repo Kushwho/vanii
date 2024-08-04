@@ -27,10 +27,17 @@ app_socketio.config.from_object(Config)
 db.init_app(app_socketio)
 socketio = SocketIO(app_socketio, cors_allowed_origins='*')
 
-with app_socketio.app_context():
-    db.create_all()
+def configure_app(use_cloudwatch):
+    with app_socketio.app_context():
+        db.create_all()
+    
+    # Set up logging
+    logger = setup_logging(use_cloudwatch)
+    
+    # Configure Flask to use our logger
+    app_socketio.logger.handlers = logger.handlers
+    app_socketio.logger.setLevel(logger.level)
 
-logger = setup_logging()
 
 # Initialize Deepgram client
 config = DeepgramClientOptions(
@@ -67,9 +74,9 @@ def process_transcripts(sessionId):
 
     with buffer_lock:
         if len(transcript_buffer) > 0:
-            logger.info(f"Processing buffered transcripts: {transcript_buffer}")
+            app_socketio.logger.info(f"Processing buffered transcripts: {transcript_buffer}")
             resp = batch(sessionId, transcript_buffer)
-            logger.info(f"Batch response: {resp}")
+            app_socketio.logger.info(f"Batch response: {resp}")
 
             starttime = time.time()
             response = text_to_speech(resp)
@@ -79,7 +86,7 @@ def process_transcripts(sessionId):
                 socketio.emit('transcription_update', {'transcription': resp, 'sessionId': sessionId}, to=sessionId)
 
             endtime = time.time() - starttime
-            logger.info(f"It took {endtime} seconds for text to speech")
+            app_socketio.logger.info(f"It took {endtime} seconds for text to speech")
 
             transcript_buffer = ""
             buffer_timer = None
@@ -87,7 +94,7 @@ def process_transcripts(sessionId):
 # Initialize Deepgram connection for a session
 def initialize_deepgram_connection(sessionId):
     global dg_connection
-    logger.info("Initializing Deepgram connection")
+    app_socketio.logger.info("Initializing Deepgram connection")
     dg_connection = deepgram.listen.websocket.v("1")
 
     def on_open(self, open, **kwargs):
@@ -139,11 +146,11 @@ def handle_audio_stream(data):
 #Handle transcription toggle events
 @socketio.on('toggle_transcription')
 def handle_toggle_transcription(data):
-    logger.info(f"Received toggle_transcription event: {data}")
+    app_socketio.logger.info(f"Received toggle_transcription event: {data}")
     action = data.get("action")
     sessionId = data.get("sessionId")
     if action == "start":
-        logger.info("Starting Deepgram connection")
+        app_socketio.logger.info("Starting Deepgram connection")
         # log_event('UserMicOn', {'page': 'index'})
         initialize_deepgram_connection(sessionId)
 
@@ -177,6 +184,7 @@ def on_leave(data):
     save_in_mongo_clear_redis(data['sessionId'])
     logging.info(f"Client left room: {room}")
 
+configure_app(use_cloudwatch=True)
 # Run the SocketIO server
 if __name__ == '__main__':
     logging.info("Starting SocketIO server.")
