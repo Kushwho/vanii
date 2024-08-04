@@ -16,7 +16,6 @@ with app.app_context():
     db.create_all()
 
 logging.info("MongoDB URI: %s", os.getenv("DB_URI"))
-werkzeug
 
 @app.route('/')
 def index():
