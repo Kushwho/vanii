@@ -15,6 +15,8 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
 
+logger = setup_logging()
+
 logging.info("MongoDB URI: %s", os.getenv("DB_URI"))
 
 @app.route('/')
