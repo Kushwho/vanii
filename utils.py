@@ -1,10 +1,16 @@
 from models import db, Event
 from functools import wraps
+import logging
 
 def log_event(event_type, event_data):
-    new_event = Event(event_type=event_type, event_data=event_data)
-    db.session.add(new_event)
-    db.session.commit()
+    try:
+        new_event = Event(event_type=event_type, event_data=event_data)
+        db.session.add(new_event)
+        db.session.commit()
+
+    except Exception as e:
+        db.session.rollback()
+        logging.error(f"Database error: {str(e)}")
 
 def log_function_call(func):
     @wraps(func)

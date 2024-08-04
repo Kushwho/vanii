@@ -12,10 +12,6 @@ app = Flask("app_http")
 app.config.from_object(Config)
 db.init_app(app)
 
-# with app.app_context():
-#     db.create_all()
-# logging.info("MongoDB URI: %s", os.getenv("DB_URI"))
-
 def configure_app(use_cloudwatch):
     with app.app_context():
         db.create_all()
