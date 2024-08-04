@@ -74,32 +74,7 @@ def store_in_redis(session_id: str):
         logging.info(f"It took {time.time() - starttime} seconds for store_in_redis")
     except Exception as e:
         logging.error(f"Error during saving history in redis: {e}")
-    try:
-        key = f"message_store:{session_id}"
-        if redis_client.exists(key) : 
-            logging.info(f"Messages already exist for session_id: {session_id}")
-            return
-        starttime = time.time()
-        # Retrieve all documents with the given session_id
-        documents = collection.find_one({"session_id": session_id})
-        
-        # Combine all messages from the documents
-        
-
-        if not documents.messages:
-            logging.info(f"No messages found for session_id: {session_id}")
-            return
-
-        # Fill Redis with messages
-        
-        for message in documents.messages:
-            redis_client.rpush(key, message)
-        
-        logging.info(f"Messages for session_id: {session_id} filled into Redis.")
-        logging.info(f"It took {time.time()-starttime} seconds for store_in_redis")
-    except Exception as e:
-        logging.error(f"Error during saving history in redis: {e}")
-
+    
 load_dotenv()
 
 groq_api_key = os.getenv("GROQ_API_KEY")
