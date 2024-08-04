@@ -11,7 +11,7 @@ from utils import log_event
 from config import Config
 from models import db
 import redis
-from log_config import logger
+from log_config import setup_logging
 import logging
 
 # Load environment variables from .env file
@@ -29,6 +29,8 @@ socketio = SocketIO(app_socketio, cors_allowed_origins='*')
 
 with app_socketio.app_context():
     db.create_all()
+
+logger = setup_logging()
 
 # Initialize Deepgram client
 config = DeepgramClientOptions(
@@ -178,4 +180,4 @@ def on_leave(data):
 # Run the SocketIO server
 if __name__ == '__main__':
     logging.info("Starting SocketIO server.")
-    socketio.run(app_socketio, debug=True, allow_unsafe_werkzeug=True, port=5001)
+    socketio.run(app_socketio, debug=True, allow_unsafe_werkzeug=True, port=5001, host='0.0.0.0')
