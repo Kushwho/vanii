@@ -19,7 +19,6 @@ logging.info("MongoDB URI: %s", os.getenv("DB_URI"))
 
 @app.route('/')
 def index():
-    from log_config import logger
     logger.info('Index route accessed')
     log_event('page_view', {'page': 'index'})
     return render_template('index.html')
