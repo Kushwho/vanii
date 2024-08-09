@@ -3,3 +3,5 @@ __pycache__/
 .env
 myenv
 *.log
+envt
+.DS_Store
