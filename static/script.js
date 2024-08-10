@@ -56,7 +56,11 @@ async function startRecording() {
   socket.emit('join', {sessionId});
   isRecording = true;
   microphone = await getMicrophone();
-  await openMicrophone(microphone, socket);
+  socket.on('deepgram_connection_opened' , async () => {
+      console.log("Hello, How are you? I am fine.")
+      await openMicrophone(microphone, socket);
+  })
+  
 }
 
 async function stopRecording() {

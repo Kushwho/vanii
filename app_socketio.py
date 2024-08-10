@@ -100,6 +100,7 @@ def initialize_deepgram_connection(sessionId):
     def on_open(self, open, **kwargs):
         log_event('UserMicOn', {'page': 'index'})
         logging.info(f"Deepgram connection opened: {open}")
+        socketio.emit('deepgram_connection_opened', {'message': 'Deepgram connection opened'}, room=sessionId)
 
     def on_message(self, result, **kwargs):
         transcript = result.channel.alternatives[0].transcript
