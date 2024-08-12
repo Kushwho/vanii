@@ -81,9 +81,9 @@ def process_transcripts(sessionId):
             starttime = time.time()
             response = text_to_speech(resp)
             if response.status_code == 200:
-                socketio.emit('transcription_update', {'audioBinary': response.content, 'transcription': resp, 'sessionId': sessionId}, to=sessionId)
+                socketio.emit('transcription_update', {'audioBinary': response.content,'user' : transcript_buffer, 'transcription': resp, 'sessionId': sessionId}, to=sessionId)
             else:
-                socketio.emit('transcription_update', {'transcription': resp, 'sessionId': sessionId}, to=sessionId)
+                socketio.emit('transcription_update', {'transcription': resp,'user' : transcript_buffer, 'sessionId': sessionId}, to=sessionId)
 
             endtime = time.time() - starttime
             app_socketio.logger.info(f"It took {endtime} seconds for text to speech")
