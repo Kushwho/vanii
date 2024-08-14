@@ -3,16 +3,16 @@ from flask import Flask
 from flask_socketio import SocketIO, join_room, leave_room
 from dotenv import load_dotenv
 from deepgram import DeepgramClient, LiveTranscriptionEvents, LiveOptions, DeepgramClientOptions
-from llm import batch,save_in_mongo_clear_redis,store_in_redis
+from llm import batch, save_in_mongo_clear_redis, store_in_redis
 from text_to_speech import text_to_speech, text_to_speech_cartesia
 import time
 from threading import Timer, Lock
-from utils import log_event
+from utils import log_event as log_event_sync
 from config import Config
 from models import db
-import redis
 from log_config import setup_logging
 import logging
+from concurrent.futures import ThreadPoolExecutor
 
 # Load environment variables from .env file
 load_dotenv()
@@ -20,12 +20,14 @@ load_dotenv()
 # Get the API keys from environment variables
 DEEPGRAM_API_KEY = os.getenv("DEEPGRAM_API_KEY")
 
-
 # Initialize Flask and SocketIO
 app_socketio = Flask("app_socketio")
 app_socketio.config.from_object(Config)
 db.init_app(app_socketio)
 socketio = SocketIO(app_socketio, cors_allowed_origins='*')
+
+# Define a Thread Pool Executor
+executor = ThreadPoolExecutor(max_workers=3)
 
 def configure_app(use_cloudwatch):
     with app_socketio.app_context():
@@ -37,7 +39,6 @@ def configure_app(use_cloudwatch):
     # Configure Flask to use our logger
     app_socketio.logger.handlers = logger.handlers
     app_socketio.logger.setLevel(logger.level)
-
 
 # Initialize Deepgram client
 config = DeepgramClientOptions(
@@ -80,9 +81,9 @@ def process_transcripts(sessionId):
             starttime = time.time()
             response = text_to_speech(resp)
             if response.status_code == 200:
-                socketio.emit('transcription_update', {'audioBinary': response.content, 'transcription': resp, 'sessionId': sessionId}, to=sessionId)
+                socketio.emit('transcription_update', {'audioBinary': response.content,'user': transcript_buffer, 'transcription': resp, 'sessionId': sessionId}, to=sessionId)
             else:
-                socketio.emit('transcription_update', {'transcription': resp, 'sessionId': sessionId}, to=sessionId)
+                socketio.emit('transcription_update', {'transcription': resp, 'user': transcript_buffer, 'sessionId': sessionId}, to=sessionId)
 
             endtime = time.time() - starttime
             app_socketio.logger.info(f"It took {endtime} seconds for text to speech")
@@ -90,15 +91,20 @@ def process_transcripts(sessionId):
             transcript_buffer = ""
             buffer_timer = None
 
+# Asynchronous wrapper for log_event
+def async_log_event(event_type, event_data):
+    executor.submit(log_event_sync, event_type, event_data)
+
 # Initialize Deepgram connection for a session
-def initialize_deepgram_connection(sessionId):
+def initialize_deepgram_connection(sessionId,email):
     global dg_connection
     app_socketio.logger.info("Initializing Deepgram connection")
     dg_connection = deepgram.listen.websocket.v("1")
 
     def on_open(self, open, **kwargs):
-        log_event('UserMicOn', {'page': 'index'})
+        async_log_event('UserMicOn', {'page': 'index','email' : email})
         logging.info(f"Deepgram connection opened: {open}")
+        socketio.emit('deepgram_connection_opened', {'message': 'Deepgram connection opened'}, room=sessionId)
 
     def on_message(self, result, **kwargs):
         transcript = result.channel.alternatives[0].transcript
@@ -106,11 +112,11 @@ def initialize_deepgram_connection(sessionId):
             logging.info(f"Received transcript: {transcript}")
             buffer_transcripts(transcript, sessionId)
     
-    def on_metadata(self,metadata,**kwargs) :
+    def on_metadata(self, metadata, **kwargs):
         logging.info(f"Received metadata: {metadata}")
 
     def on_close(self, close, **kwargs):
-        log_event('UserMicOff', {'page': 'index'})
+        async_log_event('UserMicOff', {'page': 'index','email' : email})
         logging.info(f"Deepgram connection closed: {close}")
 
     def on_error(self, error, **kwargs):
@@ -133,7 +139,7 @@ def initialize_deepgram_connection(sessionId):
         logging.error("Failed to start Deepgram connection")
         exit()
 
-#Handle incoming audio streams
+# Handle incoming audio streams
 @socketio.on('audio_stream')
 def handle_audio_stream(data):
     sessionId = data.get("sessionId")
@@ -142,16 +148,17 @@ def handle_audio_stream(data):
         dg_connection.send(data.get("data"))
         logging.info(f"Audio sent for session ID: {sessionId}")
 
-#Handle transcription toggle events
+# Handle transcription toggle events
 @socketio.on('toggle_transcription')
 def handle_toggle_transcription(data):
     app_socketio.logger.info(f"Received toggle_transcription event: {data}")
     action = data.get("action")
     sessionId = data.get("sessionId")
+    email = data.get("email")
     if action == "start":
         app_socketio.logger.info("Starting Deepgram connection")
         # log_event('UserMicOn', {'page': 'index'})
-        initialize_deepgram_connection(sessionId)
+        initialize_deepgram_connection(sessionId,email)
 
 # Handle client connections
 @socketio.on('connect')

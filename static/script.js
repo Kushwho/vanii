@@ -5,9 +5,9 @@ let audioQueue = [];
 let isPlayingAudio = false;
 let currentAudio = null;
 
-const sessionId = "3"; 
+const sessionId = "1";
 const socket_port = 5001;
-socket = io("http://" + window.location.hostname + ":" + socket_port.toString());
+socket = io("ws://localhost:5001");
 
 socket.on('connect', () => {
   socket.emit('session_start', { sessionId });
@@ -17,8 +17,6 @@ socket.on('connect', () => {
 socket.on("transcription_update", (data) => {
   const { transcription, audioBinary, sessionId: responseSessionId } = data;
   console.log(responseSessionId)
-  console.log("I am audio binary")
-  console.log(audioBinary)
   if (responseSessionId === sessionId) {
     const captions = document.getElementById("captions");
     captions.innerHTML = transcription;
@@ -42,7 +40,7 @@ async function openMicrophone(microphone, socket) {
       console.log("Client: Microphone opened");
       document.body.classList.add("recording");
       resolve();
-    };
+ };
     microphone.ondataavailable = async (event) => {
       if (event.data.size > 0) {
         socket.emit("audio_stream", {data: event.data, sessionId});
@@ -56,7 +54,10 @@ async function startRecording() {
   socket.emit('join', {sessionId});
   isRecording = true;
   microphone = await getMicrophone();
-  await openMicrophone(microphone, socket);
+  socket.on('deepgram_connection_opened' , async () => {
+    console.log("Hello, How are you? I am fine.")
+    await openMicrophone(microphone, socket);
+})
 }
 
 async function stopRecording() {
@@ -70,7 +71,7 @@ async function stopRecording() {
     isPlayingAudio = false; // Reset isPlayingAudio flag
     microphone.stop();
     microphone.stream.getTracks().forEach((track) => track.stop());
-    socket.emit("toggle_transcription", { action: "stop", sessionId });
+    socket.emit("toggle_transcription", { action: "stop", sessionId,email : "aswanib133@gmail.com" });
     socket.emit("leave", {sessionId});
     microphone = null;
     isRecording = false;
@@ -117,36 +118,24 @@ async function playNextAudio() {
 
 async function playAudio(audioBinary) {
   try {
-    if (!audioBinary) {
-      throw new Error('No audio data received');
-    }
+    const audioBlob = new Blob([audioBinary], { type: 'audio/mpeg' });
+    const audioUrl = URL.createObjectURL(audioBlob);
+    currentAudio = new Audio(audioUrl);
 
-    // Convert ArrayBuffer to Float32Array for PCM 32-bit float format
-    const float32Array = new Float32Array(audioBinary);
-
-    // Create an audio context
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-
-    // Create an audio buffer and populate it with the PCM data
-    const audioBuffer = audioContext.createBuffer(1, float32Array.length, 44100);
-    audioBuffer.copyToChannel(float32Array, 0);
-
-    // Create a buffer source, set its buffer, and connect to the audio context
-    const bufferSource = audioContext.createBufferSource();
-    bufferSource.buffer = audioBuffer;
-    bufferSource.connect(audioContext.destination);
-
-    // Play the audio
-    bufferSource.start();
-    bufferSource.onended = () => {
-      audioContext.close();
-    };
+    return new Promise((resolve) => {
+      currentAudio.onended = () => {
+        resolve();
+      };
+      currentAudio.play();
+ });
   } catch (error) {
     console.error("Error playing audio:", error);
   }
 }
 
-
 function clearQueue() {
   audioQueue = [];
 }
+                                                                     
+                                                                           
+                                                                                     

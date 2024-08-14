@@ -11,76 +11,83 @@ import redis
 from pymongo import MongoClient
 import os
 
-
 load_dotenv()
-
-
 
 redis_client = redis.Redis(host="localhost",port=6379,db=0)
 mongo_client = MongoClient(host=os.getenv("DB_URI"))
 db = mongo_client.get_database('VaniiHistory')
 collection = db.get_collection('chatHistory')
 
+redis_len = {}
 
-
-def save_in_mongo_clear_redis(session_id : str) :
-    try :
+def save_in_mongo_clear_redis(session_id: str):
+    try:
         starttime = time.time()
         key = f"message_store:{session_id}"
-        messages = redis_client.lrange(key,0,-1)
-        if not messages : 
-            logging.info(f"No messages found for session_id: {session_id}")
+        length = redis_client.llen(key)
+        new_messages_count = length - redis_len.get(session_id, 0)
+        
+        if new_messages_count <= 0:
+            logging.info(f"No new messages to save for session_id: {session_id}")
             return
-        messages = [msg.decode('utf-8') for msg in messages]
-        messages.reverse()
-        document = {
-            "session_id" : session_id,
-            "messages" : messages
-        }
-        collection.insert_one(document)
-        redis_client.delete(key)
-        logging.info(f"It took {time.time()-starttime} seconds for save_in_mongo_clear_redis")
+        
+        new_messages = redis_client.lrange(key, 0, new_messages_count - 1)
+        new_messages.reverse()
+        
+        new_messages = [msg.decode('utf-8') for msg in new_messages]
+        
+        collection.update_one(
+            {"session_id": session_id},
+            {"$push": {"messages": {"$each": new_messages}}},
+            upsert=True
+        )
+        
+        # Update the redis_len dictionary with the new length
+        redis_len[session_id] = length
+        
+        logging.info(f"Saved {new_messages_count} new messages for session_id: {session_id}")
+        logging.info(f"It took {time.time() - starttime} seconds for save_in_mongo_clear_redis")
     except Exception as e:
-        logging.error(f"Error during saving history in mongo and clearing redis {e}")
-     
+        logging.error(f"Error during saving history in mongo: {e}")
+
 
 def store_in_redis(session_id: str):
     try:
         key = f"message_store:{session_id}"
-        if redis_client.exists(key) : 
+        length = redis_client.llen(key)
+        print("redis_len from store in redis")
+        print(redis_len)
+        redis_len[session_id] = length
+        if redis_client.exists(key):
             logging.info(f"Messages already exist for session_id: {session_id}")
             return
-        starttime = time.time()
-        # Retrieve all documents with the given session_id
-        documents = collection.find({"session_id": session_id})
         
-        # Combine all messages from the documents
-        all_messages = []
-        for document in documents:
-            messages = document.get("messages", [])
-            all_messages.extend(messages)
-
-        if not all_messages:
+        starttime = time.time()
+        document = collection.find_one(
+            {"session_id": session_id},
+            {"messages": {"$slice": -10}}
+        )
+        if not document or not document.get('messages'):
             logging.info(f"No messages found for session_id: {session_id}")
             return
-
-        # Fill Redis with messages
         
-        for message in all_messages:
-            redis_client.rpush(key, message)
+        for message in document['messages']:
+            redis_client.lpush(key, message.encode('utf-8'))
         
-        logging.info(f"Messages for session_id: {session_id} filled into Redis.")
-        logging.info(f"It took {time.time()-starttime} seconds for store_in_redis")
+        
+        logging.info(f"Latest 10 messages for session_id: {session_id} filled into Redis.")
+        logging.info(f"It took {time.time() - starttime} seconds for store_in_redis")
     except Exception as e:
         logging.error(f"Error during saving history in redis: {e}")
 
+    
 load_dotenv()
 
 groq_api_key = os.getenv("GROQ_API_KEY")
 
 CONNECTION_STRING = os.getenv("DB_URI")
 
-model = ChatGroq(temperature=0.5, model_name="llama3-8b-8192", groq_api_key=groq_api_key,max_tokens=300)
+model = ChatGroq(temperature=0.5, model_name="llama3-8b-8192", groq_api_key=groq_api_key,max_tokens=200)
 system = '''You are Vanii, act like  a Language Teacher with a vibrant personality, dedicated to making learning English fun and engaging and try to keep your reponses short.'''
 
 
