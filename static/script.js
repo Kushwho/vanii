@@ -71,7 +71,7 @@ async function stopRecording() {
     isPlayingAudio = false; // Reset isPlayingAudio flag
     microphone.stop();
     microphone.stream.getTracks().forEach((track) => track.stop());
-    socket.emit("toggle_transcription", { action: "stop", sessionId });
+    socket.emit("toggle_transcription", { action: "stop", sessionId,email : "aswanib133@gmail.com" });
     socket.emit("leave", {sessionId});
     microphone = null;
     isRecording = false;
