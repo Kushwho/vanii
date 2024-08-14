@@ -52,7 +52,6 @@ buffer_lock = Lock()
 transcript_buffer = ""
 buffer_timer = None
 
-
 rate = 44100
 stream = None
 
@@ -174,7 +173,6 @@ def join(data):
     join_room(room)
     store_in_redis(data['sessionId'])
     socketio.send(f'sessionId {room} has entered the room.', room=room)
-
 
 # Handle room leave events
 @socketio.on('leave')

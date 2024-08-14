@@ -33,4 +33,5 @@ configure_app(use_cloudwatch=True)
 
 if __name__ == '__main__':
     app.logger.info("Starting Flask server.")
-    app.run()
+    app.run(debug=True, port=8000)
+
