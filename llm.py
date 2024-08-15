@@ -26,7 +26,7 @@ def save_in_mongo_clear_redis(session_id: str):
         key = f"message_store:{session_id}"
         length = redis_client.llen(key)
         new_messages_count = length - redis_len.get(session_id, 0)
-        
+        print(f"New Messages count {new_messages_count}")
         if new_messages_count <= 0:
             logging.info(f"No new messages to save for session_id: {session_id}")
             return
@@ -44,7 +44,7 @@ def save_in_mongo_clear_redis(session_id: str):
         
         # Update the redis_len dictionary with the new length
         redis_len[session_id] = length
-        
+        redis_client.delete(key)
         logging.info(f"Saved {new_messages_count} new messages for session_id: {session_id}")
         logging.info(f"It took {time.time() - starttime} seconds for save_in_mongo_clear_redis")
     except Exception as e:
