@@ -2,7 +2,11 @@
 FROM python:3.10-slim
 
 # Set the working directory in the container
-WORKDIR /app
+WORKDIR /app# Install system dependencies
+
+RUN apt-get update && \
+    apt-get install -y gcc portaudio19-dev && \
+    apt-get clean
 
 # Copy the requirements file into the container at /app
 COPY requirements.txt /app/requirements.txt
