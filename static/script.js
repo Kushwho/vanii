@@ -71,7 +71,7 @@ async function stopRecording() {
     isPlayingAudio = false; // Reset isPlayingAudio flag
     microphone.stop();
     microphone.stream.getTracks().forEach((track) => track.stop());
-    socket.emit("toggle_transcription", { action: "stop", sessionId,email : "aswanib133@gmail.com" });
+    socket.emit("toggle_transcription", { action: "stop", sessionId });
     socket.emit("leave", {sessionId});
     microphone = null;
     isRecording = false;
@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   recordButton.addEventListener("click", () => {
     if (!isRecording) {
-      socket.emit("toggle_transcription", { action: "start", sessionId });
+      socket.emit("toggle_transcription", { action: "start", sessionId ,email : "aswanib133@gmail.com",voice : "Deepgram" });
       startRecording()
         .then(() => {
           if (audioQueue.length > 0 && !isPlayingAudio) {
