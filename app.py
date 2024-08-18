@@ -6,6 +6,7 @@ from models import db
 from utils import log_event
 from log_config import setup_logging
 import os
+
 load_dotenv()
 
 app = Flask("app_http")
