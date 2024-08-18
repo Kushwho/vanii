@@ -13,7 +13,7 @@ import os
 
 load_dotenv()
 
-redis_client = redis.Redis(host="localhost",port=6379,db=0)
+redis_client = redis.Redis(host="redis",port=6379,db=0)
 mongo_client = MongoClient(host=os.getenv("DB_URI"))
 db = mongo_client.get_database('VaniiHistory')
 collection = db.get_collection('chatHistory')
@@ -26,7 +26,7 @@ def save_in_mongo_clear_redis(session_id: str):
         key = f"message_store:{session_id}"
         length = redis_client.llen(key)
         new_messages_count = length - redis_len.get(session_id, 0)
-        
+        print(f"New Messages count {new_messages_count}")
         if new_messages_count <= 0:
             logging.info(f"No new messages to save for session_id: {session_id}")
             return
@@ -44,7 +44,7 @@ def save_in_mongo_clear_redis(session_id: str):
         
         # Update the redis_len dictionary with the new length
         redis_len[session_id] = length
-        
+        redis_client.delete(key)
         logging.info(f"Saved {new_messages_count} new messages for session_id: {session_id}")
         logging.info(f"It took {time.time() - starttime} seconds for save_in_mongo_clear_redis")
     except Exception as e:
@@ -114,7 +114,7 @@ chain = prompt | trimmer | model
 chain_with_history = RunnableWithMessageHistory(
     chain,
     lambda session_id: RedisChatMessageHistory(
-        session_id, url="redis://localhost:6379"
+        session_id, url="redis://redis:6379"
     ),
     input_messages_key="question",
     history_messages_key="messages",
