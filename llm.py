@@ -13,7 +13,7 @@ import os
 
 load_dotenv()
 
-redis_client = redis.Redis(host="localhost",port=6379,db=0)
+redis_client = redis.Redis(host="redis",port=6379,db=0)
 mongo_client = MongoClient(host=os.getenv("DB_URI"))
 db = mongo_client.get_database('VaniiHistory')
 collection = db.get_collection('chatHistory')
@@ -114,7 +114,7 @@ chain = prompt | trimmer | model
 chain_with_history = RunnableWithMessageHistory(
     chain,
     lambda session_id: RedisChatMessageHistory(
-        session_id, url="redis://localhost:6379"
+        session_id, url="redis://redis:6379"
     ),
     input_messages_key="question",
     history_messages_key="messages",

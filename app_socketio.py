@@ -1,5 +1,5 @@
 import os
-from flask import Flask
+from flask import Flask, request, jsonify
 from flask_socketio import SocketIO, join_room, leave_room
 from dotenv import load_dotenv
 from deepgram import DeepgramClient, LiveTranscriptionEvents, LiveOptions, DeepgramClientOptions
@@ -13,6 +13,8 @@ from models import db
 from log_config import setup_logging
 import logging
 from concurrent.futures import ThreadPoolExecutor
+from analytics.speech_analytics import upload_file  
+
 import json
 
 # Load environment variables from .env file
@@ -230,6 +232,18 @@ def on_leave(data):
     save_in_mongo_clear_redis(data['sessionId'])
     close_deepgram_connection(room)  # Close the Deepgram connection when user leaves
     logging.info(f"Client left room: {room}")
+
+@app_socketio.route('/analytics', methods=['POST'])
+def handle_upload():
+    if 'audio' not in request.files:
+        return jsonify({'error': 'No file part'}), 400
+    try:
+        file = request.files['audio']
+        logging.info('File sent for uploading')
+        result = upload_file(file)
+        return jsonify(result)
+    except Exception as e:
+            logging.error(f"Error processing audio: {str(e)}")
 
 # Configure the app (keep your existing configuration function)
 configure_app(use_cloudwatch=True)
