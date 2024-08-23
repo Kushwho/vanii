@@ -159,6 +159,7 @@ def handle_audio_stream(data):
         dg_connections[sessionId]['connection'].send(data.get("data"))
         logging.info(f"Audio sent for session ID: {sessionId}")
     else:
+        socketio.emit('deepgram_connection_opened', {'message': 'Deepgram connection opened'}, room=sessionId)
         logging.warning(f"No active Deepgram connection for session ID: {sessionId}")
 
 # Handle transcription toggle events
