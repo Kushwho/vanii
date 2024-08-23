@@ -8,14 +8,7 @@ load_dotenv()
 
 url = "https://api.deepgram.com/v1/speak?model=aura-asteria-en&encoding=mp3"
 
-# Voice ID and model for Cartesia TTS
 
-model_id = "sonic-english"
-output_format = {
-    "container": "raw",
-    "encoding": "pcm_f32le",
-    "sample_rate": 44100,
-}
 
 
 #supported `output_format`s at https://docs.cartesia.ai/api-reference/endpoints/stream-speech-server-sent-events
@@ -97,14 +90,18 @@ def text_to_speech_cartesia(response ,voice_id = "ff1bb1a9-c582-4570-9670-5f4616
     try :
         voice = cartesia_client.voices.get(id=voice_id)
         audio_data = b""
-        for output in cartesia_client.tts.sse(
-            model_id=model_id,
-            transcript=response,
-            voice_embedding=voice["embedding"],
-            stream=True,
-            output_format=output_format,
-        ):
-            audio_data += output["audio"]
+        # for output in cartesia_client.tts.sse(
+        #     model_id=model_id,
+        #     transcript=response,
+        #     voice_embedding=voice["embedding"],
+        #     output_format=output_format,
+        # ):
+        audio_data += cartesia_client.tts.sse(
+        model_id=model_id,
+        transcript=response,
+        voice_embedding=voice["embedding"],
+        output_format=output_format,
+    )["audio"]
         return audio_data
     except Exception as e :
         logging.error(f"Error in cartesia text to speech {e}")

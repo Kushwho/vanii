@@ -90,6 +90,7 @@ def process_transcripts(sessionId):
             response = text_to_speech(resp)
             if response.status_code == 200:
                 socketio.emit('transcription_update', {'audioBinary': response.content, 'user': transcript, 'transcription': resp, 'sessionId': sessionId}, to=sessionId)
+                
             else:
                 socketio.emit('transcription_update', {'transcription': resp, 'user': transcript, 'sessionId': sessionId}, to=sessionId)
         else:
@@ -159,22 +160,22 @@ def handle_audio_stream(data):
         logging.warning(f"No active Deepgram connection for session ID: {sessionId}")
 
 # Handle transcription toggle events
-@socketio.on('toggle_transcription')
-def handle_toggle_transcription(data):
-    app_socketio.logger.info(f"Received toggle_transcription event: {data}")
-    action = data.get("action")
-    sessionId = data.get("sessionId")
-    email = data.get("email")
-    voice = data.get("voice")
+# @socketio.on('toggle_transcription')
+# def handle_toggle_transcription(data):
+#     app_socketio.logger.info(f"Received toggle_transcription event: {data}")
+#     action = data.get("action")
+#     sessionId = data.get("sessionId")
+#     email = data.get("email")
+#     voice = data.get("voice")
     
-    if action == "start":
-        app_socketio.logger.info(f"Starting Deepgram connection for session {sessionId}")
-        if sessionId not in dg_connections:
-            initialize_deepgram_connection(sessionId, email, voice)
-        else:
-            app_socketio.logger.info(f"Deepgram connection already exists for session {sessionId}")
-    elif action == "stop":
-        app_socketio.logger.info(f"Stopping Deepgram connection for session {sessionId}")
+#     if action == "start":
+#         app_socketio.logger.info(f"Starting Deepgram connection for session {sessionId}")
+#         if sessionId not in dg_connections:
+#             initialize_deepgram_connection(sessionId, email, voice)
+#         else:
+#             app_socketio.logger.info(f"Deepgram connection already exists for session {sessionId}")
+#     elif action == "stop":
+#         app_socketio.logger.info(f"Stopping Deepgram connection for session {sessionId}")
         # close_deepgram_connection(sessionId)
 
 # Function to close Deepgram connection
@@ -210,9 +211,15 @@ def handle_session_start(data):
 @socketio.on('join')
 def join(data):
     room_name = data['sessionId']
+    email = data.get("email")
+    voice = data.get("voice")
     logging.info(f"Room has been created for sessionId {room_name}")
     join_room(room_name)
     store_in_redis(data['sessionId'])
+    if room_name not in dg_connections :
+            initialize_deepgram_connection(room_name, email, voice)
+    else:
+        app_socketio.logger.info(f"Deepgram connection already exists for session {room_name}")
     socketio.send(f'sessionId {room_name} has entered the room.', room=room_name)
 
 # Handle room leave events

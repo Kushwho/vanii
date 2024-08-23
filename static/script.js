@@ -43,6 +43,7 @@ async function openMicrophone(microphone, socket) {
  };
     microphone.ondataavailable = async (event) => {
       if (event.data.size > 0) {
+        console.log("I am sending data")
         socket.emit("audio_stream", {data: event.data, sessionId});
       }
     };
@@ -51,11 +52,11 @@ async function openMicrophone(microphone, socket) {
 }
 
 async function startRecording() {
-  socket.emit('join', {sessionId});
+  // socket.emit('join', {sessionId,voice:"Deepgram",email : "aswanib133@gmail.com"});
   isRecording = true;
   microphone = await getMicrophone();
   socket.on('deepgram_connection_opened' , async () => {
-    console.log("Hello, How are you? I am fine.")
+    console.log("Hello, Deepgram connections is open.")
     await openMicrophone(microphone, socket);
 })
 }
@@ -71,8 +72,7 @@ async function stopRecording() {
     isPlayingAudio = false; // Reset isPlayingAudio flag
     microphone.stop();
     microphone.stream.getTracks().forEach((track) => track.stop());
-    socket.emit("toggle_transcription", { action: "stop", sessionId });
-    socket.emit("leave", {sessionId});
+    // socket.emit("leave", {sessionId});
     microphone = null;
     isRecording = false;
     document.body.classList.remove("recording");
@@ -84,7 +84,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   recordButton.addEventListener("click", () => {
     if (!isRecording) {
-      socket.emit("toggle_transcription", { action: "start", sessionId ,email : "aswanib133@gmail.com",voice : "Deepgram" });
       startRecording()
         .then(() => {
           if (audioQueue.length > 0 && !isPlayingAudio) {
@@ -118,7 +117,7 @@ async function playNextAudio() {
 
 async function playAudio(audioBinary) {
   try {
-    const audioBlob = new Blob([audioBinary], { type: 'audio/mpeg' });
+    const audioBlob = new Blob([audioBinary], { type: 'audio/mp3' });
     const audioUrl = URL.createObjectURL(audioBlob);
     currentAudio = new Audio(audioUrl);
 

@@ -32,5 +32,5 @@ def index():
 configure_app(use_cloudwatch=True)
 
 if __name__ == '__main__':
-    app.logger.info("Starting Flask server.")
-    app.run()
+    app.logger.info("Start Flask server.")
+    app.run(debug=True)
