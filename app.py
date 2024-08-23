@@ -6,6 +6,7 @@ from models import db
 from utils import log_event
 from log_config import setup_logging
 import os
+
 load_dotenv()
 
 app = Flask("app_http")
@@ -32,5 +33,5 @@ def index():
 configure_app(use_cloudwatch=True)
 
 if __name__ == '__main__':
-    app.logger.info("Start Flask server.")
-    app.run(debug=True)
+    app.logger.info("Starting Flask server.")
+    app.run()
