@@ -159,7 +159,7 @@ def handle_audio_stream(data):
         dg_connections[sessionId]['connection'].send(data.get("data"))
         logging.info(f"Audio sent for session ID: {sessionId}")
     else:
-        socketio.emit('deepgram_connection_opened', {'message': 'Deepgram connection opened'}, room=sessionId)
+        # socketio.emit('deepgram_connection_opened', {'message': 'Deepgram connection opened'}, room=sessionId)
         logging.warning(f"No active Deepgram connection for session ID: {sessionId}")
 
 # Handle transcription toggle events
@@ -222,6 +222,7 @@ def join(data):
     if room_name not in dg_connections :
             initialize_deepgram_connection(room_name, email, voice)
     else:
+        socketio.emit('deepgram_connection_opened', {'message': 'Deepgram connection opened'}, room=room_name)
         app_socketio.logger.info(f"Deepgram connection already exists for session {room_name}")
     socketio.send(f'sessionId {room_name} has entered the room.', room=room_name)
 
