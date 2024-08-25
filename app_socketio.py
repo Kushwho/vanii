@@ -219,12 +219,26 @@ def join(data):
     logging.info(f"Room has been created for sessionId {room_name}")
     join_room(room_name)
     store_in_redis(data['sessionId'])
+    if voice == "Deepgram":
+            response = text_to_speech("Hello , I am Vanii")
+            if response.status_code == 200:
+                socketio.emit('transcription_update', {'audioBinary': response.content, 'user': 'Hii', 'transcription': "Hello , I am Vanii", 'sessionId': room_name}, to=room_name)
+                
+            else:
+                socketio.emit('transcription_update', {'transcription': "Hello , I am Vanii", 'user': "Hii", 'sessionId': room_name}, to=room_name)
+    else:
+        try:
+            response = text_to_speech_cartesia("Hello , I am Vanii")
+            socketio.emit('transcription_update', {'audioBinary': response, 'user': "Hii", 'transcription': "Hello , I am Vanii", 'sessionId': room_name}, to=room_name)
+        except Exception as e:
+                socketio.emit('transcription_update', {'transcription': "Hello , I am Vanii", 'user': "Hii", 'sessionId': room_name}, to=room_name)
     if room_name not in dg_connections :
             initialize_deepgram_connection(room_name, email, voice)
     else:
         socketio.emit('deepgram_connection_opened', {'message': 'Deepgram connection opened'}, room=room_name)
         app_socketio.logger.info(f"Deepgram connection already exists for session {room_name}")
     socketio.send(f'sessionId {room_name} has entered the room.', room=room_name)
+
 
 # Handle room leave events
 @socketio.on('leave')
