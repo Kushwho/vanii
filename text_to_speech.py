@@ -45,21 +45,21 @@ session.headers.update(headers)
 
 
 
-# def text_to_speech_cartesia(response ,voice_id = "ff1bb1a9-c582-4570-9670-5f46169d0fc8") : 
-#     try :
-#         voice = cartesia_client.voices.get(id=voice_id)
-#         audio_data = b""
-#         for output in cartesia_client.tts.sse(
-#             model_id=model_id,
-#             transcript=response,
-#             voice_embedding=voice["embedding"],
-#             stream=True,
-#             output_format=output_format,
-#         ):
-#             audio_data += output["audio"]
-#         return audio_data
-#     except Exception as e :
-#         logging.error(f"Error in cartesia text to speech {e}")
+def text_to_speech_cartesia(response ,voice_id = "ff1bb1a9-c582-4570-9670-5f46169d0fc8") : 
+    try :
+        voice = cartesia_client.voices.get(id=voice_id)
+        audio_data = b""
+        for output in cartesia_client.tts.sse(
+            model_id=model_id,
+            transcript=response,
+            voice_embedding=voice["embedding"],
+            stream=True,
+            output_format=output_format,
+        ):
+            audio_data += output["audio"]
+        return audio_data
+    except Exception as e :
+        logging.error(f"Error in cartesia text to speech {e}")
         
 
 def text_to_speech(resp):
@@ -86,22 +86,22 @@ def text_to_speech2(resp):
             yield b''
 
 
-def text_to_speech_cartesia(response ,voice_id = "ff1bb1a9-c582-4570-9670-5f46169d0fc8") : 
-    try :
-        voice = cartesia_client.voices.get(id=voice_id)
-        audio_data = b""
-        # for output in cartesia_client.tts.sse(
-        #     model_id=model_id,
-        #     transcript=response,
-        #     voice_embedding=voice["embedding"],
-        #     output_format=output_format,
-        # ):
-        audio_data += cartesia_client.tts.sse(
-        model_id=model_id,
-        transcript=response,
-        voice_embedding=voice["embedding"],
-        output_format=output_format,
-    )["audio"]
-        return audio_data
-    except Exception as e :
-        logging.error(f"Error in cartesia text to speech {e}")
+# def text_to_speech_cartesia(response ,voice_id = "ff1bb1a9-c582-4570-9670-5f46169d0fc8") : 
+#     try :
+#         voice = cartesia_client.voices.get(id=voice_id)
+#         audio_data = b""
+#         # for output in cartesia_client.tts.sse(
+#         #     model_id=model_id,
+#         #     transcript=response,
+#         #     voice_embedding=voice["embedding"],
+#         #     output_format=output_format,
+#         # ):
+#         audio_data += cartesia_client.tts.sse(
+#         model_id=model_id,
+#         transcript=response,
+#         voice_embedding=voice["embedding"],
+#         output_format=output_format,
+#     )["audio"]
+#         return audio_data
+#     except Exception as e :
+#         logging.error(f"Error in cartesia text to speech {e}")
