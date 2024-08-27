@@ -6,9 +6,9 @@ from langchain_core.prompts import ChatPromptTemplate
 from dotenv import load_dotenv
 import time
 
-load_dotenv()
+# load_dotenv()
 
-client = Cartesia(api_key=os.environ.get("CARTESIA_API_KEY"))
+# client = Cartesia(api_key=os.environ.get("CARTESIA_API_KEY"))
 
 # transcripts = [
 #     "The crew engaged in a range of activities designed to mirror those "
@@ -64,50 +64,50 @@ client = Cartesia(api_key=os.environ.get("CARTESIA_API_KEY"))
 
 
 # You can check out voice IDs by calling `client.voices.list()` or on https://play.cartesia.ai/
-voice_id = "ff1bb1a9-c582-4570-9670-5f46169d0fc8"
+# voice_id = "ff1bb1a9-c582-4570-9670-5f46169d0fc8"
 
 # You can check out our models at https://docs.cartesia.ai/getting-started/available-models
-model_id = "sonic-english"
+# model_id = "sonic-english"
 
 # You can find the supported `output_format`s at https://docs.cartesia.ai/api-reference/endpoints/stream-speech-server-sent-events
-output_format = {
-    "container": "raw",
-    "encoding": "pcm_f32le",
-    "sample_rate": 44100,
-}
+# output_format = {
+#     "container": "raw",
+#     "encoding": "pcm_f32le",
+#     "sample_rate": 44100,
+# }
 
-p = pyaudio.PyAudio()
-rate = 44100
+# p = pyaudio.PyAudio()
+# rate = 44100
 
-stream = None
+# stream = None
 
 # Set up the websocket connection
-ws = client.tts.websocket()
+# ws = client.tts.websocket()
 
 # Create a context to send and receive audio
-ctx = ws.context()  # Generates a random context ID if not provided
+# ctx = ws.context()  # Generates a random context ID if not provided
 
 # Pass in a text generator to generate & stream the audio
-output_stream = ctx.send(
-    model_id=model_id,
-    transcript="What is your name.",
-    voice_id=voice_id,
-    output_format=output_format,
+# output_stream = ctx.send(
+#     model_id=model_id,
+#     transcript="What is your name.",
+#     voice_id=voice_id,
+#     output_format=output_format,
     
-)
+# )
 
-print(output_stream)
-for output in output_stream:
-    buffer = output["audio"]
-    # print(buffer)
-    if not stream:
-        stream = p.open(format=pyaudio.paFloat32, channels=1, rate=rate, output=True)
-        print(stream)
+# print(output_stream)
+# for output in output_stream:
+#     buffer = output["audio"]
+#     # print(buffer)
+#     if not stream:
+#         stream = p.open(format=pyaudio.paFloat32, channels=1, rate=rate, output=True)
+#         print(stream)
 
     # Write the audio data to the stream
     # print(type(stream))
     # print(stream)
-    stream.write(buffer)
+    # stream.write(buffer)
 
 # stream.stop_stream()
 # stream.close()
@@ -163,5 +163,39 @@ for output in output_stream:
 #         print(voice['id'],end=" ")
 #         print(voice['name'])
 #         # break
+
+
+
+
+
+import requests
+
+
+if __name__ == '__main__' :
+    DEEPGRAM_URL = "https://api.deepgram.com/v1/speak?model=aura-asteria-en"
+    DEEPGRAM_API_KEY = os.getenv("DEEPGRAM_API_KEY")
+
+    payload = {
+        "text": "Hello, how can I help you today? My name is Emily and I'm very glad to meet you. What do you think of this new text-to-speech API?"
+    }
+
+    headers = {
+        "Authorization": f"Token {DEEPGRAM_API_KEY}",
+        "Content-Type": "application/json"
+    }
+
+    audio_file_path = "output.mp3"  # Path to save the audio file
+
+    with open(audio_file_path, 'wb') as file_stream:
+        response = requests.post(DEEPGRAM_URL, headers=headers, json=payload, stream=True)
+        start = time.time()
+        for chunk in response.iter_content(chunk_size=1024):
+            if chunk:
+                file_stream.write(chunk) # Write each chunk of audio data to the file
+        end = time.time()
+        print(f'It took {end-start} seconds')
+
+    print("Audio download complete")
+
 
     
