@@ -90,7 +90,9 @@ def process_transcripts(sessionId):
         app_socketio.logger.info(f"Streamed response: {resp_stream}")
 
         starttime = time.time()
-        voice = dg_connections[sessionId].get('voice', 'Deepgram')
+        voice = 'Deepgram'
+        if dg_connections[sessionId] : 
+            voice = dg_connections[sessionId].get('voice', 'Deepgram')
         
         if voice == "Deepgram":
             response = text_to_speech_stream(resp_stream)
