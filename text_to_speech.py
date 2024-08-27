@@ -57,6 +57,7 @@ def text_to_speech_cartesia(response ,voice_id = "ff1bb1a9-c582-4570-9670-5f4616
             output_format=output_format,
         ):
             audio_data += output["audio"]
+        
         return audio_data
     except Exception as e :
         logging.error(f"Error in cartesia text to speech {e}")
@@ -69,6 +70,22 @@ def text_to_speech(resp):
     response = requests.post(url, headers=headers, json=payload)
     return response
 
+
+def text_to_speech_stream(resp):
+    payload = {
+        "text": resp
+    }
+
+    audio_content = b""
+    response = requests.post(url, headers=headers, json=payload, stream=True)
+    if response.status_code != 200 :
+        return audio_content
+
+    for chunk in response.iter_content(chunk_size=1024):
+        if chunk:
+            audio_content += chunk  
+    
+    return audio_content  
 
 def text_to_speech2(resp):
     payload = {

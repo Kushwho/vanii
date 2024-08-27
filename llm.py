@@ -125,6 +125,7 @@ def batch(session_id,input):
         starttime = time.time()
         config = {"configurable": {"session_id": session_id}}
         response = chain_with_history.invoke({"question" : input},config=config)
+    
         logging.info(f"It took {time.time()-starttime} seconds for llm response")
         return response.content
     except Exception as e :
@@ -138,15 +139,15 @@ def streaming(session_id,input):
         config = {"configurable": {"session_id": session_id}}
         for chunk in chain_with_history.stream({"question" : input},config=config) :
             yield(chunk)
-            i+=1
+        # print(f"It took {time.time()-starttime} seconds for llm response")
         logging.info(f"It took {time.time()-starttime} seconds for llm response")
     except Exception as e :
         logging.error(f"Error in generating response {e}")
         return "Sorry , there is some error"
 
 # if __name__ == "__main__" :
-#     # print(batch("1","Hello , How are you?"))
-#     for chunk in streaming("1","Hello, How are you?") :
+#     print(batch("1","Tell me a poem on the moon"))
+#     for chunk in streaming("1","Tell me a poem on the moon") :
 #         print(chunk.content,end=" ")
 
     

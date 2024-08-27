@@ -3,8 +3,8 @@ from flask import Flask, request, jsonify
 from flask_socketio import SocketIO, join_room, leave_room
 from dotenv import load_dotenv
 from deepgram import DeepgramClient, LiveTranscriptionEvents, LiveOptions, DeepgramClientOptions
-from llm import batch, save_in_mongo_clear_redis, store_in_redis
-from text_to_speech import text_to_speech, text_to_speech_cartesia
+from llm import batch, save_in_mongo_clear_redis, store_in_redis,streaming
+from text_to_speech import text_to_speech, text_to_speech_cartesia,text_to_speech_stream
 import time
 from threading import Timer
 from utils import log_event as log_event_sync
@@ -24,10 +24,11 @@ load_dotenv()
 DEEPGRAM_API_KEY = os.getenv("DEEPGRAM_API_KEY")
 
 # Initialize Flask and SocketIO
+cors_allowed_origins = os.getenv("CORS")
 app_socketio = Flask("app_socketio")
 app_socketio.config.from_object(Config)
 db.init_app(app_socketio)
-socketio = SocketIO(app_socketio, cors_allowed_origins='*')
+socketio = SocketIO(app_socketio, cors_allowed_origins=cors_allowed_origins)
 
 # Initialize a dictionary to store Deepgram connections
 dg_connections = {}
@@ -82,25 +83,29 @@ def process_transcripts(sessionId):
         transcript = transcript_buffers[sessionId]
         app_socketio.logger.info(f"Processing buffered transcripts for session {sessionId}: {transcript}")
         
-        resp = batch(sessionId, transcript)
-        app_socketio.logger.info(f"Batch response: {resp}")
+        # resp = batch(sessionId, transcript)
+        resp_stream = ''
+        for chunk in streaming(session_id=sessionId,transcript=transcript) :
+            resp_stream += chunk.content + " "
+        app_socketio.logger.info(f"Streamed response: {resp_stream}")
 
         starttime = time.time()
         voice = dg_connections[sessionId].get('voice', 'Deepgram')
         
         if voice == "Deepgram":
-            response = text_to_speech(resp)
-            if response.status_code == 200:
-                socketio.emit('transcription_update', {'audioBinary': response.content, 'user': transcript, 'transcription': resp, 'sessionId': sessionId}, to=sessionId)
+            response = text_to_speech_stream(resp_stream)
+            # if response.status_code == 200:
+            #     socketio.emit('transcription_update', {'audioBinary': response.content, 'user': transcript, 'transcription': resp_stream, 'sessionId': sessionId}, to=sessionId)
                 
-            else:
-                socketio.emit('transcription_update', {'transcription': resp, 'user': transcript, 'sessionId': sessionId}, to=sessionId)
+            # else:
+            #     socketio.emit('transcription_update', {'transcription': resp_stream, 'user': transcript, 'sessionId': sessionId}, to=sessionId)
+            socketio.emit('transcription_update', {'audioBinary': response, 'user': transcript, 'transcription': resp_stream, 'sessionId': sessionId}, to=sessionId)
         else:
             try:
-                response = text_to_speech_cartesia(resp)
-                socketio.emit('transcription_update', {'audioBinary': response, 'user': transcript, 'transcription': resp, 'sessionId': sessionId}, to=sessionId)
+                response = text_to_speech_cartesia(resp_stream)
+                socketio.emit('transcription_update', {'audioBinary': response, 'user': transcript, 'transcription': resp_stream, 'sessionId': sessionId}, to=sessionId)
             except Exception as e:
-                socketio.emit('transcription_update', {'transcription': resp, 'user': transcript, 'sessionId': sessionId}, to=sessionId)
+                socketio.emit('transcription_update', {'transcription': resp_stream, 'user': transcript, 'sessionId': sessionId}, to=sessionId)
         
         endtime = time.time() - starttime
         app_socketio.logger.info(f"It took {endtime} seconds for text to speech")
