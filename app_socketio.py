@@ -14,11 +14,23 @@ from log_config import setup_logging
 import logging
 from concurrent.futures import ThreadPoolExecutor
 from analytics.speech_analytics import upload_file  
-
+import sentry_sdk 
 import json
 
 # Load environment variables from .env file
 load_dotenv()
+
+sentry_sdk.init(
+    dsn="https://2cb44a9801b505d2d34b29d4e36df73d@o4507851145084928.ingest.de.sentry.io/4507851149279312",
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for tracing.
+    traces_sample_rate=1.0,
+    # Set profiles_sample_rate to 1.0 to profile 100%
+    # of sampled transactions.
+    # We recommend adjusting this value in production.
+    profiles_sample_rate=1.0,
+)
+
 
 # Get the API keys from environment variables
 DEEPGRAM_API_KEY = os.getenv("DEEPGRAM_API_KEY")
@@ -270,6 +282,11 @@ def handle_upload():
 
 # Configure the app (keep your existing configuration function)
 configure_app(use_cloudwatch=True)
+
+@app_socketio.route("/")
+def hello_world():
+    1/0  # raises an error
+    return "<p>Hello, World!</p>"
 
 # Run the SocketIO server
 if __name__ == '__main__':
