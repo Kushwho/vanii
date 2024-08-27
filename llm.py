@@ -133,11 +133,11 @@ def batch(session_id,input):
         return "Sorry , there is some error"
 
 
-def streaming(session_id,input):
+def streaming(session_id,transcript):
     try : 
         starttime = time.time()
         config = {"configurable": {"session_id": session_id}}
-        for chunk in chain_with_history.stream({"question" : input},config=config) :
+        for chunk in chain_with_history.stream({"question" : transcript},config=config) :
             yield(chunk)
         # print(f"It took {time.time()-starttime} seconds for llm response")
         logging.info(f"It took {time.time()-starttime} seconds for llm response")
