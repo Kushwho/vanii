@@ -86,7 +86,7 @@ def process_transcripts(sessionId):
         # resp = batch(sessionId, transcript)
         resp_stream = ''
         for chunk in streaming(session_id=sessionId,transcript=transcript) :
-            resp_stream += chunk.content + " "
+            resp_stream += chunk.content
         app_socketio.logger.info(f"Streamed response: {resp_stream}")
 
         starttime = time.time()
