@@ -6,10 +6,12 @@ from models import db
 from utils import log_event
 from log_config import setup_logging
 import os
+from flask_cors import CORS
 
 load_dotenv()
 
 app = Flask("app_http")
+CORS(app)
 app.config.from_object(Config)
 db.init_app(app)
 
@@ -24,11 +26,7 @@ def configure_app(use_cloudwatch):
     app.logger.handlers = logger.handlers
     app.logger.setLevel(logger.level)
 
-@app.route('/')
-def index():
-    app.logger.info('Index route accessed')
-    log_event('page_view', {'page': 'index'})
-    return render_template('index.html')
+
 
 configure_app(use_cloudwatch=True)
 
