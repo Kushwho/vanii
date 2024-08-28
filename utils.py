@@ -23,6 +23,29 @@ def log_function_call(func):
         return func(*args, **kwargs)
     return wrapper
 
+def store_audio_chunk(session_id, audio_data):
+    try:
+        with get_db() as db:
+            new_chunk = AudioChunk(
+                session_id=session_id,
+                audio_data=audio_data,  # audio_data should already be in bytes
+            )
+            db.add(new_chunk)
+            db.commit()
+        
+        log_event('audio_chunk_stored', {
+            'session_id': session_id,
+            'chunk_size': len(audio_data),
+            'timestamp': datetime.utcnow().isoformat()
+        })
+        logging.info(f"Audio chunk stored for session {session_id}")
+    except Exception as e:
+        logging.error(f"Error storing audio chunk: {str(e)}")
+        log_event('audio_chunk_error', {
+            'session_id': session_id,
+            'error': str(e),
+            'timestamp': datetime.utcnow().isoformat()
+        })
 
 def assign(sessionId) :
     pass
