@@ -15,6 +15,8 @@ COPY requirements.txt /app/requirements.txt
 # Install any dependencies specified in requirements.txt
 RUN pip install --no-cache-dir -r /app/requirements.txt
 
+RUN pip install --upgrade langchain
+
 # Copy the .env file into the container
 COPY .env /app/.env
 
