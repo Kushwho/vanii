@@ -1,6 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.postgresql import JSON, BYTEA
-import datetime
+from datetime import datetime
 
 db = SQLAlchemy()
 
@@ -14,7 +14,7 @@ class AudioChunk(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     session_id = db.Column(db.String(255), nullable=False)
     audio_data = db.Column(BYTEA, nullable=False)
-    timestamp = db.Column(db.DateTime, default=datetime.UTC)
+    timestamp = db.Column(db.DateTime, default=datetime.now())
 
     def __repr__(self):
         return f'<AudioChunk {self.id} for session {self.session_id}>'
