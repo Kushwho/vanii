@@ -8,17 +8,30 @@ from text_to_speech import text_to_speech, text_to_speech_cartesia,text_to_speec
 import time
 from threading import Timer
 from utils import log_event as log_event_sync
+from utils import store_audio_chunk,log_function_call
 from config import Config
 from models import db
 from log_config import setup_logging
 import logging
 from concurrent.futures import ThreadPoolExecutor
 from analytics.speech_analytics import upload_file  
-
+import sentry_sdk 
 import json
 
 # Load environment variables from .env file
 load_dotenv()
+
+sentry_sdk.init(
+    dsn="https://2cb44a9801b505d2d34b29d4e36df73d@o4507851145084928.ingest.de.sentry.io/4507851149279312",
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for tracing.
+    traces_sample_rate=1.0,
+    # Set profiles_sample_rate to 1.0 to profile 100%
+    # of sampled transactions.
+    # We recommend adjusting this value in production.
+    profiles_sample_rate=1.0,
+)
+
 
 # Get the API keys from environment variables
 DEEPGRAM_API_KEY = os.getenv("DEEPGRAM_API_KEY")
@@ -41,6 +54,9 @@ buffer_timers = {}
 
 # Define a Thread Pool Executor
 executor = ThreadPoolExecutor(max_workers=3)
+
+# Global dictionary to store audio buffers
+audio_buffers = {}
 
 def configure_app(use_cloudwatch):
     with app_socketio.app_context():
@@ -157,6 +173,18 @@ def initialize_deepgram_connection(sessionId, email, voice):
     dg_connections[sessionId] = {'connection': dg_connection, 'voice': voice}
     return dg_connection
 
+@log_function_call
+def collate_and_store_audio(session_id, audio_data):
+    if session_id not in audio_buffers:
+        audio_buffers[session_id] = []
+
+    audio_buffers[session_id].append(audio_data)
+   
+    if len(audio_buffers[session_id]) >= 10:  # 10 chunks of 1 second each
+        audio_chunk = b''.join(audio_buffers[session_id])
+        audio_buffers[session_id] = []  # Clear the buffer
+        store_audio_chunk(session_id, audio_chunk)
+
 # Handle incoming audio streams
 @socketio.on('audio_stream')
 def handle_audio_stream(data):
@@ -168,6 +196,9 @@ def handle_audio_stream(data):
     else:
         # socketio.emit('deepgram_connection_opened', {'message': 'Deepgram connection opened'}, room=sessionId)
         logging.warning(f"No active Deepgram connection for session ID: {sessionId}")
+    
+    # Use the executor to run the collate_and_store_audio function
+    executor.submit(collate_and_store_audio, sessionId, data.get("data"))
 
 # Handle transcription toggle events
 # @socketio.on('toggle_transcription')
