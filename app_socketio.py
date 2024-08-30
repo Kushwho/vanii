@@ -58,6 +58,9 @@ executor = ThreadPoolExecutor(max_workers=3)
 # Global dictionary to store audio buffers
 audio_buffers = {}
 
+# Maximum time to wait before storing a partial chunk (in seconds)
+MAX_WAIT_TIME = 5
+
 def configure_app(use_cloudwatch):
     with app_socketio.app_context():
         db.create_all()
@@ -175,15 +178,42 @@ def initialize_deepgram_connection(sessionId, email, voice):
 
 @log_function_call
 def collate_and_store_audio(session_id, audio_data):
+    current_time = time.time()
+    
     if session_id not in audio_buffers:
-        audio_buffers[session_id] = []
-
-    audio_buffers[session_id].append(audio_data)
-   
-    if len(audio_buffers[session_id]) >= 10:  # 10 chunks of 1 second each
-        audio_chunk = b''.join(audio_buffers[session_id])
-        audio_buffers[session_id] = []  # Clear the buffer
-        store_audio_chunk(session_id, audio_chunk)
+        audio_buffers[session_id] = {
+            "data": [],
+            "last_update": current_time,
+            "last_size": 0
+        }
+    
+    buffer_info = audio_buffers[session_id]
+    if audio_data:
+        new_size = buffer_info["last_size"] + len(audio_data)
+        if new_size > buffer_info["last_size"]:
+            buffer_info["data"].append(audio_data)
+            buffer_info["last_update"] = current_time
+            buffer_info["last_size"] = new_size
+    
+    buffer_duration = len(buffer_info["data"])
+    time_since_last_update = current_time - buffer_info["last_update"]
+    
+    if buffer_duration >= 10 or (buffer_duration > 0 and time_since_last_update >= MAX_WAIT_TIME):
+        audio_chunk = b''.join(buffer_info["data"])
+        chunk_duration = buffer_duration
+        
+        if buffer_info["last_size"] > 0:
+            store_audio_chunk(session_id, audio_chunk, chunk_duration)
+            logging.info(f"Stored audio chunk for session {session_id}, duration: {chunk_duration}s, size: {buffer_info['last_size']} bytes")
+        else:
+            logging.info(f"Discarded empty audio chunk for session {session_id}")
+        
+        # Reset the buffer
+        audio_buffers[session_id] = {
+            "data": [],
+            "last_update": current_time,
+            "last_size": 0
+        }
 
 # Handle incoming audio streams
 @socketio.on('audio_stream')
@@ -218,7 +248,7 @@ def handle_audio_stream(data):
 #     elif action == "stop":
 #         app_socketio.logger.info(f"Stopping Deepgram connection for session {sessionId}")
         # close_deepgram_connection(sessionId)
-
+        
 # Function to close Deepgram connection
 def close_deepgram_connection(sessionId):
     if sessionId in dg_connections:
