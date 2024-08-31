@@ -137,9 +137,7 @@ def streaming(session_id,transcript):
     try : 
         starttime = time.time()
         config = {"configurable": {"session_id": session_id}}
-        response = ""
         for chunk in chain_with_history.stream({"question" : transcript},config=config) :
-            response += chunk.content
             yield(chunk)
         # print(f"It took {time.time()-starttime} seconds for llm response")
         logging.info(f"It took {time.time()-starttime} seconds for llm response")
@@ -153,7 +151,7 @@ def streaming2(session_id,transcript):
         config = {"configurable": {"session_id": session_id}}
         response = ""
         for chunk in chain_with_history.stream({"question" : transcript},config=config) :
-            response += chunk
+            response += chunk.content
             yield(chunk)
         # print(f"It took {time.time()-starttime} seconds for llm response")
         logging.info(f"It took {time.time()-starttime} seconds for llm response")
