@@ -82,7 +82,7 @@ def text_to_speech_cartesia(response ,voice_id = "ff1bb1a9-c582-4570-9670-5f4616
 def text_to_speech(resp):
     payload = {
             "text": resp,
-            "speed" : 0.5
+            
             }
     response = requests.post(url, headers=headers, json=payload)
     return response
@@ -90,8 +90,8 @@ def text_to_speech(resp):
 
 def text_to_speech_stream(resp):
     payload = {
-        "text": resp,
-        "speed" : 0.5
+        "text": resp
+
     }
 
     audio_content = b""
