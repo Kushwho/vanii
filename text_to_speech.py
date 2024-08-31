@@ -18,6 +18,9 @@ CARTESIA_API_KEY = os.getenv("CARTESIA_API_KEY")
 # Initialize Cartesia client
 cartesia_client = Cartesia(api_key=CARTESIA_API_KEY)
 
+# ws = cartesia_client.tts.websocket()
+
+
 # Voice ID and model for Cartesia TTS
 
 model_id = "sonic-english"
@@ -37,7 +40,6 @@ headers = {
 }
 
 
-client = Cartesia(api_key=os.environ.get("CARTESIA_API_KEY"))
 session = requests.Session()
 session.headers.update(headers)
 
@@ -61,8 +63,22 @@ def text_to_speech_cartesia(response ,voice_id = "ff1bb1a9-c582-4570-9670-5f4616
         return audio_data
     except Exception as e :
         logging.error(f"Error in cartesia text to speech {e}")
-        
 
+
+# def text_to_speech_cartesia2(response_generator,response,sessionId,voice_id = "ff1bb1a9-c582-4570-9670-5f46169d0fc8") :
+#     try : 
+#         output_stream = ctx.send(
+#         model_id=model_id,
+#         transcript=response_generator(response,sessionId),
+#         voice_id=voice_id,
+#         output_format=output_format,
+#     )
+#         audio_data = b""
+#         for output in output_stream :
+#             audio_data += output["audio"]
+#         return audio_data
+#     except Exception as e :
+#         logging.error(f"Error in cartesia text to speech 2 {e}")
 def text_to_speech(resp):
     payload = {
             "text": resp

@@ -137,6 +137,21 @@ def streaming(session_id,transcript):
     try : 
         starttime = time.time()
         config = {"configurable": {"session_id": session_id}}
+        response = ""
+        for chunk in chain_with_history.stream({"question" : transcript},config=config) :
+            response += chunk
+            yield(chunk)
+        # print(f"It took {time.time()-starttime} seconds for llm response")
+        logging.info(f"It took {time.time()-starttime} seconds for llm response")
+        return response
+    except Exception as e :
+        logging.error(f"Error in generating response {e}")
+        return "Sorry , there is some error"
+    
+def streaming2(session_id,transcript):
+    try :
+        starttime = time.time()
+        config = {"configurable": {"session_id": session_id}}
         for chunk in chain_with_history.stream({"question" : transcript},config=config) :
             yield(chunk)
         # print(f"It took {time.time()-starttime} seconds for llm response")
