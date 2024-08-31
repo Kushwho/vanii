@@ -81,7 +81,8 @@ def text_to_speech_cartesia(response ,voice_id = "ff1bb1a9-c582-4570-9670-5f4616
 #         logging.error(f"Error in cartesia text to speech 2 {e}")
 def text_to_speech(resp):
     payload = {
-            "text": resp
+            "text": resp,
+            "speed" : 0.5
             }
     response = requests.post(url, headers=headers, json=payload)
     return response
