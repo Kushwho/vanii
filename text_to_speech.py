@@ -6,7 +6,7 @@ from cartesia import Cartesia
 
 load_dotenv()
 
-url = "https://api.deepgram.com/v1/speak?model=aura-asteria-en&encoding=mp3&speed=0.5"
+url = "https://api.deepgram.com/v1/speak?model=aura-asteria-en&encoding=mp3"
 
 
 
@@ -89,7 +89,8 @@ def text_to_speech(resp):
 
 def text_to_speech_stream(resp):
     payload = {
-        "text": resp
+        "text": resp,
+        "speed" : "0.5"
     }
 
     audio_content = b""
