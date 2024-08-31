@@ -104,7 +104,6 @@ def process_transcripts(sessionId):
         for chunk in streaming(session_id=sessionId,transcript=transcript) :
             resp_stream += chunk.content
         app_socketio.logger.info(f"Streamed response: {resp_stream}")
-
         starttime = time.time()
         voice = 'Deepgram'
         if dg_connections[sessionId] : 
@@ -112,11 +111,6 @@ def process_transcripts(sessionId):
         
         if voice == "Deepgram":
             response = text_to_speech_stream(resp_stream)
-            # if response.status_code == 200:
-            #     socketio.emit('transcription_update', {'audioBinary': response.content, 'user': transcript, 'transcription': resp_stream, 'sessionId': sessionId}, to=sessionId)
-                
-            # else:
-            #     socketio.emit('transcription_update', {'transcription': resp_stream, 'user': transcript, 'sessionId': sessionId}, to=sessionId)
             socketio.emit('transcription_update', {'audioBinary': response, 'user': transcript, 'transcription': resp_stream, 'sessionId': sessionId}, to=sessionId)
         else:
             try:
@@ -134,7 +128,6 @@ def process_transcripts(sessionId):
 # Initialize Deepgram connection for a session
 def initialize_deepgram_connection(sessionId, email, voice):
     app_socketio.logger.info(f"Initializing Deepgram connection for session {sessionId}")
-    
     dg_connection = deepgram.listen.websocket.v("1")
 
     def on_open(self, open, **kwargs):
@@ -145,7 +138,7 @@ def initialize_deepgram_connection(sessionId, email, voice):
     def on_message(self, result, **kwargs):
         transcript = result.channel.alternatives[0].transcript
         if len(transcript) > 0:
-            logging.info(f"Received transcript for session {sessionId}: {transcript}")
+            # logging.info(f"Received transcript for session {sessionId}: {transcript}")
             buffer_transcripts(transcript, sessionId)
     
     def on_metadata(self, metadata, **kwargs):
@@ -189,10 +182,10 @@ def collate_and_store_audio(session_id, audio_data):
 @socketio.on('audio_stream')
 def handle_audio_stream(data):
     sessionId = data.get("sessionId")
-    logging.info(f"Received audio stream for session ID: {sessionId}")
+    # logging.info(f"Received audio stream for session ID: {sessionId}")
     if sessionId in dg_connections:
         dg_connections[sessionId]['connection'].send(data.get("data"))
-        logging.info(f"Audio sent for session ID: {sessionId}")
+        # logging.info(f"Audio sent for session ID: {sessionId}")
     else:
         # socketio.emit('deepgram_connection_opened', {'message': 'Deepgram connection opened'}, room=sessionId)
         logging.warning(f"No active Deepgram connection for session ID: {sessionId}")
