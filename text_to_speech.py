@@ -90,7 +90,7 @@ def text_to_speech(resp):
 def text_to_speech_stream(resp):
     payload = {
         "text": resp,
-        "speed" : "0.5"
+        "speed" : 0.5
     }
 
     audio_content = b""
