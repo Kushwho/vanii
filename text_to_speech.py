@@ -6,7 +6,7 @@ from cartesia import Cartesia
 
 load_dotenv()
 
-url = "https://api.deepgram.com/v1/speak?model=aura-asteria-en&encoding=mp3&speed=0.75"
+url = "https://api.deepgram.com/v1/speak?model=aura-asteria-en&encoding=mp3&speed=0.5"
 
 
 
