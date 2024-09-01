@@ -4,7 +4,7 @@ from flask_socketio import SocketIO, join_room, leave_room
 from dotenv import load_dotenv
 from deepgram import DeepgramClient, LiveTranscriptionEvents, LiveOptions, DeepgramClientOptions
 from llm import batch, save_in_mongo_clear_redis, store_in_redis,streaming
-from text_to_speech import text_to_speech, text_to_speech_cartesia,text_to_speech_stream
+from text_to_speech import text_to_speech, text_to_speech_cartesia,text_to_speech_stream,text_to_speech_cartesia_batch
 import time
 from threading import Timer
 from utils import log_event as log_event_sync
@@ -114,7 +114,7 @@ def process_transcripts(sessionId):
             socketio.emit('transcription_update', {'audioBinary': response, 'user': transcript, 'transcription': resp_stream, 'sessionId': sessionId}, to=sessionId)
         else:
             try:
-                response = text_to_speech_cartesia(resp_stream)
+                response = text_to_speech_cartesia_batch(resp_stream)
                 socketio.emit('transcription_update', {'audioBinary': response, 'user': transcript, 'transcription': resp_stream, 'sessionId': sessionId}, to=sessionId)
             except Exception as e:
                 socketio.emit('transcription_update', {'transcription': resp_stream, 'user': transcript, 'sessionId': sessionId}, to=sessionId)
@@ -264,7 +264,7 @@ def join(data):
                 socketio.emit('transcription_update', {'transcription': "Hello , I am Vanii", 'user': "Hii", 'sessionId': room_name}, to=room_name)
     else:
         try:
-            response = text_to_speech_cartesia("Hello , I am Vaanii")
+            response = text_to_speech_cartesia_batch("Hello , I am Vaanii")
             socketio.emit('transcription_update', {'audioBinary': response, 'user': "Hii", 'transcription': "Hello , I am Vanii", 'sessionId': room_name}, to=room_name)
         except Exception as e:
                 socketio.emit('transcription_update', {'transcription': "Hello , I am Vanii", 'user': "Hii", 'sessionId': room_name}, to=room_name)
