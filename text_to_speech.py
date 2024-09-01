@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import requests
 import logging
 from cartesia import Cartesia
-
+import time
 load_dotenv()
 
 url = "https://api.deepgram.com/v1/speak?model=aura-asteria-en&encoding=mp3"
@@ -49,6 +49,7 @@ session.headers.update(headers)
 
 def text_to_speech_cartesia(response ,voice_id = "ff1bb1a9-c582-4570-9670-5f46169d0fc8") : 
     try :
+        start_time = time.time()
         voice = cartesia_client.voices.get(id=voice_id)
         audio_data = b""
         for output in cartesia_client.tts.sse(
@@ -59,7 +60,7 @@ def text_to_speech_cartesia(response ,voice_id = "ff1bb1a9-c582-4570-9670-5f4616
             output_format=output_format,
         ):
             audio_data += output["audio"]
-        
+        logging.info(f"It took {time.time()-start_time} for cartesia text to speech")
         return audio_data
     except Exception as e :
         logging.error(f"Error in cartesia text to speech {e}")
