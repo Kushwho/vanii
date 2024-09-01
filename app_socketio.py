@@ -250,8 +250,8 @@ def handle_session_start(data):
 @socketio.on('join')
 def join(data):
     room_name = data['sessionId']
-    email = data.get("email")
-    voice = data.get("voice")
+    email = data['email']
+    voice = data['voice']
     logging.info(f"Room has been created for sessionId {room_name}")
     join_room(room_name)
     store_in_redis(data['sessionId'])
