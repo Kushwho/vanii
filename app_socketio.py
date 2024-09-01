@@ -151,16 +151,16 @@ def initialize_deepgram_connection(sessionId, email, voice):
     def on_error(self, error, **kwargs):
         logging.error(f"Deepgram connection error for session {sessionId}: {error}")
 
-    def on_utteranceEnd(self,utterance,**kwargs) :
-        print(utterance)
-        logging.info(f"Deepgram utterance end.")
+    # def on_utteranceEnd(self,utterance,**kwargs) :
+    #     print(utterance)
+    #     logging.info(f"Deepgram utterance end.")
 
     dg_connection.on(LiveTranscriptionEvents.Open, on_open)
     dg_connection.on(LiveTranscriptionEvents.Transcript, on_message)
     dg_connection.on(LiveTranscriptionEvents.Close, on_close)
     dg_connection.on(LiveTranscriptionEvents.Error, on_error)
     dg_connection.on(LiveTranscriptionEvents.Metadata, on_metadata)
-    dg_connection.on(LiveTranscriptionEvents.UtteranceEnd, on_utteranceEnd)
+    # dg_connection.on(LiveTranscriptionEvents.UtteranceEnd, on_utteranceEnd)
 
     options = LiveOptions(model="nova-2", language="en", endpointing=300,utterance_end_ms="1000",)  
 
