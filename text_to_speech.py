@@ -65,6 +65,22 @@ def text_to_speech_cartesia(response ,voice_id = "ff1bb1a9-c582-4570-9670-5f4616
     except Exception as e :
         logging.error(f"Error in cartesia text to speech {e}")
 
+def text_to_speech_cartesia_batch(response ,voice_id = "ff1bb1a9-c582-4570-9670-5f46169d0fc8") : 
+    try :
+        start_time = time.time()
+        voice = cartesia_client.voices.get(id=voice_id)
+        audio_data = cartesia_client.tts.sse(
+            model_id=model_id,
+            transcript=response,
+            voice_embedding=voice["embedding"],
+            stream=False,
+            output_format=output_format,
+        )["audio"]
+        logging.info(f"It took {time.time()-start_time} for cartesia text to speech batch")
+        return audio_data
+    except Exception as e :
+        logging.error(f"Error in cartesia text to speech {e}")
+
 
 # def text_to_speech_cartesia2(response_generator,response,sessionId,voice_id = "ff1bb1a9-c582-4570-9670-5f46169d0fc8") :
 #     try : 
