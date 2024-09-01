@@ -105,11 +105,10 @@ def process_transcripts(sessionId):
             resp_stream += chunk.content
         app_socketio.logger.info(f"Streamed response: {resp_stream}")
         starttime = time.time()
-        logging.info("Voice for user with {sessionId} is {voice}")
         voice = 'Deepgram'
         if dg_connections[sessionId] : 
-            voice = dg_connections[sessionId].get('voice', 'Deepgram')
-        
+            voice = dg_connections[sessionId].get("voice", "Deepgram")
+            logging.info("Voice for user with {sessionId} is {voice}")
         if voice == "Deepgram":
             response = text_to_speech_stream(resp_stream)
             socketio.emit('transcription_update', {'audioBinary': response, 'user': transcript, 'transcription': resp_stream, 'sessionId': sessionId}, to=sessionId)
