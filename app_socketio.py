@@ -105,6 +105,7 @@ def process_transcripts(sessionId):
             resp_stream += chunk.content
         app_socketio.logger.info(f"Streamed response: {resp_stream}")
         starttime = time.time()
+        logging.info("Voice for user with {sessionId} is {voice}")
         voice = 'Deepgram'
         if dg_connections[sessionId] : 
             voice = dg_connections[sessionId].get('voice', 'Deepgram')
