@@ -35,7 +35,7 @@ headers = {
     "Content-Type": "application/json"
 }
 
-options = SpeakOptions(model="aura-hera-en")
+options = SpeakOptions(model="aura-hera-en",encoding="mp3")
 
 
 session = requests.Session()
@@ -85,7 +85,7 @@ def text_to_speech_cartesia_batch(response ,voice_id = "ff1bb1a9-c582-4570-9670-
 def text_to_speech_stream(resp):
     audio_content = b""
     try:
-        dg_stream = deepgram.speak.v("1").stream({"text": resp})
+        dg_stream = deepgram.speak.v("1").stream({"text": resp},options=options)
         while True:
             chunk = dg_stream.stream.read(1024)
             if isinstance(chunk, bytes):
