@@ -236,7 +236,7 @@ def join(data):
     if voice == "Deepgram":
             response = text_to_speech_stream("Hello , I am Vaanii")
             if response :
-                socketio.emit('transcription_update', {'audioBinary': response.content, 'user': 'Hii', 'transcription': "Hello , I am Vanii", 'sessionId': room_name}, to=room_name)
+                socketio.emit('transcription_update', {'audioBinary': response, 'user': 'Hii', 'transcription': "Hello , I am Vanii", 'sessionId': room_name}, to=room_name)
                 
             else:
                 socketio.emit('transcription_update', {'transcription': "Hello , I am Vanii", 'user': "Hii", 'sessionId': room_name}, to=room_name)
