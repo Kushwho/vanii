@@ -87,7 +87,8 @@ def text_to_speech_stream(resp):
     dg_stream = deepgram.speak.v("1").stream({"text" : resp})
     for chunk in dg_stream.stream.read(1024) :
         if chunk:
-            print(chunk)
+            logging.INFO(chunk)
+            logging.INFO(type(chunk))
             print(type(chunk))
             audio_content += chunk
     
