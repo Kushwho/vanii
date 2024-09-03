@@ -2,9 +2,9 @@ import os
 from flask import Flask, request, jsonify
 from flask_socketio import SocketIO, join_room, leave_room
 from dotenv import load_dotenv
-from deepgram import DeepgramClient, LiveTranscriptionEvents, LiveOptions, DeepgramClientOptions
+from deepgram import  LiveTranscriptionEvents, LiveOptions
 from llm import batch, save_in_mongo_clear_redis, store_in_redis,streaming
-from text_to_speech import text_to_speech, text_to_speech_cartesia,text_to_speech_stream,text_to_speech_cartesia_batch
+from text_to_speech import  text_to_speech_cartesia,text_to_speech_stream,text_to_speech_cartesia_batch
 import time
 from threading import Timer
 from utils import log_event as log_event_sync
@@ -17,6 +17,7 @@ from concurrent.futures import ThreadPoolExecutor
 from analytics.speech_analytics import upload_file  
 import sentry_sdk 
 import json
+from DeepgramClient import deepgram
 
 # Load environment variables from .env file
 load_dotenv()
@@ -33,8 +34,7 @@ sentry_sdk.init(
 )
 
 
-# Get the API keys from environment variables
-DEEPGRAM_API_KEY = os.getenv("DEEPGRAM_API_KEY")
+
 
 # Initialize Flask and SocketIO
 cors_allowed_origins = os.getenv("CORS")
@@ -69,11 +69,7 @@ def configure_app(use_cloudwatch):
     app_socketio.logger.handlers = logger.handlers
     app_socketio.logger.setLevel(logger.level)
 
-config = DeepgramClientOptions(
-    verbose=logging.WARN,
-    options={"keepalive": "true"}
-)
-deepgram = DeepgramClient(DEEPGRAM_API_KEY, config)
+
 
 # Asynchronous wrapper for log_event
 def async_log_event(event_type, event_data):
@@ -162,7 +158,7 @@ def initialize_deepgram_connection(sessionId, email, voice):
     dg_connection.on(LiveTranscriptionEvents.Metadata, on_metadata)
     dg_connection.on(LiveTranscriptionEvents.UtteranceEnd, on_utteranceEnd)
 
-    options = LiveOptions(model="nova-2", language="en", endpointing=300)  
+    options = LiveOptions(model="nova-2", language="en-IN", endpointing=1500)  
 
     if not dg_connection.start(options):
         logging.error(f"Failed to start Deepgram connection for session {sessionId}")
@@ -187,10 +183,10 @@ def collate_and_store_audio(session_id, audio_data):
 @socketio.on('audio_stream')
 def handle_audio_stream(data):
     sessionId = data.get("sessionId")
-    # logging.info(f"Received audio stream for session ID: {sessionId}")
+    logging.info(f"Received audio stream for session ID: {sessionId}")
     if sessionId in dg_connections:
         dg_connections[sessionId]['connection'].send(data.get("data"))
-        # logging.info(f"Audio sent for session ID: {sessionId}")
+        logging.info(f"Audio sent for session ID: {sessionId}")
     else:
         # socketio.emit('deepgram_connection_opened', {'message': 'Deepgram connection opened'}, room=sessionId)
         logging.warning(f"No active Deepgram connection for session ID: {sessionId}")
@@ -198,24 +194,6 @@ def handle_audio_stream(data):
     # Use the executor to run the collate_and_store_audio function
     executor.submit(collate_and_store_audio, sessionId, data.get("data"))
 
-# Handle transcription toggle events
-# @socketio.on('toggle_transcription')
-# def handle_toggle_transcription(data):
-#     app_socketio.logger.info(f"Received toggle_transcription event: {data}")
-#     action = data.get("action")
-#     sessionId = data.get("sessionId")
-#     email = data.get("email")
-#     voice = data.get("voice")
-    
-#     if action == "start":
-#         app_socketio.logger.info(f"Starting Deepgram connection for session {sessionId}")
-#         if sessionId not in dg_connections:
-#             initialize_deepgram_connection(sessionId, email, voice)
-#         else:
-#             app_socketio.logger.info(f"Deepgram connection already exists for session {sessionId}")
-#     elif action == "stop":
-#         app_socketio.logger.info(f"Stopping Deepgram connection for session {sessionId}")
-        # close_deepgram_connection(sessionId)
 
 # Function to close Deepgram connection
 def close_deepgram_connection(sessionId):
@@ -256,15 +234,15 @@ def join(data):
     join_room(room_name)
     store_in_redis(data['sessionId'])
     if voice == "Deepgram":
-            response = text_to_speech("Hello , I am Vaanii")
-            if response.status_code == 200:
+            response = text_to_speech_stream("Hello , I am Vaanii")
+            if response :
                 socketio.emit('transcription_update', {'audioBinary': response.content, 'user': 'Hii', 'transcription': "Hello , I am Vanii", 'sessionId': room_name}, to=room_name)
                 
             else:
                 socketio.emit('transcription_update', {'transcription': "Hello , I am Vanii", 'user': "Hii", 'sessionId': room_name}, to=room_name)
     else:
         try:
-            response = text_to_speech_cartesia_batch("Hello , I am Vaanii")
+            response = text_to_speech_cartesia("Hello , I am Vaanii")
             socketio.emit('transcription_update', {'audioBinary': response, 'user': "Hii", 'transcription': "Hello , I am Vanii", 'sessionId': room_name}, to=room_name)
         except Exception as e:
                 socketio.emit('transcription_update', {'transcription': "Hello , I am Vanii", 'user': "Hii", 'sessionId': room_name}, to=room_name)
