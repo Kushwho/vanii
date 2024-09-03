@@ -83,9 +83,8 @@ def text_to_speech_cartesia_batch(response ,voice_id = "ff1bb1a9-c582-4570-9670-
 
 
 def text_to_speech_stream(resp):
-    
+    audio_content = b''
     dg_stream = deepgram.speak.v("1").stream({"text" : resp})
-
     for chunk in dg_stream.stream.read(1024) :
         if chunk:
             audio_content += chunk  
