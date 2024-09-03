@@ -84,12 +84,23 @@ def text_to_speech_cartesia_batch(response ,voice_id = "ff1bb1a9-c582-4570-9670-
 
 def text_to_speech_stream(resp):
     audio_content = b""
-    dg_stream = deepgram.speak.v("1").stream({"text": resp})
-    for chunk in dg_stream.stream.read(1024):
-        if isinstance(chunk, bytes):
-            audio_content += chunk
-        else:
-            raise TypeError(f'Expected bytes, got {type(chunk)}')
+    try:
+        dg_stream = deepgram.speak.v("1").stream({"text": resp})
+        while True:
+            chunk = dg_stream.stream.read(1024)
+            if isinstance(chunk, bytes):
+                audio_content += chunk
+            elif isinstance(chunk, int):
+                audio_content += bytes([chunk])  # Convert int to bytes
+            else:
+                raise TypeError(f'Expected bytes or int, got {type(chunk)}')
+            if not chunk:  # End of stream
+                break
+    except Exception as e:
+        raise RuntimeError(f"Failed to collect audio data: {e}")
+
+    return audio_content
+
     
     return audio_content
 
