@@ -28,7 +28,7 @@ jobs:
 
       # Push the Docker image to Docker Hub
       - name: Push Docker image
-        run: docker push yourusername/vanii-socket:latest
+        run: docker push vaniiai/vanii-socket:latest
 
       # Deploy to the server
       - name: Deploy to AWS server
@@ -38,7 +38,7 @@ jobs:
           USER: ubuntu
         run: |
           ssh -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY $USER@$SERVER << 'EOF'
-            cd /path/to/your/docker-compose-directory
+            cd /home/ubuntu/vanii-project
             docker-compose pull vanii-socket
             docker-compose up -d vanii-socket
           EOF
