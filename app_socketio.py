@@ -90,7 +90,7 @@ def buffer_transcripts(transcript, sessionId):
     if sessionId in buffer_timers and buffer_timers[sessionId] is not None:
         buffer_timers[sessionId].cancel()
     
-    buffer_timers[sessionId] = Timer(1, process_transcripts, [sessionId])
+    buffer_timers[sessionId] = Timer(1.5, process_transcripts, [sessionId])
     buffer_timers[sessionId].start()
 
 # Process buffered transcripts and convert them to speech
