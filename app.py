@@ -6,12 +6,11 @@ from models import db
 from utils import log_event
 from log_config import setup_logging
 import os
-from flask_cors import CORS
+
 
 load_dotenv()
 
 app = Flask("app_http")
-CORS(app)
 app.config.from_object(Config)
 db.init_app(app)
 
