@@ -87,7 +87,7 @@ groq_api_key = os.getenv("GROQ_API_KEY")
 
 CONNECTION_STRING = os.getenv("DB_URI")
 
-model = ChatGroq(temperature=0.5, model_name="llama3-8b-8192", groq_api_key=groq_api_key,max_tokens=200)
+model = ChatGroq(temperature=0.5, model_name="llama3-8b-8192", groq_api_key=groq_api_key ,max_tokens=200)
 system = '''You are Vanii, act like  a Language Teacher with a vibrant personality, dedicated to making learning English fun and engaging and try to keep your reponses short.'''
 
 
