@@ -3,7 +3,7 @@ from flask import Flask, request, jsonify
 from flask_socketio import SocketIO, join_room, leave_room
 from dotenv import load_dotenv
 from deepgram import  LiveTranscriptionEvents,LiveOptions
-from llm import batch, save_in_mongo_clear_redis, store_in_redis,streaming
+from llm import save_in_mongo_clear_redis, store_in_redis,streaming
 from text_to_speech import  text_to_speech_cartesia,text_to_speech_stream,text_to_speech_cartesia_batch
 import time
 from threading import Timer
@@ -138,7 +138,7 @@ def initialize_deepgram_connection(sessionId, email, voice):
     def on_message(self, result, **kwargs):
         transcript = result.channel.alternatives[0].transcript
         if len(transcript) > 0:
-            # logging.info(f"Received transcript for session {sessionId}: {transcript}")
+            logging.info(f"Received transcript for session {sessionId}: {transcript}")
             buffer_transcripts(transcript, sessionId)
     
     def on_metadata(self, metadata, **kwargs):
@@ -162,7 +162,7 @@ def initialize_deepgram_connection(sessionId, email, voice):
     dg_connection.on(LiveTranscriptionEvents.Metadata, on_metadata)
     dg_connection.on(LiveTranscriptionEvents.UtteranceEnd, on_utteranceEnd)
 
-    options = LiveOptions(model="nova-2", language="en-IN", utterance_end_ms=2000, filler_words=True, smart_format=True)  
+    options = LiveOptions(model="nova-2", language="en-IN", utterance_end_ms=2000, filler_words=True, smart_format=True,interim_results=True,no_delay=True,keywords=["vaanii:3"])  
 
     if not dg_connection.start(options):
         logging.error(f"Failed to start Deepgram connection for session {sessionId}")
