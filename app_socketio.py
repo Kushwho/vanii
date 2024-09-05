@@ -42,7 +42,7 @@ cors_allowed_origins = os.getenv("CORS")
 app_socketio = Flask("app_socketio")
 app_socketio.config.from_object(Config)
 db.init_app(app_socketio)
-socketio = SocketIO(app_socketio, cors_allowed_origins=cors_allowed_origins,max_http_buffer_size=5000)
+socketio = SocketIO(app_socketio, cors_allowed_origins=cors_allowed_origins)
 
 # Initialize a dictionary to store Deepgram connections
 dg_connections = {}
