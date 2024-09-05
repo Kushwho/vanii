@@ -1,0 +1,44 @@
+name: CD for vanii-socket
+
+on:
+  push:
+    branches:
+      - backend
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Check out the repository code
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Set up Docker
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v1
+
+      # Log in to Docker Hub
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      # Build the Docker image for vanii-socket
+      - name: Build Docker image for vanii-socket
+        run: docker build -t vaniiai/vanii-socket:latest ./vanii-socket
+
+      # Push the Docker image to Docker Hub
+      - name: Push Docker image
+        run: docker push vaniiai/vanii-socket:latest
+
+      # Deploy to the server
+      - name: Deploy to AWS server
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SERVER: ec2-13-201-133-88.ap-south-1.compute.amazonaws.com
+          USER: ubuntu
+        run: |
+          ssh -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY $USER@$SERVER << 'EOF'
+            cd /home/ubuntu/vanii-project
+            docker-compose pull vanii-socket
+            docker-compose up -d vanii-socket
+          EOF
