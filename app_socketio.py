@@ -162,7 +162,7 @@ def initialize_deepgram_connection(sessionId, email, voice):
     dg_connection.on(LiveTranscriptionEvents.Metadata, on_metadata)
     dg_connection.on(LiveTranscriptionEvents.UtteranceEnd, on_utteranceEnd)
 
-    options = LiveOptions(model="nova-2", language="en-IN", utterance_end_ms=2000, filler_words=True, smart_format=True,interim_results=True,no_delay=True,keywords=["vaanii:3"])  
+    options = LiveOptions(model="nova-2", language="en-IN", filler_words=True, smart_format=True,no_delay=True,keywords=["vaanii:3"])  
 
     if not dg_connection.start(options):
         logging.error(f"Failed to start Deepgram connection for session {sessionId}")
