@@ -2,9 +2,9 @@ import os
 from flask import Flask, request, jsonify
 from flask_socketio import SocketIO, join_room, leave_room
 from dotenv import load_dotenv
-from deepgram import DeepgramClient, LiveTranscriptionEvents, LiveOptions, DeepgramClientOptions
+from deepgram import  LiveTranscriptionEvents, LiveOptions
 from llm import batch, save_in_mongo_clear_redis, store_in_redis,streaming
-from text_to_speech import text_to_speech, text_to_speech_cartesia,text_to_speech_stream
+from text_to_speech import  text_to_speech_cartesia,text_to_speech_stream,text_to_speech_cartesia_batch
 import time
 from threading import Timer
 from utils import log_event as log_event_sync
@@ -17,6 +17,7 @@ from concurrent.futures import ThreadPoolExecutor
 from analytics.speech_analytics import upload_file  
 import sentry_sdk 
 import json
+from DeepgramClient import deepgram
 
 # Load environment variables from .env file
 load_dotenv()
@@ -33,15 +34,14 @@ sentry_sdk.init(
 )
 
 
-# Get the API keys from environment variables
-DEEPGRAM_API_KEY = os.getenv("DEEPGRAM_API_KEY")
+
 
 # Initialize Flask and SocketIO
 cors_allowed_origins = os.getenv("CORS")
 app_socketio = Flask("app_socketio")
 app_socketio.config.from_object(Config)
 db.init_app(app_socketio)
-socketio = SocketIO(app_socketio, cors_allowed_origins=cors_allowed_origins)
+socketio = SocketIO(app_socketio, cors_allowed_origins=cors_allowed_origins,max_http_buffer_size=5000)
 
 # Initialize a dictionary to store Deepgram connections
 dg_connections = {}
@@ -72,11 +72,7 @@ def configure_app(use_cloudwatch):
     app_socketio.logger.handlers = logger.handlers
     app_socketio.logger.setLevel(logger.level)
 
-config = DeepgramClientOptions(
-    verbose=logging.WARN,
-    options={"keepalive": "true"}
-)
-deepgram = DeepgramClient(DEEPGRAM_API_KEY, config)
+
 
 # Asynchronous wrapper for log_event
 def async_log_event(event_type, event_data):
@@ -107,23 +103,17 @@ def process_transcripts(sessionId):
         for chunk in streaming(session_id=sessionId,transcript=transcript) :
             resp_stream += chunk.content
         app_socketio.logger.info(f"Streamed response: {resp_stream}")
-
         starttime = time.time()
         voice = 'Deepgram'
         if dg_connections[sessionId] : 
-            voice = dg_connections[sessionId].get('voice', 'Deepgram')
-        
+            voice = dg_connections[sessionId].get("voice", "Deepgram")
+            logging.info(f"Voice for user with {sessionId} is {voice}")
         if voice == "Deepgram":
             response = text_to_speech_stream(resp_stream)
-            # if response.status_code == 200:
-            #     socketio.emit('transcription_update', {'audioBinary': response.content, 'user': transcript, 'transcription': resp_stream, 'sessionId': sessionId}, to=sessionId)
-                
-            # else:
-            #     socketio.emit('transcription_update', {'transcription': resp_stream, 'user': transcript, 'sessionId': sessionId}, to=sessionId)
             socketio.emit('transcription_update', {'audioBinary': response, 'user': transcript, 'transcription': resp_stream, 'sessionId': sessionId}, to=sessionId)
         else:
             try:
-                response = text_to_speech_cartesia(resp_stream)
+                response = text_to_speech_cartesia_batch(resp_stream)
                 socketio.emit('transcription_update', {'audioBinary': response, 'user': transcript, 'transcription': resp_stream, 'sessionId': sessionId}, to=sessionId)
             except Exception as e:
                 socketio.emit('transcription_update', {'transcription': resp_stream, 'user': transcript, 'sessionId': sessionId}, to=sessionId)
@@ -137,7 +127,6 @@ def process_transcripts(sessionId):
 # Initialize Deepgram connection for a session
 def initialize_deepgram_connection(sessionId, email, voice):
     app_socketio.logger.info(f"Initializing Deepgram connection for session {sessionId}")
-    
     dg_connection = deepgram.listen.websocket.v("1")
 
     def on_open(self, open, **kwargs):
@@ -148,7 +137,7 @@ def initialize_deepgram_connection(sessionId, email, voice):
     def on_message(self, result, **kwargs):
         transcript = result.channel.alternatives[0].transcript
         if len(transcript) > 0:
-            logging.info(f"Received transcript for session {sessionId}: {transcript}")
+            # logging.info(f"Received transcript for session {sessionId}: {transcript}")
             buffer_transcripts(transcript, sessionId)
     
     def on_metadata(self, metadata, **kwargs):
@@ -161,11 +150,16 @@ def initialize_deepgram_connection(sessionId, email, voice):
     def on_error(self, error, **kwargs):
         logging.error(f"Deepgram connection error for session {sessionId}: {error}")
 
+    def on_utteranceEnd(self,utterance,**kwargs) :
+        print(utterance)
+        logging.info(f"Deepgram utterance end.")
+
     dg_connection.on(LiveTranscriptionEvents.Open, on_open)
     dg_connection.on(LiveTranscriptionEvents.Transcript, on_message)
     dg_connection.on(LiveTranscriptionEvents.Close, on_close)
     dg_connection.on(LiveTranscriptionEvents.Error, on_error)
     dg_connection.on(LiveTranscriptionEvents.Metadata, on_metadata)
+    dg_connection.on(LiveTranscriptionEvents.UtteranceEnd, on_utteranceEnd)
 
     options = LiveOptions(model="nova-2", language="en-IN", utterance_end_ms=2000, filler_words=True, smart_format=True)  
 
@@ -230,25 +224,7 @@ def handle_audio_stream(data):
     # Use the executor to run the collate_and_store_audio function
     executor.submit(collate_and_store_audio, sessionId, data.get("data"))
 
-# Handle transcription toggle events
-# @socketio.on('toggle_transcription')
-# def handle_toggle_transcription(data):
-#     app_socketio.logger.info(f"Received toggle_transcription event: {data}")
-#     action = data.get("action")
-#     sessionId = data.get("sessionId")
-#     email = data.get("email")
-#     voice = data.get("voice")
-    
-#     if action == "start":
-#         app_socketio.logger.info(f"Starting Deepgram connection for session {sessionId}")
-#         if sessionId not in dg_connections:
-#             initialize_deepgram_connection(sessionId, email, voice)
-#         else:
-#             app_socketio.logger.info(f"Deepgram connection already exists for session {sessionId}")
-#     elif action == "stop":
-#         app_socketio.logger.info(f"Stopping Deepgram connection for session {sessionId}")
-        # close_deepgram_connection(sessionId)
-        
+
 # Function to close Deepgram connection
 def close_deepgram_connection(sessionId):
     if sessionId in dg_connections:
@@ -282,21 +258,21 @@ def handle_session_start(data):
 @socketio.on('join')
 def join(data):
     room_name = data['sessionId']
-    email = data.get("email")
-    voice = data.get("voice")
+    email = data['email']
+    voice = data['voice']
     logging.info(f"Room has been created for sessionId {room_name}")
     join_room(room_name)
     store_in_redis(data['sessionId'])
     if voice == "Deepgram":
-            response = text_to_speech("Hello , I am Vanii")
-            if response.status_code == 200:
-                socketio.emit('transcription_update', {'audioBinary': response.content, 'user': 'Hii', 'transcription': "Hello , I am Vanii", 'sessionId': room_name}, to=room_name)
+            response = text_to_speech_stream("Hello , I am Vaanii")
+            if response :
+                socketio.emit('transcription_update', {'audioBinary': response, 'user': 'Hii', 'transcription': "Hello , I am Vanii", 'sessionId': room_name}, to=room_name)
                 
             else:
                 socketio.emit('transcription_update', {'transcription': "Hello , I am Vanii", 'user': "Hii", 'sessionId': room_name}, to=room_name)
     else:
         try:
-            response = text_to_speech_cartesia("Hello , I am Vanii")
+            response = text_to_speech_cartesia("Hello , I am Vaanii")
             socketio.emit('transcription_update', {'audioBinary': response, 'user': "Hii", 'transcription': "Hello , I am Vanii", 'sessionId': room_name}, to=room_name)
         except Exception as e:
                 socketio.emit('transcription_update', {'transcription': "Hello , I am Vanii", 'user': "Hii", 'sessionId': room_name}, to=room_name)
