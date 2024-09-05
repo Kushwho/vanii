@@ -4,12 +4,14 @@ import requests
 import logging
 from cartesia import Cartesia
 import time
-from DeepgramClient import deepgram
+from DeepgramClient import DeepgramService
 from deepgram import SpeakOptions
 load_dotenv()
 
 url = "https://api.deepgram.com/v1/speak?model=aura-asteria-en&encoding=mp3"
 
+
+deepgram = DeepgramService().get_client()
 
 
 
