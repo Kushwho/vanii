@@ -1,16 +1,23 @@
-from deepgram import DeepgramClient,DeepgramClientOptions
+from deepgram import DeepgramClient, DeepgramClientOptions
 from dotenv import load_dotenv
 import logging
 import os
-load_dotenv()
+
+class DeepgramService:
+    def __init__(self):
+        load_dotenv()
+
+        self.deepgram_api_key = os.getenv("DEEPGRAM_API_KEY")
+
+        self.config = DeepgramClientOptions(
+            verbose=logging.ERROR,
+            options={"keepalive": "true"}
+        )
+
+        self.deepgram_client = DeepgramClient(self.deepgram_api_key, self.config)
+
+    def get_client(self):
+        
+        return self.deepgram_client
 
 
-
-
-
-DEEPGRAM_API_KEY = os.getenv("DEEPGRAM_API_KEY")
-config = DeepgramClientOptions(
-    verbose=logging.ERROR,
-    options={"keepalive": "true"}
-)
-deepgram = DeepgramClient(DEEPGRAM_API_KEY, config)

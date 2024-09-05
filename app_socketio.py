@@ -2,7 +2,7 @@ import os
 from flask import Flask, request, jsonify
 from flask_socketio import SocketIO, join_room, leave_room
 from dotenv import load_dotenv
-from deepgram import  LiveTranscriptionEvents, LiveOptions
+from deepgram import  LiveTranscriptionEvents,LiveOptions
 from llm import batch, save_in_mongo_clear_redis, store_in_redis,streaming
 from text_to_speech import  text_to_speech_cartesia,text_to_speech_stream,text_to_speech_cartesia_batch
 import time
@@ -17,7 +17,7 @@ from concurrent.futures import ThreadPoolExecutor
 from analytics.speech_analytics import upload_file  
 import sentry_sdk 
 import json
-from DeepgramClient import deepgram
+from DeepgramClient import DeepgramService
 
 # Load environment variables from .env file
 load_dotenv()
@@ -33,7 +33,8 @@ sentry_sdk.init(
     profiles_sample_rate=1.0,
 )
 
-
+deepgram_service = DeepgramService()
+deepgram = deepgram_service.get_client()
 
 
 # Initialize Flask and SocketIO
