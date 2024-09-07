@@ -138,7 +138,7 @@ def initialize_deepgram_connection(sessionId, email, voice):
     def on_message(self, result, **kwargs):
         transcript = result.channel.alternatives[0].transcript
         logging.info(result.speech_final)
-        if len(transcript) > 0  and result.is_final == True:
+        if len(transcript) > 0  and result.speech_final == True:
             logging.info(f"Received transcript for session {sessionId}: {transcript}")
             buffer_transcripts(transcript, sessionId)
     
@@ -162,7 +162,7 @@ def initialize_deepgram_connection(sessionId, email, voice):
     dg_connection.on(LiveTranscriptionEvents.Metadata, on_metadata)
     dg_connection.on(LiveTranscriptionEvents.UtteranceEnd, on_utterance_end)
 
-    options = LiveOptions(model="nova-2", language="en-IN", filler_words=True, smart_format=True,no_delay=True,keywords=["vaanii:5"],endpointing=2000,utterance_end_ms='1000',interim_results=True)  
+    options = LiveOptions(model="nova-2", language="en-IN", filler_words=True, smart_format=True,no_delay=True,keywords=["vaanii:5"],endpointing=2000,utterance_end_ms='2000',interim_results=True,numerals=True)  
 
     if not dg_connection.start(options):
         logging.error(f"Failed to start Deepgram connection for session {sessionId}")
