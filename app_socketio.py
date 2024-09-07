@@ -136,6 +136,7 @@ def initialize_deepgram_connection(sessionId, email, voice):
         socketio.emit('deepgram_connection_opened', {'message': 'Deepgram connection opened'}, room=sessionId)
 
     def on_message(self, result, **kwargs):
+        nonlocal utterance
         transcript = result.channel.alternatives[0].transcript
         logging.info(result.speech_final)
         logging.info(f"\n\n{result}\n\n")
