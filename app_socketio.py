@@ -90,7 +90,7 @@ def buffer_transcripts(transcript, sessionId):
     if sessionId in buffer_timers and buffer_timers[sessionId] is not None:
         buffer_timers[sessionId].cancel()
     
-    buffer_timers[sessionId] = Timer(1.5, process_transcripts, [sessionId])
+    buffer_timers[sessionId] = Timer(1, process_transcripts, [sessionId])
     buffer_timers[sessionId].start()
 
 # Process buffered transcripts and convert them to speech
@@ -137,7 +137,7 @@ def initialize_deepgram_connection(sessionId, email, voice):
 
     def on_message(self, result, **kwargs):
         transcript = result.channel.alternatives[0].transcript
-        if len(transcript) > 0:
+        if len(transcript) > 0  and result.speech_final == True:
             logging.info(f"Received transcript for session {sessionId}: {transcript}")
             buffer_transcripts(transcript, sessionId)
     
@@ -151,18 +151,17 @@ def initialize_deepgram_connection(sessionId, email, voice):
     def on_error(self, error, **kwargs):
         logging.error(f"Deepgram connection error for session {sessionId}: {error}")
 
-    def on_utteranceEnd(self,utterance,**kwargs) :
-        print(utterance)
-        logging.info(f"Deepgram utterance end.")
+    def on_utterance_end(self, utterance_end, **kwargs):
+        logging.INFO(f"\n\n{utterance_end}\n\n")
 
     dg_connection.on(LiveTranscriptionEvents.Open, on_open)
     dg_connection.on(LiveTranscriptionEvents.Transcript, on_message)
     dg_connection.on(LiveTranscriptionEvents.Close, on_close)
     dg_connection.on(LiveTranscriptionEvents.Error, on_error)
     dg_connection.on(LiveTranscriptionEvents.Metadata, on_metadata)
-    dg_connection.on(LiveTranscriptionEvents.UtteranceEnd, on_utteranceEnd)
+    dg_connection.on(LiveTranscriptionEvents.UtteranceEnd, on_utterance_end)
 
-    options = LiveOptions(model="nova-2", language="en-IN", filler_words=True, smart_format=True,no_delay=True,keywords=["vaanii:5"],endpointing='2000')  
+    options = LiveOptions(model="nova-2", language="en-IN", filler_words=True, smart_format=True,no_delay=True,keywords=["vaanii:5"],endpointing='1500',utterance_end_ms='1000',interim_results=True)  
 
     if not dg_connection.start(options):
         logging.error(f"Failed to start Deepgram connection for session {sessionId}")
