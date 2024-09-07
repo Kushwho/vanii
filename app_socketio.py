@@ -141,9 +141,9 @@ def initialize_deepgram_connection(sessionId, email, voice):
         logging.info(result.speech_final)
         logging.info(f"\n\n{result}\n\n")
         if len(transcript) > 0  and utterance:
-            utterance = False
             logging.info(f"Received transcript for session {sessionId}: {transcript}")
             buffer_transcripts(transcript, sessionId)
+        utterance = False
     
     def on_metadata(self, metadata, **kwargs):
         logging.info(f"Received metadata for session {sessionId}: {metadata}")
