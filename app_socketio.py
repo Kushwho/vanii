@@ -162,7 +162,7 @@ def initialize_deepgram_connection(sessionId, email, voice):
     dg_connection.on(LiveTranscriptionEvents.Metadata, on_metadata)
     dg_connection.on(LiveTranscriptionEvents.UtteranceEnd, on_utterance_end)
 
-    options = LiveOptions(model="nova-2", language="en-IN", filler_words=True, smart_format=True,no_delay=True,keywords=["vaanii:5"],endpointing=1500,utterance_end_ms='1000',interim_results=True)  
+    options = LiveOptions(model="nova-2", language="en-IN", filler_words=True, smart_format=True,no_delay=True,keywords=["vaanii:5"],endpointing=2000,utterance_end_ms='1000',interim_results=True)  
 
     if not dg_connection.start(options):
         logging.error(f"Failed to start Deepgram connection for session {sessionId}")
@@ -193,7 +193,7 @@ def collate_and_store_audio(session_id, audio_data):
     buffer_duration = len(buffer_info["data"])
     time_since_last_update = current_time - buffer_info["last_update"]
     
-    if buffer_duration >= 10 or (buffer_duration > 0 and time_since_last_update >= MAX_WAIT_TIME):
+    if (buffer_duration > 0 and time_since_last_update >= MAX_WAIT_TIME):
         audio_chunk = b''.join(buffer_info["data"])
         chunk_duration = buffer_duration
         
