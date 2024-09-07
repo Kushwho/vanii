@@ -215,10 +215,10 @@ def collate_and_store_audio(session_id, audio_data):
 @socketio.on('audio_stream')
 def handle_audio_stream(data):
     sessionId = data.get("sessionId")
-    logging.info(f"Received audio stream for session ID: {sessionId}")
+    # logging.info(f"Received audio stream for session ID: {sessionId}")
     if sessionId in dg_connections:
         dg_connections[sessionId]['connection'].send(data.get("data"))
-        logging.info(f"Audio sent for session ID: {sessionId}")
+        # logging.info(f"Audio sent for session ID: {sessionId}")
     else:
         # socketio.emit('deepgram_connection_opened', {'message': 'Deepgram connection opened'}, room=sessionId)
         logging.warning(f"No active Deepgram connection for session ID: {sessionId}")
