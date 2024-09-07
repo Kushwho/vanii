@@ -156,6 +156,7 @@ def initialize_deepgram_connection(sessionId, email, voice):
         logging.error(f"Deepgram connection error for session {sessionId}: {error}")
 
     def on_utterance_end(self, utterance_end, **kwargs):
+        nonlocal utterance
         utterance = True
         logging.info(f"\n\n{utterance_end}\n\n")
 
