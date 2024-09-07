@@ -152,7 +152,7 @@ def initialize_deepgram_connection(sessionId, email, voice):
         logging.error(f"Deepgram connection error for session {sessionId}: {error}")
 
     def on_utterance_end(self, utterance_end, **kwargs):
-        logging.INFO(f"\n\n{utterance_end}\n\n")
+        logging.info(f"\n\n{utterance_end}\n\n")
 
     dg_connection.on(LiveTranscriptionEvents.Open, on_open)
     dg_connection.on(LiveTranscriptionEvents.Transcript, on_message)
