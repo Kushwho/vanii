@@ -129,7 +129,7 @@ def process_transcripts(sessionId):
 def initialize_deepgram_connection(sessionId, email, voice):
     app_socketio.logger.info(f"Initializing Deepgram connection for session {sessionId}")
     dg_connection = deepgram.listen.websocket.v("1")
-
+    utterance = False
     def on_open(self, open, **kwargs):
         async_log_event('UserMicOn', {'page': 'index', 'email': email})
         logging.info(f"Deepgram connection opened for session {sessionId}: {open}")
@@ -139,7 +139,8 @@ def initialize_deepgram_connection(sessionId, email, voice):
         transcript = result.channel.alternatives[0].transcript
         logging.info(result.speech_final)
         logging.info(f"\n\n{result}\n\n")
-        if len(transcript) > 0  and result.speech_final == True:
+        if len(transcript) > 0  and utterance:
+            utterance = False
             logging.info(f"Received transcript for session {sessionId}: {transcript}")
             buffer_transcripts(transcript, sessionId)
     
@@ -154,6 +155,7 @@ def initialize_deepgram_connection(sessionId, email, voice):
         logging.error(f"Deepgram connection error for session {sessionId}: {error}")
 
     def on_utterance_end(self, utterance_end, **kwargs):
+        utterance = True
         logging.info(f"\n\n{utterance_end}\n\n")
 
     dg_connection.on(LiveTranscriptionEvents.Open, on_open)
