@@ -140,7 +140,7 @@ def initialize_deepgram_connection(sessionId, email, voice):
         transcript = result.channel.alternatives[0].transcript
         logging.info(result.speech_final)
         logging.info(f"\n\n{result}\n\n")
-        if len(transcript) > 0  and utterance:
+        if len(transcript) > 0  and result.is_finalize:
             logging.info(f"Received transcript for session {sessionId}: {transcript}")
             buffer_transcripts(transcript, sessionId)
         utterance = False
