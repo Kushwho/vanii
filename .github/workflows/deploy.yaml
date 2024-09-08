@@ -24,7 +24,7 @@ jobs:
 
       # Build the Docker image for vanii-socket
       - name: Build Docker image for vanii-socket
-        run: docker build -t vaniiai/vanii-socket:latest ./vanii-socket
+        run: docker build -t vaniiai/vanii-socket:latest .
 
       # Push the Docker image to Docker Hub
       - name: Push Docker image
