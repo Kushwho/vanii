@@ -1,44 +1,33 @@
-name: CD for vanii-socket
+name: CD for AWS EC2
 
 on:
   push:
     branches:
-      - backend
+      - backend  
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # Check out the repository code
+      # Check out the code
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Set up Docker
-      - name: Set up Docker
-        uses: docker/setup-buildx-action@v1
-
-      # Log in to Docker Hub
-      - name: Log in to Docker Hub
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-
-      # Build the Docker image for vanii-socket
-      - name: Build Docker image for vanii-socket
-        run: docker build -t vaniiai/vanii-socket:latest .
-
-      # Push the Docker image to Docker Hub
-      - name: Push Docker image
-        run: docker push vaniiai/vanii-socket:latest
-
-      # Deploy to the server
-      - name: Deploy to AWS server
+      # Deploy to the AWS EC2 instance
+      - name: Deploy to AWS
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          SERVER: ec2-13-201-133-88.ap-south-1.compute.amazonaws.com
-          USER: ubuntu
+          SERVER_IP: ${{ secrets.AWS_SERVER_IP }}
+          USER: ${{ secrets.AWS_USER }}
         run: |
-          ssh -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY $USER@$SERVER << 'EOF'
-            cd /home/ubuntu/vanii-project
-            docker-compose pull vanii-socket
-            docker-compose up -d vanii-socket
+          echo "$SSH_PRIVATE_KEY" > key.pem
+          chmod 600 key.pem
+          ssh -o StrictHostKeyChecking=no -i key.pem $USER@$SERVER_IP << 'EOF'
+            cd /home/ubuntu/vanii-project/vanii-socket
+            git pull origin backend
+            # Optional: Restart services (like Docker)
+            docker-compose down
+            docker-compose up -d
           EOF
+          rm key.pem
