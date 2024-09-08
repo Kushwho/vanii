@@ -129,21 +129,21 @@ def process_transcripts(sessionId):
 def initialize_deepgram_connection(sessionId, email, voice):
     app_socketio.logger.info(f"Initializing Deepgram connection for session {sessionId}")
     dg_connection = deepgram.listen.websocket.v("1")
-    utterance = False
+    # utterance = False
     def on_open(self, open, **kwargs):
         async_log_event('UserMicOn', {'page': 'index', 'email': email})
         logging.info(f"Deepgram connection opened for session {sessionId}: {open}")
         socketio.emit('deepgram_connection_opened', {'message': 'Deepgram connection opened'}, room=sessionId)
 
     def on_message(self, result, **kwargs):
-        nonlocal utterance
+        # nonlocal utterance
         transcript = result.channel.alternatives[0].transcript
         # logging.info(result.speech_final)
         logging.info(f"\n\n{result}\n\n")
         if len(transcript) > 0:
             logging.info(f"Received transcript for session {sessionId}: {transcript}")
             buffer_transcripts(transcript, sessionId)
-        utterance = False
+        # utterance = False
     
     def on_metadata(self, metadata, **kwargs):
         logging.info(f"Received metadata for session {sessionId}: {metadata}")
@@ -155,19 +155,19 @@ def initialize_deepgram_connection(sessionId, email, voice):
     def on_error(self, error, **kwargs):
         logging.error(f"Deepgram connection error for session {sessionId}: {error}")
 
-    def on_utterance_end(self, utterance_end, **kwargs):
-        nonlocal utterance
-        utterance = True
-        logging.info(f"\n\n{utterance_end}\n\n")
+    # def on_utterance_end(self, utterance_end, **kwargs):
+    #     nonlocal utterance
+    #     utterance = True
+    #     logging.info(f"\n\n{utterance_end}\n\n")
 
     dg_connection.on(LiveTranscriptionEvents.Open, on_open)
     dg_connection.on(LiveTranscriptionEvents.Transcript, on_message)
     dg_connection.on(LiveTranscriptionEvents.Close, on_close)
     dg_connection.on(LiveTranscriptionEvents.Error, on_error)
     dg_connection.on(LiveTranscriptionEvents.Metadata, on_metadata)
-    dg_connection.on(LiveTranscriptionEvents.UtteranceEnd, on_utterance_end)
+    # dg_connection.on(LiveTranscriptionEvents.UtteranceEnd, on_utterance_end)
 
-    options = LiveOptions(model="nova-2", language="en-IN", filler_words=True, smart_format=True,no_delay=True,keywords=["vaanii:5"],endpointing=1000,numerals=True,vad_events=True)  
+    options = LiveOptions(model="nova-2", language="en-IN", filler_words=True, smart_format=True,no_delay=True,keywords=["vaanii:5"],endpointing=1000,numerals=True)  
 
     if not dg_connection.start(options):
         logging.error(f"Failed to start Deepgram connection for session {sessionId}")
