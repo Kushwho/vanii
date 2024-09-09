@@ -232,7 +232,8 @@ def initialize_deepgram_connection(sessionId, email, voice):
     dg_connections[sessionId] = {'connection': dg_connection, 'voice': voice}
 
     # Start the asynchronous heartbeat task
-    asyncio.create_task(send_heartbeat())
+    loop = asyncio.get_event_loop()
+    loop.create_task(send_heartbeat())
 
     return dg_connection
 
