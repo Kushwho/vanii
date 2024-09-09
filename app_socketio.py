@@ -18,7 +18,11 @@ from analytics.speech_analytics import upload_file
 import sentry_sdk 
 import json
 from DeepgramClient import DeepgramService
+<<<<<<< HEAD
 import asyncio
+=======
+import threading
+>>>>>>> f6a109800541a0e25088cb372cd8334883561fe9
 
 # Load environment variables from .env file
 load_dotenv()
@@ -172,6 +176,16 @@ def process_transcripts(sessionId, force=False):
     else:
         app_socketio.logger.warning(f"No transcript buffer found for session {sessionId}")
 
+
+def send_heartbeat(sessionId):
+    try:
+        while sessionId in dg_connections:
+            dg_connections[sessionId]['connection'].send({'type': 'KeepAlive'})
+            logging.info(f"Heartbeat sent for session {sessionId}")
+            time.sleep(5)  # Wait for 5 seconds before sending the next heartbeat
+    except Exception as e:
+        logging.error(f"Error in sending heartbeat for session {sessionId}: {e}")
+
 # Initialize Deepgram connection for a session
 def initialize_deepgram_connection(sessionId, email, voice):
     app_socketio.logger.info(f"Initializing Deepgram connection for session {sessionId}")
@@ -199,9 +213,13 @@ def initialize_deepgram_connection(sessionId, email, voice):
     def on_error(self, error, **kwargs):
         logging.error(f"Deepgram connection error for session {sessionId}: {error}")
 
-    def on_utterance_end(self, data, **kwargs):
-        logging.info(f"UtteranceEnd received for session {sessionId}: {data}")
-        process_transcripts(sessionId, force=True)
+
+    
+    # def on_utterance_end(self, utterance_end, **kwargs):
+    #     nonlocal utterance
+    #     utterance = True
+    #     logging.info(f"\n\n{utterance_end}\n\n")
+
 
     async def send_heartbeat():
         try:
@@ -231,10 +249,8 @@ def initialize_deepgram_connection(sessionId, email, voice):
     # Store the Deepgram connection
     dg_connections[sessionId] = {'connection': dg_connection, 'voice': voice}
 
-    # Start the asynchronous heartbeat task
-    loop = asyncio.get_event_loop()
-    loop.create_task(send_heartbeat())
-
+    heartbeat_thread = threading.Thread(target=send_heartbeat, args=(sessionId,))
+    heartbeat_thread.start()
     return dg_connection
 
 @log_function_call
