@@ -19,6 +19,7 @@ import sentry_sdk
 import json
 from DeepgramClient import DeepgramService
 import threading
+import asyncio
 
 # Load environment variables from .env file
 load_dotenv()
@@ -136,6 +137,11 @@ def send_heartbeat(sessionId):
     except Exception as e:
         logging.error(f"Error in sending heartbeat for session {sessionId}: {e}")
 
+def start_heartbeat_loop(sessionId):
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    loop.run_until_complete(send_heartbeat(sessionId))
+
 # Initialize Deepgram connection for a session
 def initialize_deepgram_connection(sessionId, email, voice):
     app_socketio.logger.info(f"Initializing Deepgram connection for session {sessionId}")
@@ -176,13 +182,14 @@ def initialize_deepgram_connection(sessionId, email, voice):
 
     async def send_heartbeat(sessionId):
         try:
-            while sessionId in dg_connections:  # Check if the connection is still active
+            while sessionId in dg_connections:
                 data = {'type': 'KeepAlive'}
-                dg_connections[sessionId]['connection'].send(json.dumps(data))
-                await time.sleep(5)  # Send a heartbeat message every 5 seconds
+                await dg_connections[sessionId]['connection'].send(json.dumps(data))
+                await asyncio.sleep(5)  # Await asyncio.sleep for 5 seconds
         except Exception as e:
             logging.error('Error while sending heartbeat: ' + str(e))
             raise Exception("Something went wrong while sending heartbeats")
+
 
     # Register Deepgram event handlers
     dg_connection.on(LiveTranscriptionEvents.Open, on_open)
@@ -202,7 +209,7 @@ def initialize_deepgram_connection(sessionId, email, voice):
     # Store the Deepgram connection
     dg_connections[sessionId] = {'connection': dg_connection, 'voice': voice}
 
-    heartbeat_thread = threading.Thread(target=send_heartbeat, args=(sessionId,))
+    heartbeat_thread = threading.Thread(target=start_heartbeat_loop, args=(sessionId,))
     heartbeat_thread.start()
     return dg_connection
 
