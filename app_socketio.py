@@ -133,7 +133,7 @@ def send_heartbeat(sessionId):
         while sessionId in dg_connections:
             dg_connections[sessionId]['connection'].send(json.dumps({"type" : "KeepAlive"}))
             logging.info(f"Heartbeat sent for session {sessionId}")
-            time.sleep(5)  # Wait for 5 seconds before sending the next heartbeat
+            time.sleep(2)  # Wait for 2 seconds before sending the next heartbeat
     except Exception as e:
         logging.error(f"Error in sending heartbeat for session {sessionId}: {e}")
 
