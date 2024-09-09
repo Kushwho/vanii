@@ -18,11 +18,7 @@ from analytics.speech_analytics import upload_file
 import sentry_sdk 
 import json
 from DeepgramClient import DeepgramService
-<<<<<<< HEAD
-import asyncio
-=======
 import threading
->>>>>>> f6a109800541a0e25088cb372cd8334883561fe9
 
 # Load environment variables from .env file
 load_dotenv()
