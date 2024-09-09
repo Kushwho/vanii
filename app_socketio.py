@@ -217,7 +217,7 @@ def initialize_deepgram_connection(sessionId, email, voice):
     #     logging.info(f"\n\n{utterance_end}\n\n")
 
 
-    async def send_heartbeat():
+    async def send_heartbeat(sessionId):
         try:
             while sessionId in dg_connections:  # Check if the connection is still active
                 data = {'type': 'KeepAlive'}
