@@ -43,7 +43,7 @@ cors_allowed_origins = os.getenv("CORS")
 app_socketio = Flask("app_socketio")
 app_socketio.config.from_object(Config)
 db.init_app(app_socketio)
-socketio = SocketIO(app_socketio, cors_allowed_origins=cors_allowed_origins,async_mode='asyncio')
+socketio = SocketIO(app_socketio, cors_allowed_origins=cors_allowed_origins)
 
 # Initialize a dictionary to store Deepgram connections
 dg_connections = {}
@@ -222,7 +222,7 @@ def initialize_deepgram_connection(sessionId, email, voice):
             while sessionId in dg_connections:  # Check if the connection is still active
                 data = {'type': 'KeepAlive'}
                 dg_connections[sessionId]['connection'].send(json.dumps(data))
-                await asyncio.sleep(5)  # Send a heartbeat message every 5 seconds
+                await time.sleep(5)  # Send a heartbeat message every 5 seconds
         except Exception as e:
             logging.error('Error while sending heartbeat: ' + str(e))
             raise Exception("Something went wrong while sending heartbeats")
