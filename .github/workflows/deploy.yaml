@@ -27,7 +27,8 @@ jobs:
             cd /home/ubuntu/vanii-project/vanii-socket
             git pull origin backend
             # Optional: Restart services (like Docker)
-            docker-compose down
-            docker-compose up -d
+            dcoker compose build
+            docker compose down
+            docker compose up -d
           EOF
           rm key.pem
