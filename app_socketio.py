@@ -81,96 +81,50 @@ def async_log_event(event_type, event_data):
     executor.submit(log_event_sync, event_type, event_data)
 
 # Thread-safe buffer for transcripts
-def buffer_transcripts(transcript, sessionId, is_final):
+def buffer_transcripts(transcript, sessionId):
     if sessionId not in transcript_buffers:
-        transcript_buffers[sessionId] = {"interim": "", "final": ""}
+        transcript_buffers[sessionId] = ""
     
-    if is_final:
-        transcript_buffers[sessionId]["final"] += transcript
-    else:
-        transcript_buffers[sessionId]["interim"] = transcript
+    transcript_buffers[sessionId] += transcript
     
-    # Process immediately if it's a final result
-    if is_final:
-        process_transcripts(sessionId)
-    else:
-        # Restart timer for processing buffered transcripts
-        if sessionId in buffer_timers and buffer_timers[sessionId] is not None:
-            buffer_timers[sessionId].cancel()
-        
-        buffer_timers[sessionId] = Timer(0.5, process_transcripts, [sessionId])
-        buffer_timers[sessionId].start()
+    # Restart timer for processing buffered transcripts
+    if sessionId in buffer_timers and buffer_timers[sessionId] is not None:
+        buffer_timers[sessionId].cancel()
+    
+    buffer_timers[sessionId] = Timer(1, process_transcripts, [sessionId])
+    buffer_timers[sessionId].start()
 
 # Process buffered transcripts and convert them to speech
-def process_transcripts(sessionId, force=False):
-    if sessionId in transcript_buffers:
-        interim_transcript = transcript_buffers[sessionId]["interim"]
-        final_transcript = transcript_buffers[sessionId]["final"]
+def process_transcripts(sessionId):
+    if sessionId in transcript_buffers and len(transcript_buffers[sessionId]) > 0:
+        transcript = transcript_buffers[sessionId]
+        app_socketio.logger.info(f"Processing buffered transcripts for session {sessionId}: {transcript}")
         
-        if len(final_transcript) > 0 or (len(interim_transcript) > 0 and force):
-            transcript = final_transcript if len(final_transcript) > 0 else interim_transcript
-            app_socketio.logger.info(f"Processing transcripts for session {sessionId}: {transcript}")
-            
-            # Process the transcript using the LLM
-            resp_stream = ''
-            for chunk in streaming(session_id=sessionId, transcript=transcript):
-                resp_stream += chunk.content
-            app_socketio.logger.info(f"Streamed response: {resp_stream}")
-
-            starttime = time.time()
-            voice = 'Deepgram'
-            if sessionId in dg_connections:
-                voice = dg_connections[sessionId].get("voice", "Deepgram")
-                logging.info(f"Voice for user with {sessionId} is {voice}")
-
-            if voice == "Deepgram":
-                try:
-                    response = text_to_speech_stream(resp_stream)
-                    socketio.emit('transcription_update', {
-                        'audioBinary': response,
-                        'user': transcript,
-                        'transcription': resp_stream,
-                        'sessionId': sessionId,
-                        'isFinal': len(final_transcript) > 0
-                    }, to=sessionId)
-                except Exception as e:
-                    logging.error(f"Error in Deepgram TTS: {str(e)}")
-                    socketio.emit('transcription_update', {
-                        'transcription': resp_stream,
-                        'user': transcript,
-                        'sessionId': sessionId,
-                        'isFinal': len(final_transcript) > 0
-                    }, to=sessionId)
-            else:
-                try:
-                    response = text_to_speech_cartesia_batch(resp_stream)
-                    socketio.emit('transcription_update', {
-                        'audioBinary': response,
-                        'user': transcript,
-                        'transcription': resp_stream,
-                        'sessionId': sessionId,
-                        'isFinal': len(final_transcript) > 0
-                    }, to=sessionId)
-                except Exception as e:
-                    logging.error(f"Error in Cartesia TTS: {str(e)}")
-                    socketio.emit('transcription_update', {
-                        'transcription': resp_stream,
-                        'user': transcript,
-                        'sessionId': sessionId,
-                        'isFinal': len(final_transcript) > 0
-                    }, to=sessionId)
-            
-            endtime = time.time() - starttime
-            app_socketio.logger.info(f"It took {endtime} seconds for text to speech")
-
-            # Clear the processed transcripts
-            transcript_buffers[sessionId]["final"] = ""
-            if force:
-                transcript_buffers[sessionId]["interim"] = ""
+        # resp = batch(sessionId, transcript)
+        resp_stream = ''
+        for chunk in streaming(session_id=sessionId,transcript=transcript) :
+            resp_stream += chunk.content
+        app_socketio.logger.info(f"Streamed response: {resp_stream}")
+        starttime = time.time()
+        voice = 'Deepgram'
+        if dg_connections[sessionId] : 
+            voice = dg_connections[sessionId].get("voice", "Deepgram")
+            logging.info(f"Voice for user with {sessionId} is {voice}")
+        if voice == "Deepgram":
+            response = text_to_speech_stream(resp_stream)
+            socketio.emit('transcription_update', {'audioBinary': response, 'user': transcript, 'transcription': resp_stream, 'sessionId': sessionId}, to=sessionId)
+        else:
+            try:
+                response = text_to_speech_cartesia_batch(resp_stream)
+                socketio.emit('transcription_update', {'audioBinary': response, 'user': transcript, 'transcription': resp_stream, 'sessionId': sessionId}, to=sessionId)
+            except Exception as e:
+                socketio.emit('transcription_update', {'transcription': resp_stream, 'user': transcript, 'sessionId': sessionId}, to=sessionId)
         
+        endtime = time.time() - starttime
+        app_socketio.logger.info(f"It took {endtime} seconds for text to speech")
+
+        transcript_buffers[sessionId] = ""
         buffer_timers[sessionId] = None
-    else:
-        app_socketio.logger.warning(f"No transcript buffer found for session {sessionId}")
 
 
 def send_heartbeat(sessionId):
@@ -193,11 +147,14 @@ def initialize_deepgram_connection(sessionId, email, voice):
         socketio.emit('deepgram_connection_opened', {'message': 'Deepgram connection opened'}, room=sessionId)
 
     def on_message(self, result, **kwargs):
+        # nonlocal utterance
         transcript = result.channel.alternatives[0].transcript
-        is_final = result.channel.alternatives[0].is_final
+        # logging.info(result.speech_final)
+        # logging.info(f"\n\n{result}\n\n")
         if len(transcript) > 0:
             logging.info(f"Received transcript for session {sessionId}: {transcript}")
-            buffer_transcripts(transcript, sessionId, is_final)
+            buffer_transcripts(transcript, sessionId)
+        # utterance = False
 
     def on_metadata(self, metadata, **kwargs):
         logging.info(f"Received metadata for session {sessionId}: {metadata}")
