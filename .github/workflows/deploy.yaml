@@ -27,7 +27,6 @@ jobs:
             cd /home/ubuntu/vanii-project/vanii-socket
             git pull
             # Optional: Restart services (like Docker)
-            dcoker compose build
             docker compose down
             docker compose up -d
           EOF
