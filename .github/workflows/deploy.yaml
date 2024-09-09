@@ -1,33 +1,33 @@
-name: CD for AWS EC2
+# name: CD for AWS EC2
 
-on:
-  push:
-    branches:
-      - backend  
+# on:
+#   push:
+#     branches:
+#       - backend  
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
 
-    steps:
-      # Check out the code
-      - name: Checkout code
-        uses: actions/checkout@v2
+#     steps:
+#       # Check out the code
+#       - name: Checkout code
+#         uses: actions/checkout@v2
 
-      # Deploy to the AWS EC2 instance
-      - name: Deploy to AWS
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          SERVER_IP: ${{ secrets.AWS_SERVER_IP }}
-          USER: ${{ secrets.AWS_USER }}
-        run: |
-          echo "$SSH_PRIVATE_KEY" > key.pem
-          chmod 600 key.pem
-          ssh -o StrictHostKeyChecking=no -i key.pem $USER@$SERVER_IP << 'EOF'
-            cd /home/ubuntu/vanii-project/vanii-socket
-            git pull
-            # Optional: Restart services (like Docker)
-            docker compose down
-            docker compose up -d
-          EOF
-          rm key.pem
+#       # Deploy to the AWS EC2 instance
+#       - name: Deploy to AWS
+#         env:
+#           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+#           SERVER_IP: ${{ secrets.AWS_SERVER_IP }}
+#           USER: ${{ secrets.AWS_USER }}
+#         run: |
+#           echo "$SSH_PRIVATE_KEY" > key.pem
+#           chmod 600 key.pem
+#           ssh -o StrictHostKeyChecking=no -i key.pem $USER@$SERVER_IP << 'EOF'
+#             cd /home/ubuntu/vanii-project/vanii-socket
+#             git pull
+#             # Optional: Restart services (like Docker)
+#             docker compose down
+#             docker compose up -d
+#           EOF
+#           rm key.pem
