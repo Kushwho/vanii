@@ -18,6 +18,7 @@ from analytics.speech_analytics import upload_file
 import sentry_sdk 
 import json
 from DeepgramClient import DeepgramService
+import threading
 
 # Load environment variables from .env file
 load_dotenv()
@@ -125,6 +126,16 @@ def process_transcripts(sessionId):
         transcript_buffers[sessionId] = ""
         buffer_timers[sessionId] = None
 
+
+def send_heartbeat(sessionId):
+    try:
+        while sessionId in dg_connections:
+            dg_connections[sessionId]['connection'].send({'type': 'KeepAlive'})
+            logging.info(f"Heartbeat sent for session {sessionId}")
+            time.sleep(5)  # Wait for 5 seconds before sending the next heartbeat
+    except Exception as e:
+        logging.error(f"Error in sending heartbeat for session {sessionId}: {e}")
+
 # Initialize Deepgram connection for a session
 def initialize_deepgram_connection(sessionId, email, voice):
     app_socketio.logger.info(f"Initializing Deepgram connection for session {sessionId}")
@@ -155,6 +166,7 @@ def initialize_deepgram_connection(sessionId, email, voice):
     def on_error(self, error, **kwargs):
         logging.error(f"Deepgram connection error for session {sessionId}: {error}")
 
+    
     # def on_utterance_end(self, utterance_end, **kwargs):
     #     nonlocal utterance
     #     utterance = True
@@ -174,6 +186,8 @@ def initialize_deepgram_connection(sessionId, email, voice):
         return None
 
     dg_connections[sessionId] = {'connection': dg_connection, 'voice': voice}
+    heartbeat_thread = threading.Thread(target=send_heartbeat, args=(sessionId,))
+    heartbeat_thread.start()
     return dg_connection
 
 @log_function_call
