@@ -233,7 +233,7 @@ def initialize_deepgram_connection(sessionId, email, voice):
     dg_connection.on(LiveTranscriptionEvents.Close, on_close)
     dg_connection.on(LiveTranscriptionEvents.Error, on_error)
     dg_connection.on(LiveTranscriptionEvents.Metadata, on_metadata)
-    dg_connection.on(LiveTranscriptionEvents.UtteranceEnd, on_utterance_end)
+    # dg_connection.on(LiveTranscriptionEvents.UtteranceEnd, on_utterance_end)
 
     # Options for the Deepgram connection
     options = LiveOptions(model="nova-2", language="en-IN", filler_words=True, smart_format=True, no_delay=True, keywords=["vaanii:5"], endpointing=1000, numerals=True)
