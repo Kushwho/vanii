@@ -148,7 +148,7 @@ def initialize_deepgram_connection(sessionId, email, voice):
     dg_connection = deepgram.listen.websocket.v("1")
 
     def on_open(self, open, **kwargs):
-        async_log_event('UserMicOn', {'page': 'index', 'email': email})
+        async_log_event('UserMicOn', {'page': 'index', 'user_id': sessionId})
         logging.info(f"Deepgram connection opened for session {sessionId}: {open}")
         socketio.emit('deepgram_connection_opened', {'message': 'Deepgram connection opened'}, room=sessionId)
 
@@ -166,7 +166,7 @@ def initialize_deepgram_connection(sessionId, email, voice):
         logging.info(f"Received metadata for session {sessionId}: {metadata}")
 
     def on_close(self, close, **kwargs):
-        async_log_event('UserMicOff', {'page': 'index', 'email': email})
+        async_log_event('UserMicOff', {'page': '/record', 'user_id': sessionId})
         logging.info(f"Deepgram connection closed for session {sessionId}: {close}")
 
     def on_error(self, error, **kwargs):
@@ -294,18 +294,20 @@ def join(data):
     join_room(room_name)
     store_in_redis(data['sessionId'])
     if voice == "Deepgram":
-            response = text_to_speech_stream("Hello , I am Vaanii")
+            response = text_to_speech_stream("Hello , I am Vanii, press the mic button to start talking")
             if response :
-                socketio.emit('transcription_update', {'audioBinary': response, 'user': 'Hii', 'transcription': "Hello , I am Vanii", 'sessionId': room_name}, to=room_name)
+                socketio.emit('transcription_update', {'audioBinary': response, 'user': 'Hii', 'transcription': "Hello , I am Vanii, press the mic button to start talking", 'sessionId': room_name}, to=room_name)
                 
             else:
-                socketio.emit('transcription_update', {'transcription': "Hello , I am Vanii", 'user': "Hii", 'sessionId': room_name}, to=room_name)
+                socketio.emit('transcription_update', {'transcription': "Hello , I am Vanii, press the mic button to start talking", 'user': "Hii", 'sessionId': room_name}, to=room_name)
+            
+            async_log_event('RecordPage', {'page': '/record', 'user_id': sessionId})
     else:
         try:
-            response = text_to_speech_cartesia("Hello , I am Vaanii")
-            socketio.emit('transcription_update', {'audioBinary': response, 'user': "Hii", 'transcription': "Hello , I am Vanii", 'sessionId': room_name}, to=room_name)
+            response = text_to_speech_cartesia("Hello , I am Vanii, press the mic button to start talking")
+            socketio.emit('transcription_update', {'audioBinary': response, 'user': "Hii", 'transcription': "Hello , I am Vanii, press the mic button to start talking", 'sessionId': room_name}, to=room_name)
         except Exception as e:
-                socketio.emit('transcription_update', {'transcription': "Hello , I am Vanii", 'user': "Hii", 'sessionId': room_name}, to=room_name)
+                socketio.emit('transcription_update', {'transcription': "Hello , I am Vanii, press the mic button to start talking", 'user': "Hii", 'sessionId': room_name}, to=room_name)
     if room_name not in dg_connections :
             initialize_deepgram_connection(room_name, email, voice)
     else:
