@@ -150,7 +150,7 @@ def initialize_deepgram_connection(sessionId, email, voice):
         logging.info(f"\n {transcript} \n")
         # logging.info(result.speech_final)
         # logging.info(f"\n\n{result}\n\n")
-        if len(transcript) > 0:
+        if len(transcript) > 0 and result.is_final == True:
             transcript_buffers[sessionId] = transcript
             logging.info(f"Received transcript for session {sessionId}: {transcript}")
 
