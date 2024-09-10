@@ -2,9 +2,9 @@ from models import db, Event
 from functools import wraps
 import logging
 
-def log_event(event_type, event_data):
+def log_event(event_type, event_data, user_id):
     try:
-        new_event = Event(event_type=event_type, event_data=event_data)
+        new_event = Event(event_type=event_type, event_data=event_data, user_id=user_id)
         db.session.add(new_event)
         db.session.commit()
     except Exception as e:
