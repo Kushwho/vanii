@@ -147,7 +147,7 @@ def initialize_deepgram_connection(sessionId, email, voice):
     dg_connection = deepgram.listen.websocket.v("1")
 
     def on_open(self, open, **kwargs):
-        log_event('UserMicOn', {'page': 'index', 'user_id': sessionId})
+        log_event('UserMicOn', {'page': '/record'}, 'user_id': sessionId})
         logging.info(f"Deepgram connection opened for session {sessionId}: {open}")
         socketio.emit('deepgram_connection_opened', {'message': 'Deepgram connection opened'}, room=sessionId)
 
@@ -165,7 +165,7 @@ def initialize_deepgram_connection(sessionId, email, voice):
         logging.info(f"Received metadata for session {sessionId}: {metadata}")
 
     def on_close(self, close, **kwargs):
-        log_event('UserMicOff', {'page': '/record', 'user_id': sessionId})
+        log_event('UserMicOff', {'page': '/record'}, 'user_id': sessionId)
         logging.info(f"Deepgram connection closed for session {sessionId}: {close}")
 
     def on_error(self, error, **kwargs):
@@ -305,7 +305,7 @@ def join(data):
             else:
                 socketio.emit('transcription_update', {'transcription': "Hello , I am Vanii, press the mic button to start talking", 'user': "Hii", 'sessionId': room_name}, to=room_name)
             
-            log_event('RecordPage', {'page': '/record', 'user_id': room_name})
+            log_event('RecordPage', {'page': '/record'}, 'user_id': room_name)
     else:
         try:
             response = text_to_speech_cartesia("Hello , I am Vanii, press the mic button to start talking")
@@ -327,7 +327,7 @@ def on_leave(data):
     leave_room(room)
     save_in_mongo_clear_redis(data['sessionId'])
     close_deepgram_connection(room)  # Close the Deepgram connection when user leaves
-    log_event('ConversationEnd', {'page': '/record', 'user_id': room})
+    log_event('ConversationEnd', {'page': '/record'}, 'user_id': room)
     logging.info(f"Client left room: {room}")
 
 @app_socketio.route('/analytics', methods=['POST'])
