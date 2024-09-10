@@ -172,6 +172,10 @@ def initialize_deepgram_connection(sessionId, email, voice):
     def on_error(self, error, **kwargs):
         logging.error(f"Deepgram connection error for session {sessionId}: {error}")
 
+    def on_speech_started(self, speech_started, **kwargs):
+        socketio.emit("speech_started",{'is_started' : True},to=sessionId)
+        print(f"\n\n{speech_started}\n\n")
+
 
     
     # def on_utterance_end(self, utterance_end, **kwargs):
@@ -189,6 +193,7 @@ def initialize_deepgram_connection(sessionId, email, voice):
     dg_connection.on(LiveTranscriptionEvents.Error, on_error)
     dg_connection.on(LiveTranscriptionEvents.Metadata, on_metadata)
     # dg_connection.on(LiveTranscriptionEvents.UtteranceEnd, on_utterance_end)
+    dg_connection.on(LiveTranscriptionEvents.SpeechStarted, on_speech_started)
 
     # Options for the Deepgram connection
     options = LiveOptions(model="nova-2", language="en-IN", filler_words=True, smart_format=True, no_delay=True, keywords=["vaanii:5"], endpointing=1000, numerals=True)
