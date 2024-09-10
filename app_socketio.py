@@ -174,7 +174,7 @@ def initialize_deepgram_connection(sessionId, email, voice):
 
     def on_speech_started(self, speech_started, **kwargs):
         socketio.emit("speech_started",{'is_started' : True},to=sessionId)
-        print(f"\n\n{speech_started}\n\n")
+        logging.info(f"\n\n{speech_started}\n\n")
 
 
     
