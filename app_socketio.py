@@ -98,6 +98,7 @@ def buffer_transcripts(transcript, sessionId):
 # Process buffered transcripts and convert them to speech
 def process_transcripts(sessionId):
     if sessionId in transcript_buffers and len(transcript_buffers[sessionId]) > 0:
+        start = time.time()
         transcript = transcript_buffers[sessionId]
         app_socketio.logger.info(f"Processing buffered transcripts for session {sessionId}: {transcript}")
         
@@ -106,7 +107,6 @@ def process_transcripts(sessionId):
         for chunk in streaming(session_id=sessionId,transcript=transcript) :
             resp_stream += chunk.content
         app_socketio.logger.info(f"Streamed response: {resp_stream}")
-        starttime = time.time()
         voice = 'Deepgram'
         if dg_connections[sessionId] : 
             voice = dg_connections[sessionId].get("voice", "Deepgram")
@@ -121,9 +121,8 @@ def process_transcripts(sessionId):
             except Exception as e:
                 socketio.emit('transcription_update', {'transcription': resp_stream, 'user': transcript, 'sessionId': sessionId}, to=sessionId)
         
-        endtime = time.time() - starttime
-        app_socketio.logger.info(f"It took {endtime} seconds for text to speech")
-
+        endtime = time.time() - start
+        app_socketio.logger.info(f"It took {endtime} seconds for total response")
         transcript_buffers[sessionId] = ""
         buffer_timers[sessionId] = None
 
