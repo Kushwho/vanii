@@ -147,6 +147,7 @@ def initialize_deepgram_connection(sessionId, email, voice):
     def on_message(self, result, **kwargs):
         # nonlocal utterance
         transcript = result.channel.alternatives[0].transcript
+        logging.info(f"\n {transcript} \n")
         # logging.info(result.speech_final)
         # logging.info(f"\n\n{result}\n\n")
         if len(transcript) > 0:
