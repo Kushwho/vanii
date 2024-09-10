@@ -82,24 +82,14 @@ def configure_app(use_cloudwatch):
 #     executor.submit(log_event_sync, event_type, event_data)
 
 # Thread-safe buffer for transcripts
-def buffer_transcripts(transcript, sessionId):
-    if sessionId not in transcript_buffers:
-        transcript_buffers[sessionId] = ""
-    
-    transcript_buffers[sessionId] += transcript
-    
-    # Restart timer for processing buffered transcripts
-    if sessionId in buffer_timers and buffer_timers[sessionId] is not None:
-        buffer_timers[sessionId].cancel()
-    
-    buffer_timers[sessionId] = Timer(1, process_transcripts, [sessionId])
-    buffer_timers[sessionId].start()
+
 
 # Process buffered transcripts and convert them to speech
 def process_transcripts(sessionId):
     if sessionId in transcript_buffers and len(transcript_buffers[sessionId]) > 0:
         start = time.time()
         transcript = transcript_buffers[sessionId]
+        transcript_buffers[sessionId] = ''
         app_socketio.logger.info(f"Processing buffered transcripts for session {sessionId}: {transcript}")
         
         # resp = batch(sessionId, transcript)
@@ -137,9 +127,12 @@ def send_heartbeat(sessionId):
         logging.error(f"Error in sending heartbeat for session {sessionId}: {e}")
 
 def start_heartbeat_loop(sessionId):
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    loop.run_until_complete(send_heartbeat(sessionId))
+    try :
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        loop.run_until_complete(send_heartbeat(sessionId))
+    except Exception as e :
+        logging.error("error in start_heartbeat_loop")
 
 # Initialize Deepgram connection for a session
 def initialize_deepgram_connection(sessionId, email, voice):
@@ -157,9 +150,8 @@ def initialize_deepgram_connection(sessionId, email, voice):
         # logging.info(result.speech_final)
         # logging.info(f"\n\n{result}\n\n")
         if len(transcript) > 0:
+            transcript_buffers[sessionId] = transcript
             logging.info(f"Received transcript for session {sessionId}: {transcript}")
-            buffer_transcripts(transcript, sessionId)
-        # utterance = False
 
     def on_metadata(self, metadata, **kwargs):
         logging.info(f"Received metadata for session {sessionId}: {metadata}")
@@ -171,16 +163,15 @@ def initialize_deepgram_connection(sessionId, email, voice):
     def on_error(self, error, **kwargs):
         logging.error(f"Deepgram connection error for session {sessionId}: {error}")
 
-    def on_speech_started(self, speech_started, **kwargs):
-        socketio.emit("speech_started",{'is_started' : True},to=sessionId)
-        logging.info(f"\n\nSpeech has been started{speech_started}\n\n")
+    # def on_speech_started(self, speech_started, **kwargs):
+    #     socketio.emit("speech_started",{'is_started' : True},to=sessionId)
+    #     logging.info(f"\n\nSpeech has been started{speech_started}\n\n")
 
 
     
-    # def on_utterance_end(self, utterance_end, **kwargs):
-    #     nonlocal utterance
-    #     utterance = True
-    #     logging.info(f"\n\n{utterance_end}\n\n")
+    def on_utterance_end(self, utterance_end, **kwargs):
+        process_transcripts(sessionId=sessionId)
+        logging.info(f"\n\n{utterance_end}\n\n")
 
 
 
@@ -191,11 +182,11 @@ def initialize_deepgram_connection(sessionId, email, voice):
     dg_connection.on(LiveTranscriptionEvents.Close, on_close)
     dg_connection.on(LiveTranscriptionEvents.Error, on_error)
     dg_connection.on(LiveTranscriptionEvents.Metadata, on_metadata)
-    # dg_connection.on(LiveTranscriptionEvents.UtteranceEnd, on_utterance_end)
-    dg_connection.on(LiveTranscriptionEvents.SpeechStarted, on_speech_started)
+    dg_connection.on(LiveTranscriptionEvents.UtteranceEnd, on_utterance_end)
+    # dg_connection.on(LiveTranscriptionEvents.SpeechStarted, on_speech_started)
 
     # Options for the Deepgram connection
-    options = LiveOptions(model="nova-2", language="en-IN", filler_words=True, smart_format=True, no_delay=True, keywords=["vaanii:5"], endpointing=1000, numerals=True,vad_events=True)
+    options = LiveOptions(model="nova-2", language="en-IN", filler_words=True, smart_format=True, no_delay=True, keywords=["vaanii:5"], endpointing=1000, numerals=True,vad_events=True,utterance_end_ms='1000',interim_results=True)
 
     if not dg_connection.start(options):
         logging.error(f"Failed to start Deepgram connection for session {sessionId}")
