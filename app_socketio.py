@@ -117,22 +117,29 @@ def process_transcripts(sessionId):
         buffer_timers[sessionId] = None
 
 
-def send_heartbeat(sessionId):
-    try:
-        while sessionId in dg_connections:
-            dg_connections[sessionId]['connection'].send(json.dumps({"type" : "KeepAlive"}))
+async def send_heartbeat(sessionId):
+    while sessionId in dg_connections:
+        try:
+            await dg_connections[sessionId]['connection'].send(json.dumps({"type": "KeepAlive"}))
             logging.info(f"Heartbeat sent for session {sessionId}")
-            time.sleep(2)  # Wait for 2 seconds before sending the next heartbeat
-    except Exception as e:
-        logging.error(f"Error in sending heartbeat for session {sessionId}: {e}")
+            await asyncio.sleep(2)  # Wait for 2 seconds before sending the next heartbeat
+        except Exception as e:
+            logging.error(f"Error in sending heartbeat for session {sessionId}: {e}")
+            break  # Exit loop on error
 
-def start_heartbeat_loop(sessionId):
-    try :
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        loop.run_until_complete(send_heartbeat(sessionId))
-    except Exception as e :
-        logging.error("error in start_heartbeat_loop")
+async def start_heartbeat_loop(sessionId):
+    try:
+        await send_heartbeat(sessionId)
+    except Exception as e:
+        logging.error(f"Error in start_heartbeat_loop for session {sessionId}: {e}")
+
+def run_heartbeat_loop(sessionId):
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    try:
+        loop.run_until_complete(start_heartbeat_loop(sessionId))
+    finally:
+        loop.close()
 
 # Initialize Deepgram connection for a session
 def initialize_deepgram_connection(sessionId, email, voice):
