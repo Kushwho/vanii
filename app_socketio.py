@@ -41,13 +41,15 @@ deepgram = deepgram_service.get_client()
 
 # Initialize Flask and SocketIO
 cors_allowed_origins = os.getenv("CORS")
-cors = '*'
-if cors_allowed_origins :
-    cors = cors_allowed_origins.split(',')
+# cors = '*'
+# if cors_allowed_origins :
+#     cors = cors_allowed_origins.split(',')
+# print(cors_allowed_origins)
+# print(cors)
 app_socketio = Flask("app_socketio")
 app_socketio.config.from_object(Config)
 db.init_app(app_socketio)
-socketio = SocketIO(app_socketio, cors_allowed_origins=cors)
+socketio = SocketIO(app_socketio, cors_allowed_origins=cors_allowed_origins)
 
 # Initialize a dictionary to store Deepgram connections
 dg_connections = {}
