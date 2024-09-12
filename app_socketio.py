@@ -56,7 +56,8 @@ transcript_buffers = {}
 buffer_timers = {}
 
 # Define a Thread Pool Executor
-executor = ThreadPoolExecutor(max_workers=3)
+executor = ThreadPoolExecutor(max_workers=min(32, os.cpu_count() + 4)
+)
 
 # Global dictionary to store audio buffers
 audio_buffers = {}
@@ -154,12 +155,12 @@ def initialize_deepgram_connection(sessionId, email, voice):
     def on_message(self, result, **kwargs):
         # nonlocal utterance
         transcript = result.channel.alternatives[0].transcript
-        logging.info(f"\n {transcript} \n")
+        # logging.info(f"\n {transcript} \n")
         # logging.info(result.speech_final)
         # logging.info(f"\n\n{result}\n\n")
         if len(transcript) > 0 and result.is_final == True:
             transcript_buffers[sessionId] = transcript
-            logging.info(f"Received transcript for session {sessionId}: {transcript}")
+            # logging.info(f"Received transcript for session {sessionId}: {transcript}")
 
     def on_metadata(self, metadata, **kwargs):
         logging.info(f"Received metadata for session {sessionId}: {metadata}")
@@ -194,7 +195,7 @@ def initialize_deepgram_connection(sessionId, email, voice):
     # dg_connection.on(LiveTranscriptionEvents.SpeechStarted, on_speech_started)
 
     # Options for the Deepgram connection
-    options = LiveOptions(model="nova-2", language="en-IN", filler_words=True, smart_format=True, no_delay=True, keywords=["vaanii:5"], endpointing=1000, numerals=True,vad_events=True,utterance_end_ms='1000',interim_results=True)
+    options = LiveOptions(model="nova-2", language="en-IN", filler_words=True, smart_format=True, no_delay=True, keywords=["vaanii:7"], numerals=True,vad_events=True,utterance_end_ms='750',interim_results=True)
 
     if not dg_connection.start(options):
         logging.error(f"Failed to start Deepgram connection for session {sessionId}")
