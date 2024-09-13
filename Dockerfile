@@ -27,4 +27,4 @@ COPY . /app
 EXPOSE 5001
 
 # Run app_socket.py when the container launches
-CMD ["uwsgi", "--ini", "uwsgi.ini"]
+CMD ["python", "app_socketio.py"]
