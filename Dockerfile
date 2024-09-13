@@ -1,30 +1,37 @@
 # Use the official Python image from the Docker Hub
 FROM python:3.10-slim
 
+# Set environment variables to ensure the Python output is not buffered (better for logging)
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1
+
 # Set the working directory in the container
 WORKDIR /app
 
-# Install system dependencies
-RUN apt-get update && \
-    apt-get install -y gcc portaudio19-dev && \
-    apt-get clean
+# Install system dependencies (if needed)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    libssl-dev \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-# Copy the requirements file into the container at /app
-COPY requirements.txt /app/requirements.txt
+# Copy the requirements file into the container first for better caching of dependencies
+COPY requirements.txt .
 
 # Install any dependencies specified in requirements.txt
-RUN pip install --no-cache-dir -r /app/requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-RUN pip install --upgrade langchain
+# Upgrade langchain to the latest version if necessary
+RUN pip install --no-cache-dir --upgrade langchain
 
 # Copy the .env file into the container
-COPY .env /app/.env
+COPY .env .
 
-# Copy the rest of the working directory contents into the container at /app
-COPY . /app
+# Copy the rest of the application code into the container
+COPY . .
 
 # Make port 5001 available to the world outside this container
 EXPOSE 5001
 
-# Run app_socket.py when the container launches
+# Command to start uWSGI server
 CMD ["uwsgi", "--ini", "uwsgi.ini"]
