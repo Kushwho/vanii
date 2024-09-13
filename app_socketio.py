@@ -353,4 +353,4 @@ configure_app(use_cloudwatch=True)
 # Run the SocketIO server
 if __name__ == '__main__':
     logging.info("Starting SocketIO server.")
-    socketio.run(app_socketio, debug=True, allow_unsafe_werkzeug=True, port=5001, host='0.0.0.0')
+    socketio.run(app_socketio, debug=False, allow_unsafe_werkzeug=True, port=5001, host='0.0.0.0')
