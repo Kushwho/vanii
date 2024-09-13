@@ -42,10 +42,10 @@ deepgram = deepgram_service.get_client()
 # Initialize Flask and SocketIO
 cors_allowed_origins = os.getenv("CORS")
 # cors = '*'
-# if cors_allowed_origins :
-#     cors = cors_allowed_origins.split(',')
-# print(cors_allowed_origins)
-# print(cors)
+
+#if cors_allowed_origins :
+#    cors = cors_allowed_origins.split(',')
+
 app_socketio = Flask("app_socketio")
 app_socketio.config.from_object(Config)
 db.init_app(app_socketio)
@@ -61,8 +61,7 @@ transcript_buffers = {}
 buffer_timers = {}
 
 # Define a Thread Pool Executor
-executor = ThreadPoolExecutor(max_workers=min(32, os.cpu_count() + 4)
-)
+executor = ThreadPoolExecutor(max_workers=3)
 
 # Global dictionary to store audio buffers
 audio_buffers = {}
