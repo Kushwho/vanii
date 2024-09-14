@@ -13,7 +13,7 @@ class DeepgramService:
 
         # Set up client configuration
         self.config = DeepgramClientOptions(
-            verbose=logging.ERROR,
+            verbose=logging.WARNING,
             options={"keepalive": "true"}
         )
 

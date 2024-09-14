@@ -118,7 +118,6 @@ def process_transcripts(sessionId):
         
         endtime = time.time() - start
         app_socketio.logger.info(f"It took {endtime} seconds for total response")
-        transcript_buffers[sessionId] = ""
         buffer_timers[sessionId] = None
 
 
@@ -147,10 +146,10 @@ def run_heartbeat_loop(sessionId):
         loop.close()
 
 # Initialize Deepgram connection for a session
-def initialize_deepgram_connection(sessionId, email, voice):
+def initialize_deepgram_connection(sessionId, voice):
     app_socketio.logger.info(f"Initializing Deepgram connection for session {sessionId}")
     dg_connection = deepgram.listen.websocket.v("1")
-
+    logging.info(f"Deepgram Connection {dg_connection}")
     def on_open(self, open, **kwargs):
         log_event('UserMicOn', {'page': '/record'}, sessionId)
         logging.info(f"Deepgram connection opened for session {sessionId}: {open}")
@@ -180,13 +179,9 @@ def initialize_deepgram_connection(sessionId, email, voice):
     #     socketio.emit("speech_started",{'is_started' : True},to=sessionId)
     #     logging.info(f"\n\nSpeech has been started{speech_started}\n\n")
 
-
-    
     def on_utterance_end(self, utterance_end, **kwargs):
         process_transcripts(sessionId=sessionId)
         logging.info(f"\n\n{utterance_end}\n\n")
-
-
 
 
     # Register Deepgram event handlers
@@ -199,7 +194,7 @@ def initialize_deepgram_connection(sessionId, email, voice):
     # dg_connection.on(LiveTranscriptionEvents.SpeechStarted, on_speech_started)
 
     # Options for the Deepgram connection
-    options = LiveOptions(model="nova-2", language="en-IN", filler_words=True, smart_format=True, no_delay=True, keywords=["vaanii:7"], numerals=True,vad_events=True,utterance_end_ms='750',interim_results=True)
+    options = LiveOptions(model="nova-2", language="en-IN", filler_words=True, smart_format=True, no_delay=True, keywords=["vaanii:5"], numerals=True,vad_events=True,utterance_end_ms='750',interim_results=True)
 
     if not dg_connection.start(options):
         logging.error(f"Failed to start Deepgram connection for session {sessionId}")
@@ -318,7 +313,7 @@ def join(data):
         except Exception as e:
                 socketio.emit('transcription_update', {'transcription': "Hello , I am Vanii, press the mic button to start talking", 'user': "Hii", 'sessionId': room_name}, to=room_name)
     if room_name not in dg_connections :
-            initialize_deepgram_connection(room_name, email, voice)
+            initialize_deepgram_connection(room_name, voice)
     else:
         socketio.emit('deepgram_connection_opened', {'message': 'Deepgram connection opened'}, room=room_name)
         app_socketio.logger.info(f"Deepgram connection already exists for session {room_name}")
