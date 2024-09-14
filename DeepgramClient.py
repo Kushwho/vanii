@@ -13,7 +13,6 @@ class DeepgramService:
         logging.info("Deepgram API key {self.deepgram_api_key}")
         # Set up client configuration
         self.config = DeepgramClientOptions(
-            verbose=logging.WARNING,
             options={"keepalive": "true"}
         )
 
