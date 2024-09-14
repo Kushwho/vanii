@@ -10,7 +10,7 @@ class DeepgramService:
 
         # Fetch the API key from environment variables
         self.deepgram_api_key = os.getenv("DEEPGRAM_API_KEY")
-
+        logging.info("Deepgram API key {self.deepgram_api_key}")
         # Set up client configuration
         self.config = DeepgramClientOptions(
             verbose=logging.WARNING,
