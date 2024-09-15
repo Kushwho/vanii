@@ -81,25 +81,14 @@ def configure_app(use_cloudwatch):
 # def async_log_event(event_type, event_data):
 #     executor.submit(log_event_sync, event_type, event_data)
 
-# Thread-safe buffer for transcripts
-def buffer_transcripts(transcript, sessionId):
-    if sessionId not in transcript_buffers:
-        transcript_buffers[sessionId] = ""
-    
-    transcript_buffers[sessionId] += transcript
-    
-    # Restart timer for processing buffered transcripts
-    if sessionId in buffer_timers and buffer_timers[sessionId] is not None:
-        buffer_timers[sessionId].cancel()
-    
-    buffer_timers[sessionId] = Timer(1, process_transcripts, [sessionId])
-    buffer_timers[sessionId].start()
 
+# Process buffered transcripts and convert them to speech
 # Process buffered transcripts and convert them to speech
 def process_transcripts(sessionId):
     if sessionId in transcript_buffers and len(transcript_buffers[sessionId]) > 0:
         start = time.time()
         transcript = transcript_buffers[sessionId]
+        transcript_buffers[sessionId] = ''
         app_socketio.logger.info(f"Processing buffered transcripts for session {sessionId}: {transcript}")
         
         # resp = batch(sessionId, transcript)
@@ -123,23 +112,34 @@ def process_transcripts(sessionId):
         
         endtime = time.time() - start
         app_socketio.logger.info(f"It took {endtime} seconds for total response")
-        transcript_buffers[sessionId] = ""
         buffer_timers[sessionId] = None
 
 
-def send_heartbeat(sessionId):
-    try:
-        while sessionId in dg_connections:
-            dg_connections[sessionId]['connection'].send(json.dumps({"type" : "KeepAlive"}))
-            logging.info(f"Heartbeat sent for session {sessionId}")
-            time.sleep(2)  # Wait for 2 seconds before sending the next heartbeat
-    except Exception as e:
-        logging.error(f"Error in sending heartbeat for session {sessionId}: {e}")
 
-def start_heartbeat_loop(sessionId):
+async def send_heartbeat(sessionId):
+    while sessionId in dg_connections:
+        try:
+            await dg_connections[sessionId]['connection'].send(json.dumps({"type": "KeepAlive"}))
+            logging.info(f"Heartbeat sent for session {sessionId}")
+            await asyncio.sleep(2)  # Wait for 2 seconds before sending the next heartbeat
+        except Exception as e:
+            logging.error(f"Error in sending heartbeat for session {sessionId}: {e}")
+            break  # Exit loop on error
+
+async def start_heartbeat_loop(sessionId):
+    try:
+        await send_heartbeat(sessionId)
+    except Exception as e:
+        logging.error(f"Error in start_heartbeat_loop for session {sessionId}: {e}")
+
+def run_heartbeat_loop(sessionId):
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
-    loop.run_until_complete(send_heartbeat(sessionId))
+    try:
+        loop.run_until_complete(start_heartbeat_loop(sessionId))
+    finally:
+        loop.close()
+
 
 # Initialize Deepgram connection for a session
 def initialize_deepgram_connection(sessionId, email, voice):
@@ -175,14 +175,9 @@ def initialize_deepgram_connection(sessionId, email, voice):
         socketio.emit("speech_started",{'is_started' : True},to=sessionId)
         logging.info(f"\n\nSpeech has been started{speech_started}\n\n")
 
-
-    
-    # def on_utterance_end(self, utterance_end, **kwargs):
-    #     nonlocal utterance
-    #     utterance = True
-    #     logging.info(f"\n\n{utterance_end}\n\n")
-
-
+    def on_utterance_end(self, utterance_end, **kwargs):
+        process_transcripts(sessionId=sessionId)
+        logging.info(f"\n\n{utterance_end}\n\n")
 
 
     # Register Deepgram event handlers
@@ -191,11 +186,11 @@ def initialize_deepgram_connection(sessionId, email, voice):
     dg_connection.on(LiveTranscriptionEvents.Close, on_close)
     dg_connection.on(LiveTranscriptionEvents.Error, on_error)
     dg_connection.on(LiveTranscriptionEvents.Metadata, on_metadata)
-    # dg_connection.on(LiveTranscriptionEvents.UtteranceEnd, on_utterance_end)
-    dg_connection.on(LiveTranscriptionEvents.SpeechStarted, on_speech_started)
+    dg_connection.on(LiveTranscriptionEvents.UtteranceEnd, on_utterance_end)
+    # dg_connection.on(LiveTranscriptionEvents.SpeechStarted, on_speech_started)
 
     # Options for the Deepgram connection
-    options = LiveOptions(model="nova-2", language="en-IN", filler_words=True, smart_format=True, no_delay=True, keywords=["vaanii:5"], endpointing=1000, numerals=True,vad_events=True)
+    options = LiveOptions(model="nova-2", language="en-IN", filler_words=True, smart_format=True, no_delay=True, keywords=["vaanii:5"], endpointing=1000,utterance_end_ms='1000', numerals=True,vad_events=True)
 
     if not dg_connection.start(options):
         logging.error(f"Failed to start Deepgram connection for session {sessionId}")
