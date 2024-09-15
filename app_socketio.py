@@ -88,7 +88,6 @@ def process_transcripts(sessionId):
     if sessionId in transcript_buffers and len(transcript_buffers[sessionId]) > 0:
         start = time.time()
         transcript = transcript_buffers[sessionId]
-        transcript_buffers[sessionId] = ''
         app_socketio.logger.info(f"Processing buffered transcripts for session {sessionId}: {transcript}")
         
         # resp = batch(sessionId, transcript)
@@ -200,7 +199,7 @@ def initialize_deepgram_connection(sessionId, email, voice):
     # Store the Deepgram connection
     dg_connections[sessionId] = {'connection': dg_connection, 'voice': voice}
 
-    heartbeat_thread = threading.Thread(target=start_heartbeat_loop, args=(sessionId,))
+    heartbeat_thread = threading.Thread(target=run_heartbeat_loop, args=(sessionId,))
     heartbeat_thread.start()
     return dg_connection
 
