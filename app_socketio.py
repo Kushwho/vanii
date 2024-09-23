@@ -194,7 +194,7 @@ def initialize_deepgram_connection(sessionId, email, voice):
     # dg_connection.on(LiveTranscriptionEvents.SpeechStarted, on_speech_started)
 
     # Options for the Deepgram connection
-    options = LiveOptions(model="nova-2", language="en-IN", filler_words=True, smart_format=True, no_delay=True, keywords=["vaanii:5"], endpointing=1000,utterance_end_ms="1000",interim_results=True, numerals=True,vad_events=True)
+    options = LiveOptions(model="nova-2", language="en-IN", filler_words=True, smart_format=True, no_delay=True, keywords=["vaanii:5"], endpointing=200,utterance_end_ms="500",interim_results=True, numerals=True,vad_events=True)
 
     if not dg_connection.start(options):
         logging.error(f"Failed to start Deepgram connection for session {sessionId}")
@@ -251,6 +251,7 @@ def collate_and_store_audio(session_id, audio_data):
 def handle_audio_stream(data):
     sessionId = data.get("sessionId")
     if sessionId in dg_connections:
+        logging.warning(f"Audio received for session ID: {sessionId}")
         dg_connections[sessionId]['connection'].send(data.get("data"))
     else:
         logging.warning(f"No active Deepgram connection for session ID: {sessionId}")
