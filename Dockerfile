@@ -26,4 +26,4 @@ COPY . /app
 EXPOSE 5001
 
 # Run app_socket.py when the container launches
-CMD ["python", "app_socketio.py"]
+CMD ["gunicorn", "-c", "gunicorn.conf.py", "app_socketio:app_socketio"]
