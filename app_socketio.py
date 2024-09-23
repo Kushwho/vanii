@@ -41,6 +41,10 @@ deepgram = deepgram_service.get_client()
 
 # Initialize Flask and SocketIO
 cors_allowed_origins = os.getenv("CORS")
+if cors_allowed_origins :
+    cors_allowed_origins = cors_allowed_origins.split(',')
+else :
+    cors_allowed_origins = '*'
 app_socketio = Flask("app_socketio")
 app_socketio.config.from_object(Config)
 db.init_app(app_socketio)
