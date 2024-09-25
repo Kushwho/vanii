@@ -1,4 +1,4 @@
-# Use the official Python image from the Docker Hub
+# Use the official Python image from Docker Hub
 FROM python:3.10-slim
 
 # Set the working directory in the container
@@ -6,15 +6,15 @@ WORKDIR /app
 
 # Install system dependencies
 RUN apt-get update && \
-    apt-get install -y gcc portaudio19-dev && \
-    apt-get clean
+    apt-get install -y --no-install-recommends gcc portaudio19-dev && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
-# Copy the requirements file into the container at /app
+# Copy only requirements.txt first to leverage Docker cache
 COPY requirements.txt /app/requirements.txt
 
-# Install any dependencies specified in requirements.txt
+# Install Python dependencies
 RUN pip install --no-cache-dir -r /app/requirements.txt
-
 
 # Copy the .env file into the container
 COPY .env /app/.env
@@ -22,8 +22,8 @@ COPY .env /app/.env
 # Copy the rest of the working directory contents into the container at /app
 COPY . /app
 
-# Make port 5001 available to the world outside this container
-EXPOSE 5001
+# Expose port 5000 to the host
+EXPOSE 5000
 
-# Run app_socket.py when the container launches
-CMD ["gunicorn", "-k", "eventlet", "-w", "4", "app_socketio:app_socketio"]
+# Set the default command to run the app using Gunicorn with eventlet
+CMD ["gunicorn", "--worker-class", "eventlet", "-w", "4", "-b", "0.0.0.0:5000", "app:socketio"]
