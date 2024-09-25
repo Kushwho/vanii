@@ -6,6 +6,13 @@ WORKDIR /app
 
 
 
+# Install system dependencies and build tools (including gcc)
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends gcc g++ libssl-dev make build-essential portaudio19-dev && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+
 # Copy the requirements file into the container at /app
 COPY requirements.txt /app/requirements.txt
 
