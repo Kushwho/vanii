@@ -251,6 +251,7 @@ def collate_and_store_audio(session_id, audio_data):
 def handle_audio_stream(data):
     sessionId = data.get("sessionId")
     if sessionId in dg_connections:
+        logging.info(f"Audio received for sessionId {sessionId}")
         dg_connections[sessionId]['connection'].send(data.get("data"))
     else:
         logging.warning(f"No active Deepgram connection for session ID: {sessionId}")
