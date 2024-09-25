@@ -124,7 +124,7 @@ def process_transcripts(sessionId):
 async def send_heartbeat(sessionId):
     while sessionId in dg_connections:
         try:
-            await dg_connections[sessionId]['connection'].send(json.dumps({"type": "KeepAlive"}))
+            dg_connections[sessionId]['connection'].send(json.dumps({"type": "KeepAlive"}))
             logging.info(f"Heartbeat sent for session {sessionId}")
             await asyncio.sleep(2)  # Wait for 2 seconds before sending the next heartbeat
         except Exception as e:
