@@ -4,7 +4,7 @@ FROM python:3.10-slim
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy only requirements.txt first to leverage Docker cache
+# Copy the requirements file into the container at /app
 COPY requirements.txt /app/requirements.txt
 
 # Install Python dependencies
@@ -17,7 +17,7 @@ COPY .env /app/.env
 COPY . /app
 
 # Expose port 5000 to the host
-EXPOSE 5000
+EXPOSE 5001
 
 # Set the default command to run the app using Gunicorn with eventlet
-CMD ["gunicorn", "--worker-class", "eventlet", "-w", "4", "-b", "0.0.0.0:5000", "app_socketio:app_socketio"]
+CMD ["python", "app_socketio.py"]
