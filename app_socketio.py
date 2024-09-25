@@ -126,7 +126,7 @@ async def send_heartbeat(sessionId):
         try:
             dg_connections[sessionId]['connection'].send(json.dumps({"type": "KeepAlive"}))
             logging.info(f"Heartbeat sent for session {sessionId}")
-            await asyncio.sleep(2)  # Wait for 2 seconds before sending the next heartbeat
+            await asyncio.sleep(5)  # Wait for 2 seconds before sending the next heartbeat
         except Exception as e:
             logging.error(f"Error in sending heartbeat for session {sessionId}: {e}")
             break  # Exit loop on error
