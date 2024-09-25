@@ -41,10 +41,10 @@ deepgram = deepgram_service.get_client()
 
 # Initialize Flask and SocketIO
 cors_allowed_origins = os.getenv("CORS")
-# cors = '*'
+cors = '*'
 
-#if cors_allowed_origins :
-#    cors = cors_allowed_origins.split(',')
+if cors_allowed_origins :
+   cors = cors_allowed_origins.split(',')
 
 app_socketio = Flask("app_socketio")
 app_socketio.config.from_object(Config)
@@ -203,7 +203,7 @@ def initialize_deepgram_connection(sessionId, voice):
     # Store the Deepgram connection
     dg_connections[sessionId] = {'connection': dg_connection, 'voice': voice}
 
-    heartbeat_thread = threading.Thread(target=start_heartbeat_loop, args=(sessionId,))
+    heartbeat_thread = threading.Thread(target=run_heartbeat_loop, args=(sessionId,))
     heartbeat_thread.start()
     return dg_connection
 
