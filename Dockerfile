@@ -20,4 +20,4 @@ COPY . /app
 EXPOSE 5000
 
 # Set the default command to run the app using Gunicorn with eventlet
-CMD ["gunicorn", "--worker-class", "eventlet", "-w", "4", "-b", "0.0.0.0:5000", "app:socketio"]
+CMD ["gunicorn", "--worker-class", "eventlet", "-w", "4", "-b", "0.0.0.0:5000", "app_socketio:app_socketio"]
