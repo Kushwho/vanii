@@ -4,12 +4,13 @@ import os
 from dotenv import load_dotenv
 import time
 import logging
-from langchain_redis import RedisChatMessageHistory
+# from langchain_redis import RedisChatMessageHistory
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_core.messages import trim_messages
 import redis
 from pymongo import MongoClient
 import os
+from langchain_community.chat_message_histories.redis import RedisChatMessageHistory
 
 
 load_dotenv()
@@ -56,8 +57,8 @@ def store_in_redis(session_id: str):
     try:
         key = f"message_store:{session_id}"
         length = redis_client.llen(key)
-        print("redis_len from store in redis")
-        print(redis_len)
+        # print("redis_len from store in redis")
+        # print(redis_len)
         redis_len[session_id] = length
         if redis_client.exists(key):
             logging.info(f"Messages already exist for session_id: {session_id}")
@@ -119,7 +120,7 @@ chain = prompt | trimmer | model
 chain_with_history = RunnableWithMessageHistory(
     chain,
     lambda session_id: RedisChatMessageHistory(
-        session_id, redis_url="redis://redis:6379"
+        session_id, url="redis://redis:6379"
     ),
     input_messages_key="question",
     history_messages_key="messages",
