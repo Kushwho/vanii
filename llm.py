@@ -119,7 +119,7 @@ chain = prompt | trimmer | model
 chain_with_history = RunnableWithMessageHistory(
     chain,
     lambda session_id: RedisChatMessageHistory(
-        session_id, url="redis://redis:6379"
+        session_id, redis_url="redis://redis:6379"
     ),
     input_messages_key="question",
     history_messages_key="messages",
