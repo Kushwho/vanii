@@ -16,8 +16,11 @@ COPY .env /app/.env
 # Copy the rest of the working directory contents into the container at /app
 COPY . /app
 
-# Expose port 5000 to the host
+# Expose port 5001 to the host
 EXPOSE 5001
 
 # Set the default command to run the app using Gunicorn with eventlet
-CMD ["python", "app_socketio.py"]
+# Set the default command to run the app using Gunicorn with eventlet
+# CMD ["gunicorn", "-k", "eventlet", "-w", "1", "--bind", "0.0.0.0:5001", "app_socketio:app_socketio"]
+CMD ["python" , "app_socketio.py"]
+

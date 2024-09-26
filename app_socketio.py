@@ -1,3 +1,5 @@
+import eventlet
+eventlet.monkey_patch()
 import os
 from flask import Flask, request, jsonify
 from flask_socketio import SocketIO, join_room, leave_room
@@ -40,15 +42,18 @@ deepgram = deepgram_service.get_client()
 
 
 # Initialize Flask and SocketIO
-cors_allowed_origins = os.getenv("CORS")
-if cors_allowed_origins :
-    cors_allowed_origins = cors_allowed_origins.split(',')
-else :
-    cors_allowed_origins = '*'
+cors_allowed_origins = '*'
+if os.getenv("CORS"):
+    cors = os.getenv("CORS").split(',')
+    if len(cors)>1 :
+        cors_allowed_origins = cors
+    else :
+        cors_allowed_origins = os.getenv("CORS")
+
 app_socketio = Flask("app_socketio")
 app_socketio.config.from_object(Config)
 db.init_app(app_socketio)
-socketio = SocketIO(app_socketio, cors_allowed_origins=cors_allowed_origins)
+socketio = SocketIO(app_socketio, cors_allowed_origins=cors_allowed_origins,message_queue="redis://redis:6379/1")
 
 # Initialize a dictionary to store Deepgram connections
 dg_connections = {}
@@ -352,4 +357,4 @@ configure_app(use_cloudwatch=True)
 # Run the SocketIO server
 if __name__ == '__main__':
     logging.info("Starting SocketIO server.")
-    socketio.run(app_socketio, debug=True, allow_unsafe_werkzeug=True, port=5001, host='0.0.0.0')
+    socketio.run(app_socketio, debug=False, port=5001, host='0.0.0.0')
