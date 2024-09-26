@@ -56,6 +56,8 @@ dg_connections = {}
 # Initialize a dictionary to store transcript buffers
 transcript_buffers = {}
 
+buffer_timers = {}
+
 
 
 # Define a Thread Pool Executor

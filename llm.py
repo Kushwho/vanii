@@ -4,12 +4,13 @@ import os
 from dotenv import load_dotenv
 import time
 import logging
-from langchain_community.chat_message_histories import RedisChatMessageHistory
-from langchain_core.runnables import RunnableWithMessageHistory
+from langchain_redis import RedisChatMessageHistory
+from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_core.messages import trim_messages
 import redis
 from pymongo import MongoClient
 import os
+
 
 load_dotenv()
 
