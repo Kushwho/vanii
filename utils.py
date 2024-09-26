@@ -1,6 +1,7 @@
 from models import db, Event
 from functools import wraps
 import logging
+from datetime import datetime
 
 def log_event(event_type, event_data, user_id):
     try:
