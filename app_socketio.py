@@ -56,8 +56,7 @@ dg_connections = {}
 # Initialize a dictionary to store transcript buffers
 transcript_buffers = {}
 
-# Initialize a dictionary to store buffer timers
-buffer_timers = {}
+
 
 # Define a Thread Pool Executor
 executor = ThreadPoolExecutor(max_workers=3)
@@ -115,13 +114,15 @@ def process_transcripts(sessionId):
         
         endtime = time.time() - start
         app_socketio.logger.info(f"It took {endtime} seconds for total response")
-        buffer_timers[sessionId] = None
 
 
 
 async def send_heartbeat(sessionId):
     while sessionId in dg_connections:
         try:
+            if sessionId not in dg_connections:
+                logging.info(f"Session {sessionId} removed from dg_connections. Stopping heartbeat.")
+                break
             dg_connections[sessionId]['connection'].send(json.dumps({"type": "KeepAlive"}))
             logging.info(f"Heartbeat sent for session {sessionId}")
             await asyncio.sleep(2)  # Wait for 2 seconds before sending the next heartbeat
