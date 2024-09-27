@@ -97,7 +97,8 @@ def configure_app(use_cloudwatch):
 def process_transcripts(sessionId):
     if sessionId in transcript_buffers and len(transcript_buffers[sessionId]) > 0:
         start = time.time()
-        transcript = transcript_buffers[sessionId]
+        transcript = " ".join(transcript_buffers[sessionId])
+        transcript_buffers[sessionId] = []
         app_socketio.logger.info(f"Processing buffered transcripts for session {sessionId}: {transcript}")
         # resp = batch(sessionId, transcript)
         resp_stream = ''
@@ -155,21 +156,30 @@ def run_heartbeat_loop(sessionId):
 def initialize_deepgram_connection(sessionId, email, voice):
     app_socketio.logger.info(f"Initializing Deepgram connection for session {sessionId}")
     dg_connection = deepgram.listen.websocket.v("1")
-
+    idx = 0
+    transcript_buffers[sessionId] = []
+    check = False
     def on_open(self, open, **kwargs):
         log_event('UserMicOn', {'page': '/record'}, sessionId)
         logging.info(f"Deepgram connection opened for session {sessionId}: {open}")
         socketio.emit('deepgram_connection_opened', {'message': 'Deepgram connection opened'}, room=sessionId)
 
     def on_message(self, result, **kwargs):
+        nonlocal check , idx
         # nonlocal utterance
         transcript = result.channel.alternatives[0].transcript
         # logging.info(f"\n {transcript} \n")
         # logging.info(result.speech_final)
         logging.info(f"\n\n{result}\n\n")
         if len(transcript) > 0 and result.is_final == True:
-            transcript_buffers[sessionId] = transcript
+            if len(transcript_buffers[sessionId]) == idx : 
+                transcript_buffers[sessionId].append("")
+            transcript_buffers[sessionId][idx] = transcript
+            check = True
             # logging.info(f"Received transcript for session {sessionId}: {transcript}")
+        elif result.is_final == False and check == True:
+            idx+=1
+            check = False
 
 
     def on_metadata(self, metadata, **kwargs):
@@ -187,6 +197,9 @@ def initialize_deepgram_connection(sessionId, email, voice):
     #     logging.info(f"\n\nSpeech has been started{speech_started}\n\n")
 
     def on_utterance_end(self, utterance_end, **kwargs):
+        nonlocal check , idx
+        idx = 0
+        check = False
         process_transcripts(sessionId=sessionId)
         logging.info(f"\n\n{utterance_end}\n\n")
 
