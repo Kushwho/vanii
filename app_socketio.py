@@ -318,7 +318,7 @@ def join(data):
     join_room(room_name)
     store_in_redis(data['sessionId'])
     if voice == "Deepgram":
-            response = text_to_speech_stream("Hello , I am Vaanii, press the mic button to start talking")
+            response = text_to_speech_stream("Hello , I am Vaani, press the mic button to start talking")
             if response :
                 socketio.emit('transcription_update', {'audioBinary': response, 'user': 'Hii', 'transcription': "Hello , I am Vanii, press the mic button to start talking", 'sessionId': room_name}, to=room_name)
                 
@@ -329,7 +329,7 @@ def join(data):
                       room_name)
     else:
         try:
-            response = text_to_speech_cartesia("Hello , I am Vaanii, press the mic button to start talking")
+            response = text_to_speech_cartesia("Hello , I am Vaani, press the mic button to start talking")
             socketio.emit('transcription_update', {'audioBinary': response, 'user': "Hii", 'transcription': "Hello , I am Vanii, press the mic button to start talking", 'sessionId': room_name}, to=room_name)
         except Exception as e:
                 socketio.emit('transcription_update', {'transcription': "Hello , I am Vanii, press the mic button to start talking", 'user': "Hii", 'sessionId': room_name}, to=room_name)
