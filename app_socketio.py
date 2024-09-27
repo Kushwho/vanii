@@ -99,7 +99,6 @@ def process_transcripts(sessionId):
         start = time.time()
         transcript = transcript_buffers[sessionId]
         app_socketio.logger.info(f"Processing buffered transcripts for session {sessionId}: {transcript}")
-        
         # resp = batch(sessionId, transcript)
         resp_stream = ''
         for chunk in streaming(session_id=sessionId,transcript=transcript) :
@@ -167,7 +166,7 @@ def initialize_deepgram_connection(sessionId, email, voice):
         transcript = result.channel.alternatives[0].transcript
         # logging.info(f"\n {transcript} \n")
         # logging.info(result.speech_final)
-        # logging.info(f"\n\n{result}\n\n")
+        logging.info(f"\n\n{result}\n\n")
         if len(transcript) > 0 and result.is_final == True:
             transcript_buffers[sessionId] = transcript
             # logging.info(f"Received transcript for session {sessionId}: {transcript}")
