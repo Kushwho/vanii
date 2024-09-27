@@ -99,7 +99,7 @@ def process_transcripts(sessionId):
         start = time.time()
         transcript = " ".join(transcript_buffers[sessionId])
         transcript_buffers[sessionId] = []
-        app_socketio.logger.info(f"Processing buffered transcripts for session {sessionId}: {transcript}")
+        # app_socketio.logger.info(f"Processing buffered transcripts for session {sessionId}: {transcript}")
         # resp = batch(sessionId, transcript)
         resp_stream = ''
         for chunk in streaming(session_id=sessionId,transcript=transcript) :
@@ -131,8 +131,8 @@ async def send_heartbeat(sessionId):
                 logging.info(f"Session {sessionId} removed from dg_connections. Stopping heartbeat.")
                 break
             dg_connections[sessionId]['connection'].send(json.dumps({"type": "KeepAlive"}))
-            logging.info(f"Heartbeat sent for session {sessionId}")
-            await asyncio.sleep(2)  # Wait for 2 seconds before sending the next heartbeat
+            # logging.info(f"Heartbeat sent for session {sessionId}")
+            await asyncio.sleep(5)  # Wait for 5 seconds before sending the next heartbeat
         except Exception as e:
             logging.error(f"Error in sending heartbeat for session {sessionId}: {e}")
             break  # Exit loop on error
@@ -170,7 +170,7 @@ def initialize_deepgram_connection(sessionId, email, voice):
         transcript = result.channel.alternatives[0].transcript
         # logging.info(f"\n {transcript} \n")
         # logging.info(result.speech_final)
-        logging.info(f"\n\n{result}\n\n")
+        # logging.info(f"\n\n{result}\n\n")
         if len(transcript) > 0 and result.is_final == True:
             if len(transcript_buffers[sessionId]) == idx : 
                 transcript_buffers[sessionId].append("")
@@ -201,7 +201,7 @@ def initialize_deepgram_connection(sessionId, email, voice):
         idx = 0
         check = False
         process_transcripts(sessionId=sessionId)
-        logging.info(f"\n\n{utterance_end}\n\n")
+        # logging.info(f"\n\n{utterance_end}\n\n")
 
 
     # Register Deepgram event handlers
@@ -318,7 +318,7 @@ def join(data):
     join_room(room_name)
     store_in_redis(data['sessionId'])
     if voice == "Deepgram":
-            response = text_to_speech_stream("Hello , I am Vanii, press the mic button to start talking")
+            response = text_to_speech_stream("Hello , I am Vaanii, press the mic button to start talking")
             if response :
                 socketio.emit('transcription_update', {'audioBinary': response, 'user': 'Hii', 'transcription': "Hello , I am Vanii, press the mic button to start talking", 'sessionId': room_name}, to=room_name)
                 
@@ -329,7 +329,7 @@ def join(data):
                       room_name)
     else:
         try:
-            response = text_to_speech_cartesia("Hello , I am Vanii, press the mic button to start talking")
+            response = text_to_speech_cartesia("Hello , I am Vaanii, press the mic button to start talking")
             socketio.emit('transcription_update', {'audioBinary': response, 'user': "Hii", 'transcription': "Hello , I am Vanii, press the mic button to start talking", 'sessionId': room_name}, to=room_name)
         except Exception as e:
                 socketio.emit('transcription_update', {'transcription': "Hello , I am Vanii, press the mic button to start talking", 'user': "Hii", 'sessionId': room_name}, to=room_name)
