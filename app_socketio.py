@@ -9,7 +9,7 @@ import time
 from threading import Timer
 # from utils import log_event 
 from utils import store_audio_chunk,log_function_call
-# from config import Config
+from config import Config
 from models import db
 from log_config import setup_logging
 import logging
@@ -49,6 +49,8 @@ if os.getenv("CORS"):
         cors_allowed_origins = os.getenv("CORS")
 
 app_socketio = Flask("app_socketio")
+app_socketio.config.from_object(Config)
+db.init_app(app_socketio)
 
 app_socketio.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'default_secret_key')
 # app_socketio.config.from_object(Config)
@@ -363,7 +365,7 @@ def handle_upload():
             logging.error(f"Error processing audio: {str(e)}")
 
 # Configure the app (keep your existing configuration function)
-# configure_app(use_cloudwatch=True)
+configure_app(use_cloudwatch=True)
 
 # Run the SocketIO server
 if __name__ == '__main__':
