@@ -1,3 +1,5 @@
+import eventlet
+eventlet.monkey_patch()
 import os
 from flask import Flask, request, jsonify
 from flask_socketio import SocketIO, join_room, leave_room
@@ -369,7 +371,5 @@ configure_app(use_cloudwatch=True)
 
 # Run the SocketIO server
 if __name__ == '__main__':
-    import eventlet
-    eventlet.monkey_patch()
     logging.info("Starting SocketIO server.")
     socketio.run(app_socketio, debug=False, port=5001, host='0.0.0.0')
