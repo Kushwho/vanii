@@ -52,7 +52,7 @@ app_socketio = Flask("app_socketio")
 
 app_socketio.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'default_secret_key')
 # app_socketio.config.from_object(Config)
-db.init_app(app_socketio)
+# db.init_app(app_socketio)
 socketio = SocketIO(app_socketio, cors_allowed_origins=cors_allowed_origins,message_queue="redis://redis:6379/1",max_http_buffer_size=1e8)
 
 # Initialize a dictionary to store Deepgram connections
@@ -363,7 +363,7 @@ def handle_upload():
             logging.error(f"Error processing audio: {str(e)}")
 
 # Configure the app (keep your existing configuration function)
-configure_app(use_cloudwatch=True)
+# configure_app(use_cloudwatch=True)
 
 # Run the SocketIO server
 if __name__ == '__main__':
