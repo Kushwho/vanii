@@ -9,7 +9,7 @@ import time
 from threading import Timer
 # from utils import log_event 
 from utils import store_audio_chunk,log_function_call
-from config import Config
+# from config import Config
 from models import db
 from log_config import setup_logging
 import logging
@@ -49,7 +49,9 @@ if os.getenv("CORS"):
         cors_allowed_origins = os.getenv("CORS")
 
 app_socketio = Flask("app_socketio")
-app_socketio.config.from_object(Config)
+
+app_socketio.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'default_secret_key')
+# app_socketio.config.from_object(Config)
 db.init_app(app_socketio)
 socketio = SocketIO(app_socketio, cors_allowed_origins=cors_allowed_origins,message_queue="redis://redis:6379/1",max_http_buffer_size=1e8)
 
@@ -151,7 +153,7 @@ def run_heartbeat_loop(sessionId):
 
 
 # Initialize Deepgram connection for a session
-def initialize_deepgram_connection(sessionId, email, voice):
+def initialize_deepgram_connection(sessionId, voice):
     app_socketio.logger.info(f"Initializing Deepgram connection for session {sessionId}")
     dg_connection = deepgram.listen.websocket.v("1")
     idx = 0
@@ -310,7 +312,6 @@ def handle_session_start(data):
 @socketio.on('join')
 def join(data):
     room_name = data['sessionId']
-    email = data['email']
     voice = data['voice']
     logging.info(f"Room has been created for sessionId {room_name}")
     join_room(room_name)
@@ -332,7 +333,7 @@ def join(data):
         except Exception as e:
                 socketio.emit('transcription_update', {'transcription': "Hello , I am Vanii, press the mic button to start talking", 'user': "Hii", 'sessionId': room_name}, to=room_name)
     if room_name not in dg_connections :
-            initialize_deepgram_connection(room_name, email, voice)
+            initialize_deepgram_connection(room_name, voice)
     else:
         socketio.emit('deepgram_connection_opened', {'message': 'Deepgram connection opened'}, room=room_name)
         app_socketio.logger.info(f"Deepgram connection already exists for session {room_name}")
