@@ -1,5 +1,3 @@
-import eventlet
-eventlet.monkey_patch()
 import os
 from flask import Flask, request, jsonify
 from flask_socketio import SocketIO, join_room, leave_room
@@ -9,7 +7,7 @@ from llm import save_in_mongo_clear_redis, store_in_redis,streaming
 from text_to_speech import  text_to_speech_cartesia,text_to_speech_stream,text_to_speech_cartesia_batch
 import time
 from threading import Timer
-from utils import log_event 
+# from utils import log_event 
 from utils import store_audio_chunk,log_function_call
 from config import Config
 from models import db
@@ -53,7 +51,7 @@ if os.getenv("CORS"):
 app_socketio = Flask("app_socketio")
 app_socketio.config.from_object(Config)
 db.init_app(app_socketio)
-socketio = SocketIO(app_socketio, cors_allowed_origins=cors_allowed_origins,message_queue="redis://redis:6379/1")
+socketio = SocketIO(app_socketio, cors_allowed_origins=cors_allowed_origins,message_queue="redis://redis:6379/1",max_http_buffer_size=1e8)
 
 # Initialize a dictionary to store Deepgram connections
 dg_connections = {}
@@ -99,7 +97,7 @@ def process_transcripts(sessionId):
         start = time.time()
         transcript = " ".join(transcript_buffers[sessionId])
         transcript_buffers[sessionId] = []
-        # app_socketio.logger.info(f"Processing buffered transcripts for session {sessionId}: {transcript}")
+        app_socketio.logger.info(f"Processing buffered transcripts for session {sessionId}: {transcript}")
         # resp = batch(sessionId, transcript)
         resp_stream = ''
         for chunk in streaming(session_id=sessionId,transcript=transcript) :
@@ -160,7 +158,7 @@ def initialize_deepgram_connection(sessionId, email, voice):
     transcript_buffers[sessionId] = []
     check = False
     def on_open(self, open, **kwargs):
-        log_event('UserMicOn', {'page': '/record'}, sessionId)
+        # log_event('UserMicOn', {'page': '/record'}, sessionId)
         logging.info(f"Deepgram connection opened for session {sessionId}: {open}")
         socketio.emit('deepgram_connection_opened', {'message': 'Deepgram connection opened'}, room=sessionId)
 
@@ -186,7 +184,7 @@ def initialize_deepgram_connection(sessionId, email, voice):
         logging.info(f"Received metadata for session {sessionId}: {metadata}")
 
     def on_close(self, close, **kwargs):
-        log_event('UserMicOff', {'page': '/record'}, sessionId)
+        # log_event('UserMicOff', {'page': '/record'}, sessionId)
         logging.info(f"Deepgram connection closed for session {sessionId}: {close}")
 
     def on_error(self, error, **kwargs):
@@ -214,7 +212,7 @@ def initialize_deepgram_connection(sessionId, email, voice):
     # dg_connection.on(LiveTranscriptionEvents.SpeechStarted, on_speech_started)
 
     # Options for the Deepgram connection
-    options = LiveOptions(model="nova-2", language="en-IN", filler_words=True, smart_format=True, no_delay=True, keywords=["vaani:5"], endpointing=200,utterance_end_ms="1000",interim_results=True, numerals=True,vad_events=True)
+    options = LiveOptions(model="nova-2", language="hi", filler_words=True, smart_format=True, no_delay=True, keywords=["vaani:5"], endpointing=200,utterance_end_ms="1000",interim_results=True, numerals=True,vad_events=True)
 
     if not dg_connection.start(options):
         logging.error(f"Failed to start Deepgram connection for session {sessionId}")
@@ -271,7 +269,7 @@ def collate_and_store_audio(session_id, audio_data):
 def handle_audio_stream(data):
     sessionId = data.get("sessionId")
     if sessionId in dg_connections:
-        # logging.info(f"Audio received for session id {sessionId}")
+        logging.info(f"Audio received for session id {sessionId}")
         dg_connections[sessionId]['connection'].send(data.get("data"))
     else:
         logging.warning(f"No active Deepgram connection for session ID: {sessionId}")
@@ -325,8 +323,8 @@ def join(data):
             else:
                 socketio.emit('transcription_update', {'transcription': "Hello , I am Vanii, press the mic button to start talking", 'user': "Hii", 'sessionId': room_name}, to=room_name)
             
-            log_event('RecordPage', {'page': '/record'}, 
-                      room_name)
+            # log_event('RecordPage', {'page': '/record'}, 
+            #           room_name)
     else:
         try:
             response = text_to_speech_cartesia("Hello , I am Vaani, press the mic button to start talking")
@@ -348,7 +346,7 @@ def on_leave(data):
     leave_room(room)
     save_in_mongo_clear_redis(data['sessionId'])
     close_deepgram_connection(room)  # Close the Deepgram connection when user leaves
-    log_event('ConversationEnd', {'page': '/record'}, room)
+    # log_event('ConversationEnd', {'page': '/record'}, room)
     logging.info(f"Client left room: {room}")
 
 @app_socketio.route('/analytics', methods=['POST'])
@@ -368,5 +366,7 @@ configure_app(use_cloudwatch=True)
 
 # Run the SocketIO server
 if __name__ == '__main__':
+    import eventlet
+    eventlet.monkey_patch()
     logging.info("Starting SocketIO server.")
     socketio.run(app_socketio, debug=False, port=5001, host='0.0.0.0')
