@@ -22,7 +22,7 @@ EXPOSE 5001
 # Set the default command to run the app using Gunicorn with eventlet
 # Set the default command to run the app using Gunicorn with eventlet
 # CMD ["gunicorn", "-k", "eventlet", "-w", "1", "--bind", "0.0.0.0:5001", "app_socketio:app_socketio"]
-CMD ["gunicorn", "-k", "eventlet", "-w", "4", "-b", "0.0.0.0:5001", "app_socketio:app_socketio"]
+CMD ["python", "app_socketio.py"]
 
 
 
