@@ -110,14 +110,14 @@ def extract_prompt_and_create_chain(session_id: str):
 
         # Form the prompt based on user data if available
         if prompt_data:
-            system_prompt = f'''You are an AI language tutor designed to help learners improve their language skills through personalized conversational practice.
-            *Native Language*: {prompt_data.get('nativeLanguage', 'Unknown')}
-            *Language Level*: {prompt_data.get('languageLevel', 'Unknown')}
-            *Goal*: {prompt_data.get('goal', 'Unknown')}
+            system_prompt = f'''You are an AI language tutor designed to help learners improve their language skills through      personalized, conversational practice. Adapt your teaching style, content, and interaction based on the learner's profile :
+            *Native Language*: {prompt_data.get('nativeLanguage', 'English')}
+            *Language Level*: {prompt_data.get('languageLevel', 'Intermediate')}
+            *Goal*: {prompt_data.get('goal', 'Enhance fluency')}
             *Purpose*: {prompt_data.get('purpose', 'Unknown')}
-            *Time Dedication*: {prompt_data.get('timeToBeDedicated', 'Unknown')}
-            *Learning Pace*: {prompt_data.get('learningPace', 'Unknown')}
-            *Challenging Aspect*: {prompt_data.get('challengingAspect', 'Unknown')}
+            *Time Dedication*: {prompt_data.get('timeToBeDedicated', '5-15 minutes')}
+            *Learning Pace*: {prompt_data.get('learningPace', 'Moderate')}
+            *Challenging Aspect*: {prompt_data.get('challengingAspect', 'Fluency')}
             *Preferred Practice*: {prompt_data.get('preferredPracticingWay', 'Unknown')}
 
             ## Interaction Guidelines
