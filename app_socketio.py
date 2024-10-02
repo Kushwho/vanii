@@ -5,7 +5,7 @@ from flask import Flask, request, jsonify
 from flask_socketio import SocketIO, join_room, leave_room
 from dotenv import load_dotenv
 from deepgram import  LiveTranscriptionEvents,LiveOptions
-from llm import save_in_mongo_clear_redis, store_in_redis,streaming
+from llm import save_in_mongo_clear_redis, store_in_redis,streaming,extract_prompt_and_create_chain,delete_chain
 from text_to_speech import  text_to_speech_cartesia,text_to_speech_stream,text_to_speech_cartesia_batch
 import time
 from threading import Timer
@@ -319,7 +319,8 @@ def join(data):
     voice = data['voice']
     logging.info(f"Room has been created for sessionId {room_name}")
     join_room(room_name)
-    store_in_redis(data['sessionId'])
+    store_in_redis(room_name)
+    extract_prompt_and_create_chain(room_name)
     if voice == "Deepgram":
             response = text_to_speech_stream("Hello , I am Vaani, press the mic button to start talking")
             if response :
@@ -348,9 +349,10 @@ def join(data):
 @socketio.on('leave')
 def on_leave(data):
     room = data['sessionId']
-    leave_room(room)
-    save_in_mongo_clear_redis(data['sessionId'])
+    save_in_mongo_clear_redis(room)  # Save the new chat in mongo db and clear from redis
     close_deepgram_connection(room)  # Close the Deepgram connection when user leaves
+    delete_chain(room) # Delete the chain created for user
+    leave_room(room)
     # log_event('ConversationEnd', {'page': '/record'}, room)
     logging.info(f"Client left room: {room}")
 

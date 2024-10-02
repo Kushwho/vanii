@@ -15,12 +15,25 @@ from langchain_community.chat_message_histories.redis import RedisChatMessageHis
 
 load_dotenv()
 
+CONNECTION_STRING = os.getenv("DB_URI")
+
 redis_client = redis.Redis(host="redis",port=6379,db=0)
-mongo_client = MongoClient(host=os.getenv("DB_URI"))
+mongo_client = MongoClient(host=CONNECTION_STRING)
 db = mongo_client.get_database('VaniiHistory')
 collection = db.get_collection('chatHistory')
+db2 = mongo_client.get_database('VaniiWeb')
+collection2 = db2.get_collection('onboardings')
+
+groq_api_key = os.getenv("GROQ_API_KEY")
+
+
+chains = {}
+
 
 redis_len = {}
+
+
+
 
 def save_in_mongo_clear_redis(session_id: str):
     try:
@@ -82,67 +95,134 @@ def store_in_redis(session_id: str):
     except Exception as e:
         logging.error(f"Error during saving history in redis: {e}")
 
+
+def extract_prompt_and_create_chain(session_id: str):
+    try:
+        # Extraction of prompt from MongoDB
+        prompt_data = collection2.find_one({"user": session_id})
+
+        # Default system prompt
+        default_system_prompt = '''You are Vaani - a Voice-Based Conversational AI. Act like an Expert Language Teacher with a vibrant personality, 
+        dedicated to making learning English fun and engaging. Keep your responses short, sweet, and specific.
+        -> Be chatty enough to keep the conversation flowing, as the user is trying to improve.
+        -> Be empathetic towards the user. Handle any incompleteness or confusion with care.
+        *Do not use special characters or capital words, and maintain appropriate punctuation.*'''
+
+        # Form the prompt based on user data if available
+        if prompt_data:
+            system_prompt = f'''You are an AI language tutor designed to help learners improve their language skills through personalized conversational practice.
+            *Native Language*: {prompt_data.get('nativeLanguage', 'Unknown')}
+            *Language Level*: {prompt_data.get('languageLevel', 'Unknown')}
+            *Goal*: {prompt_data.get('goal', 'Unknown')}
+            *Purpose*: {prompt_data.get('purpose', 'Unknown')}
+            *Time Dedication*: {prompt_data.get('timeToBeDedicated', 'Unknown')}
+            *Learning Pace*: {prompt_data.get('learningPace', 'Unknown')}
+            *Challenging Aspect*: {prompt_data.get('challengingAspect', 'Unknown')}
+            *Preferred Practice*: {prompt_data.get('preferredPracticingWay', 'Unknown')}
+
+            ## Interaction Guidelines
+            1. Engage in natural, conversational exchanges relevant to the learner's goals and interests.
+            2. Adapt language complexity to match the learner's level. Gradually increase difficulty as they progress.
+            3. Provide explanations and gentle corrections to help learners internalize new concepts.
+            4. Encourage active participation through questions and prompts, and offer constructive feedback.
+            5. Incorporate cultural insights and idiomatic expressions for a more authentic language understanding.
+            6. Maintain a friendly, patient, and supportive demeanor, and adjust your approach as needed.
+            '''
+        else:
+            system_prompt = default_system_prompt
+
+        # Create model and chain components
+        model = ChatGroq(temperature=0.5, model_name="llama3-8b-8192", groq_api_key=groq_api_key, max_tokens=200)
+        trimmer = trim_messages(
+            max_tokens=1200,
+            strategy="last",
+            token_counter=model,
+            include_system=True,
+            allow_partial=False,
+            start_on="human"
+        )
+        prompt = ChatPromptTemplate.from_messages(
+            [
+                ("system", system_prompt),
+                MessagesPlaceholder(variable_name="messages"),
+                ("human", "{question}")
+            ]
+        )
+
+        # Combine the components into a chain
+        chain = prompt | trimmer | model
+        chain_with_history = RunnableWithMessageHistory(
+            chain,
+            lambda session_id: RedisChatMessageHistory(
+                session_id, url="redis://redis:6379"
+            ),
+            input_messages_key="question",
+            history_messages_key="messages",
+        )
+
+        # Store the chain in the global chains dictionary
+        chains[session_id] = chain_with_history
+
+    except Exception as e:
+        # Handle errors by assigning default chain
+        logging.error(f"Error in extracting prompt and chain creation: {e}")
+        # Fallback to default chain creation
+        fallback_chain_creation(session_id, default_system_prompt)
+
+
+def fallback_chain_creation(session_id: str, system_prompt: str):
+    """Helper function to create a default chain when an error occurs."""
+    try:
+        model = ChatGroq(temperature=0.5, model_name="llama3-8b-8192", groq_api_key=groq_api_key, max_tokens=200)
+        trimmer = trim_messages(
+            max_tokens=1200,
+            strategy="last",
+            token_counter=model,
+            include_system=True,
+            allow_partial=False,
+            start_on="human"
+        )
+        prompt = ChatPromptTemplate.from_messages(
+            [
+                ("system", system_prompt),
+                MessagesPlaceholder(variable_name="messages"),
+                ("human", "{question}")
+            ]
+        )
+
+        # Create fallback chain
+        chain = prompt | trimmer | model
+        chain_with_history = RunnableWithMessageHistory(
+            chain,
+            lambda session_id: RedisChatMessageHistory(
+                session_id, url="redis://redis:6379"
+            ),
+            input_messages_key="question",
+            history_messages_key="messages",
+        )
+
+        # Store the fallback chain
+        chains[session_id] = chain_with_history
+
+    except Exception as e:
+        logging.error(f"Error in creating fallback chain: {e}")
+
+
+def delete_chain(session_id: str):
+    """Safely delete a session's chain."""
+    try:
+        if session_id in chains:
+            del chains[session_id]
+    except Exception as e:
+        logging.error(f"Error in deleting chain for session {session_id}: {e}")
+
+
     
-load_dotenv()
-
-groq_api_key = os.getenv("GROQ_API_KEY")
-
-CONNECTION_STRING = os.getenv("DB_URI")
-
-model = ChatGroq(temperature=0.5, model_name="llama3-8b-8192", groq_api_key=groq_api_key,max_tokens=200)
-system = '''You are Vaani- a Voice Based Conversational AI, *act* like an Expert Language Teacher with a vibrant personality, dedicated to making learning English fun and engaging and try to
-            keep your reponses short.
-            -> You should be chatty enough to keep the conversation flowing as the user is weak in a language and is trying to improve and keep your responses short, sweet and specific.
-            -> Be empathetic towards user and if you detect any anomaly like incompleteness, try to handle it accordingly.
-            *Do not use special characters and capital words, appropriate punctuations should be there*'''
-
-
-trimmer=trim_messages(
-    max_tokens=500,
-    strategy="last",
-    token_counter=model,
-    include_system=True,
-    allow_partial=False,
-    start_on="human"
-)
-
-prompt = ChatPromptTemplate.from_messages(
-    [
-        ("system", system),
-        MessagesPlaceholder(variable_name="messages"),
-        ("human", "{question}"),
-    ]
-)
-
-chain = prompt | trimmer | model
-
-
-chain_with_history = RunnableWithMessageHistory(
-    chain,
-    lambda session_id: RedisChatMessageHistory(
-        session_id, url="redis://redis:6379"
-    ),
-    input_messages_key="question",
-    history_messages_key="messages",
-)
-
-def batch(session_id,input):
-    try : 
-        starttime = time.time()
-        config = {"configurable": {"session_id": session_id}}
-        response = chain_with_history.invoke({"question" : input},config=config)
-    
-        logging.info(f"It took {time.time()-starttime} seconds for llm response")
-        return response.content
-    except Exception as e :
-        logging.error(f"Error in generating response {e}")
-        return "Sorry , there is some error"
-
-
 def streaming(session_id,transcript):
     try : 
         starttime = time.time()
         config = {"configurable": {"session_id": session_id}}
+        chain_with_history = chains[session_id]
         for chunk in chain_with_history.stream({"question" : transcript},config=config) :
             yield(chunk)
         # print(f"It took {time.time()-starttime} seconds for llm response")
@@ -156,12 +236,27 @@ def streaming2(session_id,transcript):
         starttime = time.time()
         config = {"configurable": {"session_id": session_id}}
         response = ""
+        chain_with_history = chains[session_id]
         for chunk in chain_with_history.stream({"question" : transcript},config=config) :
             response += chunk.content
             yield(chunk)
         # print(f"It took {time.time()-starttime} seconds for llm response")
         logging.info(f"It took {time.time()-starttime} seconds for llm response")
         return response
+    except Exception as e :
+        logging.error(f"Error in generating response {e}")
+        return "Sorry , there is some error"
+    
+
+def batch(session_id,input):
+    try : 
+        starttime = time.time()
+        config = {"configurable": {"session_id": session_id}}
+        chain_with_history = chains[session_id]
+        response = chain_with_history.invoke({"question" : input},config=config)
+    
+        logging.info(f"It took {time.time()-starttime} seconds for llm response")
+        return response.content
     except Exception as e :
         logging.error(f"Error in generating response {e}")
         return "Sorry , there is some error"
