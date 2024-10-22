@@ -153,7 +153,7 @@ async def entrypoint(ctx: JobContext):
     assistant.start(ctx.room)
 
     await asyncio.sleep(1)
-    await assistant.say("Hi..", allow_interruptions=True)
+    await assistant.say("Hi, I am Vanii", allow_interruptions=True)
     # async def on_user_speech_committed(transcript: str):
     #     print(f"User speech committed: {transcript}")
     # await assistant.on("user_speech_committed",on_user_speech_committed)
