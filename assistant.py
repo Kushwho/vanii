@@ -13,6 +13,7 @@ from initializeClient import initializeMongoClient
 from bson.objectid import ObjectId
 import json
 
+
 try:
     client = initializeMongoClient()
     prompt_collection = client["VaniiWeb"]["onboardings"]
@@ -74,7 +75,9 @@ async def entrypoint(ctx: JobContext):
     except Exception as e:
         print(f"Error fetching prompt data from MongoDB: {e}")
 
-    system_prompt = f'''You are Vaanii, an AI language tutor designed to help learners improve their language skills through      personalized, conversational practice. Adapt your teaching style, content, and interaction based on the learner's profile :
+
+    system_prompt = f'''You are Vanii, an AI language tutor designed to help learners improve their language skills through      personalized, conversational practice. Adapt your teaching style, content, and interaction based on the learner's profile :
+>>>>>>> 223caeb47279d3817577356dab69459793166d48
             *Native Language*: {prompt_data.get('nativeLanguage', 'English')}
             *Language Level*: {prompt_data.get('languageLevel', 'Intermediate')}
             *Goal*: {prompt_data.get('goal', 'Enhance fluency')}
@@ -101,6 +104,7 @@ async def entrypoint(ctx: JobContext):
             )
         ]
     )
+
 
     with open('hale-monument-440818-a2-feb4ce9385fd.json', 'r') as file:
         google_credentials = json.load(file)
@@ -159,7 +163,9 @@ async def entrypoint(ctx: JobContext):
     assistant.start(ctx.room)
 
     await asyncio.sleep(1)
+
     await assistant.say("Hi, I am Vaanii", allow_interruptions=True)
+
     # async def on_user_speech_committed(transcript: str):
     #     print(f"User speech committed: {transcript}")
     # await assistant.on("user_speech_committed",on_user_speech_committed)
