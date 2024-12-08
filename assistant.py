@@ -7,11 +7,14 @@ from livekit.agents.llm import (
     ChatImage,
     ChatMessage,
 )
+from livekit.agents.pipeline import VoicePipelineAgent
+
 from livekit.agents.voice_assistant import VoiceAssistant
-from livekit.plugins import deepgram, openai, silero,cartesia,google
+from livekit.plugins import openai, silero
+from livekit.plugins.deepgram import STT as DeepgramSTT
 from initializeClient import initializeMongoClient
 from bson.objectid import ObjectId
-import json
+from livekit.plugins.azure import TTS
 
 
 try:
@@ -77,7 +80,7 @@ async def entrypoint(ctx: JobContext):
 
 
     system_prompt = f'''You are Vanii, an AI language tutor designed to help learners improve their language skills through      personalized, conversational practice. Adapt your teaching style, content, and interaction based on the learner's profile :
->>>>>>> 223caeb47279d3817577356dab69459793166d48
+
             *Native Language*: {prompt_data.get('nativeLanguage', 'English')}
             *Language Level*: {prompt_data.get('languageLevel', 'Intermediate')}
             *Goal*: {prompt_data.get('goal', 'Enhance fluency')}
@@ -106,19 +109,25 @@ async def entrypoint(ctx: JobContext):
     )
 
 
-    with open('hale-monument-440818-a2-feb4ce9385fd.json', 'r') as file:
-        google_credentials = json.load(file)
-
+    azure_tts = TTS(
+            voice='en-IN-AashiNeural',  
+            language='en-IN'       
+    )
+    try:
+        stt = DeepgramSTT(
+            language="en-IN",
+            model="nova-2-general",
+    )
+    except ValueError as e:
+        print(f"Error initializing Deepgram STT: {e}")
+        raise
     groq = openai.LLM.with_groq()
-    cartesia_tts = cartesia.TTS()
-    google_tts = google.TTS(language="en-IN",gender="female",credentials_info=google_credentials)
     latest_image: rtc.VideoFrame | None = None
-    assistant = VoiceAssistant(
+    assistant = VoicePipelineAgent(
         vad=silero.VAD.load(), 
-        stt=deepgram.STT(),  
+        stt=stt,
         llm=groq,
-        tts=google_tts,  
-        # fnc_ctx=AssistantFunction(),
+        tts=azure_tts,
         chat_ctx=chat_context,
     )
 
@@ -134,18 +143,12 @@ async def entrypoint(ctx: JobContext):
             content.append(ChatImage(image=latest_image))
 
         chat_context.messages.append(ChatMessage(role="user", content=content))
-        # print("Below is the text")
-        # print(text)
         stream = groq.chat(chat_ctx=chat_context)
-        # print("Below is the text")
-        # print(stream)
         await assistant.say(stream, allow_interruptions=True)
 
     @chat.on("message_received")
     def on_message_received(msg: rtc.ChatMessage):
         """This event triggers whenever we get a new message from the user."""
-        # print("Hello")
-        # print(msg)
         if msg.message:
             asyncio.create_task(_answer(msg.message, use_image=False))
 
