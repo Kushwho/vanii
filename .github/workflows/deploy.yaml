@@ -26,8 +26,23 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i key.pem $USER@$SERVER_IP << 'EOF'
             cd /home/ubuntu/vanii-project/vanii-socket
             git pull origin backend
-            # Optional: Restart services (like Docker)
-            docker-compose down -v
-            docker-compose up -d --force-recreate
+            
+            # Build new Docker image
+            docker build -t vanii-livekit .
+            
+            # Stop and remove the old container if it exists
+            docker stop vanii-livekit-container || true
+            docker rm vanii-livekit-container || true
+            
+            # Run the new container
+            docker run -d \
+              --name vanii-livekit-container \
+              --restart unless-stopped \
+              -p 4000:4000 \
+              --env-file .env \
+              vanii-livekit
+            
+            # Clean up unused images (optional)
+            docker system prune -f
           EOF
           rm key.pem

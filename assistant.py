@@ -8,8 +8,6 @@ from livekit.agents.llm import (
     ChatMessage,
 )
 from livekit.agents.pipeline import VoicePipelineAgent
-
-from livekit.agents.voice_assistant import VoiceAssistant
 from livekit.plugins import openai, silero
 from livekit.plugins.deepgram import STT as DeepgramSTT
 from initializeClient import initializeMongoClient
@@ -91,13 +89,14 @@ async def entrypoint(ctx: JobContext):
             *Preferred Practice*: {prompt_data.get('preferredPracticingWay', 'Unknown')}
 
             ## Interaction Guidelines
-            1. Engage in natural, conversational exchanges relevant to the learner's goals and interests.
-            2. Adapt language complexity to match the learner's level. Gradually increase difficulty as they progress.
-            3. Provide explanations and gentle corrections to help learners internalize new concepts.
-            4. Encourage active participation through questions and prompts, and offer constructive feedback.
-            5. Incorporate cultural insights and idiomatic expressions for a more authentic language understanding.
-            6. Maintain a friendly, patient, and supportive demeanor, and adjust your approach as needed.
-            7. Since you are voice assistant, do not use special characters.
+            1. Try to keep your response short and concise.
+            2. Engage in natural, conversational exchanges relevant to the learner's goals and interests.
+            3. Adapt language complexity to match the learner's level. Gradually increase difficulty as they progress.
+            4. Provide explanations and gentle corrections to help learners internalize new concepts.
+            5. Encourage active participation through questions and prompts, and offer constructive feedback.
+            6. Incorporate cultural insights and idiomatic expressions for a more authentic language understanding.
+            7. Maintain a friendly, patient, and supportive demeanor, and adjust your approach as needed.
+            8. Since you are voice assistant, do not use special characters.
             '''
     chat_context = ChatContext(
         messages=[
@@ -111,11 +110,11 @@ async def entrypoint(ctx: JobContext):
 
     azure_tts = TTS(
             voice='en-IN-AashiNeural',  
-            language='en-IN'       
+            language='en-IN', 
     )
     try:
         stt = DeepgramSTT(
-            language="en-IN",
+            language="hi",
             model="nova-2-general",
     )
     except ValueError as e:
