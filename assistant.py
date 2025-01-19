@@ -1,5 +1,5 @@
 import asyncio
-from typing import Annotated
+from typing import Annotated,AsyncIterable
 from livekit import agents, rtc
 from livekit.agents import JobContext, WorkerOptions, cli
 from livekit.agents.llm import (
@@ -13,6 +13,8 @@ from livekit.plugins.deepgram import STT as DeepgramSTT
 from initializeClient import initializeMongoClient
 from bson.objectid import ObjectId
 from livekit.plugins.azure import TTS
+from livekit.plugins.deepgram import tts
+from livekit.agents import tokenize
 
 
 try:
@@ -61,6 +63,13 @@ async def get_video_track(room: rtc.Room):
     return await video_track
 
 
+def replace_words(assistant: VoicePipelineAgent, text: str | AsyncIterable[str]):
+    return tokenize.utils.replace_words(
+        text=text,
+        replacements={r'[^a-zA-Z0-9\s]': ''}
+    )
+
+
 
 
 async def entrypoint(ctx: JobContext):
@@ -77,7 +86,7 @@ async def entrypoint(ctx: JobContext):
         print(f"Error fetching prompt data from MongoDB: {e}")
 
 
-    system_prompt = f'''You are Vanii, an AI language tutor designed to help learners improve their language skills through      personalized, conversational practice. Adapt your teaching style, content, and interaction based on the learner's profile :
+    system_prompt = f'''You are Vaanii, an AI language tutor designed to help learners improve their language skills through      personalized, conversational practice. Adapt your teaching style, content, and interaction based on the learner's profile :
 
             *Native Language*: {prompt_data.get('nativeLanguage', 'English')}
             *Language Level*: {prompt_data.get('languageLevel', 'Intermediate')}
@@ -110,13 +119,22 @@ async def entrypoint(ctx: JobContext):
 
     azure_tts = TTS(
             voice='en-IN-AashiNeural',  
-            language='en-IN', 
+            language='en-IN',
     )
+    
     try:
         stt = DeepgramSTT(
-            language="hi",
+            language="en-IN",
             model="nova-2-general",
-    )
+            interim_results=True,
+            smart_format=True,
+            punctuate=True,
+            filler_words=True,
+            profanity_filter=False,
+        )
+        deepgram_tts = tts.TTS(
+            model="aura-asteria-en",
+        )
     except ValueError as e:
         print(f"Error initializing Deepgram STT: {e}")
         raise
@@ -126,8 +144,9 @@ async def entrypoint(ctx: JobContext):
         vad=silero.VAD.load(), 
         stt=stt,
         llm=groq,
-        tts=azure_tts,
+        tts=deepgram_tts,
         chat_ctx=chat_context,
+        before_tts_cb=replace_words,
     )
 
     chat = rtc.ChatManager(ctx.room)
