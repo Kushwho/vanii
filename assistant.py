@@ -150,7 +150,7 @@ async def entrypoint(ctx: JobContext):
         vad=silero.VAD.load(), 
         stt=stt,
         llm=groq,
-        tts=deepgram_tts,
+        tts=azure_tts,
         chat_ctx=chat_context,
         before_tts_cb=replace_words,
     )
