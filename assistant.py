@@ -20,6 +20,7 @@ import os
 from dotenv import load_dotenv
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
+import json
 
 load_dotenv()
 
@@ -41,6 +42,10 @@ except Exception as e:
 
 class AssistantFunction(agents.llm.FunctionContext):
     """This class is used to define functions that will be called by the assistant."""
+
+    def __init__(self,metadata) :
+        super().__init__()
+        self.metadata = metadata
 
     @agents.llm.ai_callable(
         description=(
@@ -85,8 +90,8 @@ class AssistantFunction(agents.llm.FunctionContext):
             # Define your metadata filter
             metadata_filter = {
                 "$and": [
-                    {"category": {"$eq": "Geography"}},
-                    {"chapter": {"$eq": "Agriculture"}}
+                    {"category": {"$eq": f"{self.metadata.subject}"}},
+                    {"chapter": {"$eq": f"{self.metadata.chapter}"}}
                 ]
             }
             
@@ -137,10 +142,21 @@ def replace_words(assistant: VoicePipelineAgent, text: str | AsyncIterable[str])
 
 async def entrypoint(ctx: JobContext):
     await ctx.connect()
-    print(f"Room name: {ctx.room.name}")
+    # print(f"Room name: {ctx.room.name}")
     prompt_data = {}
     user_data = {}
-    # try MongoDB connection code (commented out in original)
+    try:
+        metadata = json.load(ctx.room.metadata),
+        mongo_id = ObjectId(metadata.userId)
+        print(f"User Id: {ctx.room.name}")
+        prompt_data = prompt_collection.find_one(filter={
+            "user" : mongo_id
+        })
+        user_data = user_collection.find_one(filter={
+            "_id" : mongo_id
+        })
+    except Exception as e:
+        print(f"Error fetching prompt data from MongoDB: {e}")
 
     system_prompt = f'''You are Vaanii, an AI language tutor designed to help learners improve their language skills through personalized, conversational practice.
 
@@ -181,7 +197,7 @@ async def entrypoint(ctx: JobContext):
     groq = openai.LLM.with_groq(parallel_tool_calls=True)
     
     # Create the function context with our tools
-    fnc_ctx = AssistantFunction()
+    fnc_ctx = AssistantFunction(metadata)
     
     latest_image: rtc.VideoFrame | None = None
     assistant = VoicePipelineAgent(
