@@ -43,7 +43,7 @@ except Exception as e:
 class AssistantFunction(agents.llm.FunctionContext):
     """This class is used to define functions that will be called by the assistant."""
 
-    def __init__(self,metadata) :
+    def __init__(self,metadata={}) :
         super().__init__()
         self.metadata = metadata
 
@@ -142,11 +142,13 @@ def replace_words(assistant: VoicePipelineAgent, text: str | AsyncIterable[str])
 
 async def entrypoint(ctx: JobContext):
     await ctx.connect()
-    # print(f"Room name: {ctx.room.name}")
+    print(f"Room name: {ctx.room.name}")
     prompt_data = {}
     user_data = {}
     try:
-        metadata = json.load(ctx.room.metadata),
+        metadata = {}
+        if ctx.room.metadata :
+            metadata = json.load(ctx.room.metadata)
         mongo_id = ObjectId(metadata.userId)
         print(f"User Id: {ctx.room.name}")
         prompt_data = prompt_collection.find_one(filter={
@@ -158,15 +160,33 @@ async def entrypoint(ctx: JobContext):
     except Exception as e:
         print(f"Error fetching prompt data from MongoDB: {e}")
 
-    system_prompt = f'''You are Vaanii, an AI language tutor designed to help learners improve their language skills through personalized, conversational practice.
+    system_prompt = f'''You are Vaanii, an AI language tutor designed to help learners improve their language skills through  personalized, conversational practice. Adapt your teaching style, content, and interaction based on the learner's profile:
+        - User Name: {user_data.get('fullname','Unknown')}
+        - Native Language: {prompt_data.get('nativeLanguage', 'English')}
+        - Language Level: {prompt_data.get('languageLevel', 'Intermediate')}
+        - Goal: {prompt_data.get('goal', 'Enhance fluency')}
+        - Purpose: {prompt_data.get('purpose', 'Unknown')}
+        - Time Dedication: {prompt_data.get('timeToBeDedicated', '5-15 minutes')}
+        - Learning Pace: {prompt_data.get('learningPace', 'Moderate')}
+        - Challenging Aspect: {prompt_data.get('challengingAspect', 'Fluency')}
+        - Preferred Practice: {prompt_data.get('preferredPracticingWay', 'Unknown')}
 
-        When a student asks you a question that might need specific information from educational materials, use the retrieve_context function to find relevant information before responding. First tell the student you're thinking, then use the function, and finally answer with the retrieved context.
+        ## Retrieving Subject Knowledge
+        When a student asks about specific educational material, use the retrieve_context function before responding:
+        - For subject-specific details: Always use retrieve_context.
+        - For general conversations: Respond naturally without using retrieve_context.
+        - For unclear queries: Ask clarifying questions before using retrieve_context.
 
-        - For questions about subject details: Always use retrieve_context
-        - For general conversation: Just respond naturally without using the function
-        - For unclear queries: Ask clarifying questions before using retrieve_context
-
-        Always be supportive, encouraging, and adapt to the student's level.'''
+        ## Interaction Guidelines
+        1. Engage in natural, conversational exchanges relevant to the learner"s goals and interests.
+        2. Adapt language complexity to match the learner's level and gradually increase difficulty.
+        3. Provide explanations and gentle corrections to help learners internalize new concepts.
+        4. Encourage active participation through questions, prompts, and constructive feedback.
+        5. Incorporate cultural insights and idiomatic expressions for a more authentic understanding.
+        6. Maintain a friendly, patient, and supportive demeanor while adjusting your approach as needed.
+        7. Since you are a voice assistant, do not use special characters.
+        8. Keep responses short and concise while maintaining clarity and engagement.
+        '''
 
     chat_context = ChatContext(
         messages=[
