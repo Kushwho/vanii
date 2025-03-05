@@ -147,10 +147,10 @@ async def entrypoint(ctx: JobContext):
     groq = openai.LLM.with_groq()
     latest_image: rtc.VideoFrame | None = None
     assistant = VoicePipelineAgent(
-        vad=silero.VAD.load(), 
+        vad=silero.VAD.load(),
         stt=stt,
         llm=groq,
-        tts=azure_tts,
+        tts=deepgram_tts,
         chat_ctx=chat_context,
         before_tts_cb=replace_words,
     )
