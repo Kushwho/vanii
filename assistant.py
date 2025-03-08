@@ -89,8 +89,9 @@ def replace_words(assistant: VoicePipelineAgent, text: str | AsyncIterable[str])
 
 
 
-async def entrypoint(ctx: JobContext,db_client,chroma_client):
-    
+async def entrypoint(ctx: JobContext):
+    db_client = initializeMongoClient()
+    chroma_client = initializeChromaClient()
     prompt_collection = db_client["VaniiWeb"]["onboardings"]
     user_collection = db_client["VaniiWeb"]["users"]
     await ctx.connect()
@@ -223,9 +224,7 @@ async def entrypoint(ctx: JobContext,db_client,chroma_client):
 
     assistant.start(ctx.room)
     await asyncio.sleep(1)
-    await assistant.say("Hi, I am Vaanii, your language tutor.", allow_interruptions=True)
+    await assistant.say("Hi, I am Vaanii, your tutor.", allow_interruptions=True)
 
 if __name__ == "__main__":
-    db_client = initializeMongoClient()
-    chroma_client = initializeChromaClient()
-    cli.run_app(WorkerOptions(entrypoint_fnc=lambda ctx : entrypoint(ctx=ctx,db_client=db_client,chroma_client=chroma_client)))
+    cli.run_app(WorkerOptions(entrypoint_fnc=entrypoint))
