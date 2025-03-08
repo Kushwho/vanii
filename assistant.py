@@ -205,4 +205,4 @@ async def entrypoint(ctx: JobContext):
 #         return entrypoint(ctx=ctx, client=client)
 
 if __name__ == "__main__":
-    cli.run_app(WorkerOptions(entrypoint_fnc=entrypoint))
+    cli.run_app(WorkerOptions(entrypoint_fnc=entrypoint,load_threshold=0.98))
