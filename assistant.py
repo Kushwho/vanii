@@ -67,7 +67,8 @@ def replace_words(assistant: VoicePipelineAgent, text: str | AsyncIterable[str])
 
 
 
-async def entrypoint(ctx: JobContext,client):
+async def entrypoint(ctx: JobContext):
+    client = initializeMongoClient()
     await ctx.connect()
     print(f"Room name: {ctx.room.name}")
     prompt_collection = client["VaniiWeb"]["onboardings"]
@@ -198,9 +199,9 @@ async def entrypoint(ctx: JobContext,client):
     #         latest_image = event.frame
 
 
-def run_entrypoint(ctx):
-        return entrypoint(ctx=ctx, client=client)
+# def run_entrypoint(ctx):
+#         return entrypoint(ctx=ctx, client=client)
 
 if __name__ == "__main__":
-    client = initializeMongoClient()
-    cli.run_app(WorkerOptions(entrypoint_fnc=run_entrypoint,load_threshold=0.98))
+    # client = initializeMongoClient()
+    cli.run_app(WorkerOptions(entrypoint_fnc=entrypoint))
