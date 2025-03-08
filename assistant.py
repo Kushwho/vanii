@@ -227,4 +227,4 @@ async def entrypoint(ctx: JobContext):
     await assistant.say("Hi, I am Vaanii, your tutor.", allow_interruptions=True)
 
 if __name__ == "__main__":
-    cli.run_app(WorkerOptions(entrypoint_fnc=entrypoint))
+    cli.run_app(WorkerOptions(entrypoint_fnc=entrypoint,load_threshold=0.99))
