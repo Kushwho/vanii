@@ -200,4 +200,7 @@ async def entrypoint(ctx: JobContext,client):
 
 if __name__ == "__main__":
     client = initializeMongoClient()
-    cli.run_app(WorkerOptions(entrypoint_fnc=lambda ctx : entrypoint(ctx=ctx,client=client)))
+    def run_entrypoint(ctx):
+        return entrypoint(ctx=ctx, client=client)
+
+    cli.run_app(WorkerOptions(entrypoint_fnc=run_entrypoint))
