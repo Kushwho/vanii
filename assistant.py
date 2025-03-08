@@ -203,4 +203,4 @@ def run_entrypoint(ctx):
 
 if __name__ == "__main__":
     client = initializeMongoClient()
-    cli.run_app(WorkerOptions(entrypoint_fnc=run_entrypoint))
+    cli.run_app(WorkerOptions(entrypoint_fnc=run_entrypoint,load_threshold=0.98))
