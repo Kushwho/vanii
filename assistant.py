@@ -198,9 +198,9 @@ async def entrypoint(ctx: JobContext,client):
     #         latest_image = event.frame
 
 
-if __name__ == "__main__":
-    client = initializeMongoClient()
-    def run_entrypoint(ctx):
+def run_entrypoint(ctx):
         return entrypoint(ctx=ctx, client=client)
 
+if __name__ == "__main__":
+    client = initializeMongoClient()
     cli.run_app(WorkerOptions(entrypoint_fnc=run_entrypoint))
