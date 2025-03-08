@@ -19,6 +19,8 @@ from livekit.agents import tokenize
 
 
 
+client = None
+
 class AssistantFunction(agents.llm.FunctionContext):
     """This class is used to define functions that will be called by the assistant."""
 
@@ -203,5 +205,4 @@ async def entrypoint(ctx: JobContext):
 #         return entrypoint(ctx=ctx, client=client)
 
 if __name__ == "__main__":
-    # client = initializeMongoClient()
     cli.run_app(WorkerOptions(entrypoint_fnc=entrypoint))
