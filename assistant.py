@@ -4,66 +4,31 @@ from livekit import agents, rtc
 from livekit.agents import JobContext, WorkerOptions, cli
 from livekit.agents.llm import (
     ChatContext,
-    ChatImage,
     ChatMessage,
-    LLMStream
 )
 from livekit.agents.pipeline import VoicePipelineAgent
-from livekit.plugins import openai, silero
+from livekit.plugins import  silero
+from livekit.plugins.openai import llm
 from livekit.plugins.deepgram import STT as DeepgramSTT
-from initializeClient import initializeMongoClient
+from initializeClient import initializeMongoClient,initializeChromaClient
 from bson.objectid import ObjectId
 from livekit.plugins.azure import TTS
 from livekit.plugins.deepgram import tts
 from livekit.agents import tokenize
-import os
 from dotenv import load_dotenv
-from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain_chroma import Chroma
 import json
 
 load_dotenv()
 
 
-embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
-chroma_client = Chroma(
-    persist_directory="./chroma_langchain_db",
-    embedding_function=embeddings,
-    collection_name="embeddings"
-)
-
-try:
-    client = initializeMongoClient()
-    prompt_collection = client["VaniiWeb"]["onboardings"]
-    user_collection = client["VaniiWeb"]["users"]
-except Exception as e:
-    print(f"Error initializing MongoDB client: {e}")
-    raise
-
 class AssistantFunction(agents.llm.FunctionContext):
     """This class is used to define functions that will be called by the assistant."""
 
-    def __init__(self,metadata={}) :
+    def __init__(self,metadata={"subject":"Geography", "chapter" : "Agriculture"},chroma_client=None) :
         super().__init__()
         self.metadata = metadata
+        self.chroma_client = chroma_client
 
-    @agents.llm.ai_callable(
-        description=(
-            "Called when asked to evaluate something that would require vision capabilities,"
-            "for example, an image, video, or the webcam feed."
-        )
-    )
-    async def image(
-        self,
-        user_msg: Annotated[
-            str,
-            agents.llm.TypeInfo(
-                description="The user message that triggered this function"
-            ),
-        ],
-    ):
-        print(f"Message triggering vision capabilities: {user_msg}")
-        return None
 
     @agents.llm.ai_callable(
         description=(
@@ -81,22 +46,22 @@ class AssistantFunction(agents.llm.FunctionContext):
             ),
         ],
     ):
-        # print(f"Retrieving context for: {query}")
-        
+        print(f"Retrieving context for: {query}")
+        print(self.metadata)
         # Indicate thinking to the user
-        result = "I'm thinking about that..."
+        result = "Relevant context not found"
         
         try:
             # Define your metadata filter
             metadata_filter = {
                 "$and": [
-                    {"category": {"$eq": f"{self.metadata.subject}"}},
-                    {"chapter": {"$eq": f"{self.metadata.chapter}"}}
+                    {"category": {"$eq": f"{self.metadata['subject']}"}},
+                    {"chapter": {"$eq": f"{self.metadata['chapter']}"}}
                 ]
             }
             
             # Retrieve relevant documents
-            relevant_docs = chroma_client.similarity_search(
+            relevant_docs = self.chroma_client.similarity_search(
                 query=query,
                 k=2,
                 filter=metadata_filter
@@ -108,31 +73,13 @@ class AssistantFunction(agents.llm.FunctionContext):
                     [f"Document excerpt: {doc.page_content}" 
                      for doc in relevant_docs]
                 )
-                result = f"Based on my knowledge: {context_content}"
-            else:
-                result = "I don't have specific information about that in my knowledge base, but I'll try to help based on my general knowledge."
+                result = f"Context: {context_content}"
                 
         except Exception as e:
             print(f"Error retrieving context: {e}")
-            result = "I'm not able to access my knowledge base right now, but I'll try to help with what I know."
             
         return result
 
-async def get_video_track(room: rtc.Room):
-    """Get the first video track from the room. We'll use this track to process images."""
-
-    video_track = asyncio.Future[rtc.RemoteVideoTrack]()
-
-    for _, participant in room.remote_participants.items():
-        for _, track_publication in participant.track_publications.items():
-            if track_publication.track is not None and isinstance(
-                track_publication.track, rtc.RemoteVideoTrack
-            ):
-                video_track.set_result(track_publication.track)
-                print(f"Using video track {track_publication.track.sid}")
-                break
-
-    return await video_track
 
 def replace_words(assistant: VoicePipelineAgent, text: str | AsyncIterable[str]):
     return tokenize.utils.replace_words(
@@ -140,17 +87,22 @@ def replace_words(assistant: VoicePipelineAgent, text: str | AsyncIterable[str])
         replacements={r'[^a-zA-Z0-9\s]': ''}
     )
 
-async def entrypoint(ctx: JobContext):
+
+
+async def entrypoint(ctx: JobContext,db_client,chroma_client):
+    
+    prompt_collection = db_client["VaniiWeb"]["onboardings"]
+    user_collection = db_client["VaniiWeb"]["users"]
     await ctx.connect()
     print(f"Room name: {ctx.room.name}")
     prompt_data = {}
     user_data = {}
     try:
-        metadata = {}
+        metadata={"subject":"Geography", "chapter" : "Agriculture"}
         if ctx.room.metadata :
             metadata = json.load(ctx.room.metadata)
         mongo_id = ObjectId(metadata.userId)
-        print(f"User Id: {ctx.room.name}")
+        # print(f"User Id: {ctx.room.name}")
         prompt_data = prompt_collection.find_one(filter={
             "user" : mongo_id
         })
@@ -160,33 +112,34 @@ async def entrypoint(ctx: JobContext):
     except Exception as e:
         print(f"Error fetching prompt data from MongoDB: {e}")
 
-    system_prompt = f'''You are Vaanii, an AI language tutor designed to help learners improve their language skills through  personalized, conversational practice. Adapt your teaching style, content, and interaction based on the learner's profile:
-        - User Name: {user_data.get('fullname','Unknown')}
-        - Native Language: {prompt_data.get('nativeLanguage', 'English')}
-        - Language Level: {prompt_data.get('languageLevel', 'Intermediate')}
-        - Goal: {prompt_data.get('goal', 'Enhance fluency')}
-        - Purpose: {prompt_data.get('purpose', 'Unknown')}
-        - Time Dedication: {prompt_data.get('timeToBeDedicated', '5-15 minutes')}
-        - Learning Pace: {prompt_data.get('learningPace', 'Moderate')}
-        - Challenging Aspect: {prompt_data.get('challengingAspect', 'Fluency')}
-        - Preferred Practice: {prompt_data.get('preferredPracticingWay', 'Unknown')}
+    system_prompt = f'''You are Vaanii, an AI language tutor designed to help learners improve their language skills through personalized, conversational practice. Adapt your teaching style, content, and interaction based on the learner's profile:
+    
+                - User Name: {user_data.get('fullname','Unknown')}
+                - Native Language: {prompt_data.get('nativeLanguage', 'English')}
+                - Language Level: {prompt_data.get('languageLevel', 'Intermediate')}
+                - Goal: {prompt_data.get('goal', 'Enhance fluency')}
+                - Purpose: {prompt_data.get('purpose', 'Unknown')}
+                - Time Dedication: {prompt_data.get('timeToBeDedicated', '5-15 minutes')}
+                - Learning Pace: {prompt_data.get('learningPace', 'Moderate')}
+                - Challenging Aspect: {prompt_data.get('challengingAspect', 'Fluency')}
+                - Preferred Practice: {prompt_data.get('preferredPracticingWay', 'Unknown')}
 
-        ## Retrieving Subject Knowledge
-        When a student asks about specific educational material, use the retrieve_context function before responding:
-        - For subject-specific details: Always use retrieve_context.
-        - For general conversations: Respond naturally without using retrieve_context.
-        - For unclear queries: Ask clarifying questions before using retrieve_context.
+                ## Retrieving Subject Knowledge
+                When a student asks about specific educational material, retrieve the necessary context silently. Do not reveal technical details or any function IDs—instead, simply say “I am thinking” while processing the request.
+                - For subject-specific details: Always retrieve the required context.
+                - For general conversations: Respond naturally without retrieving additional context.
+                - For unclear queries: Ask clarifying questions first, then retrieve context if needed.
 
-        ## Interaction Guidelines
-        1. Engage in natural, conversational exchanges relevant to the learner"s goals and interests.
-        2. Adapt language complexity to match the learner's level and gradually increase difficulty.
-        3. Provide explanations and gentle corrections to help learners internalize new concepts.
-        4. Encourage active participation through questions, prompts, and constructive feedback.
-        5. Incorporate cultural insights and idiomatic expressions for a more authentic understanding.
-        6. Maintain a friendly, patient, and supportive demeanor while adjusting your approach as needed.
-        7. Since you are a voice assistant, do not use special characters.
-        8. Keep responses short and concise while maintaining clarity and engagement.
-        '''
+                ## Interaction Guidelines
+                1. Engage in natural, conversational exchanges that align with the learner’s goals and interests.
+                2. Adapt language complexity to match the learner’s level and gradually increase difficulty.
+                3. Provide clear explanations and gentle corrections to help learners internalize new concepts.
+                4. Encourage active participation with questions, prompts, and constructive feedback.
+                5. Incorporate cultural insights and idiomatic expressions for a more authentic learning experience.
+                6. Maintain a friendly, patient, and supportive demeanor, adjusting your approach as needed.
+                7. As a voice assistant, avoid using special characters.
+                8. Keep responses short and concise while maintaining clarity and engagement.
+                '''
 
     chat_context = ChatContext(
         messages=[
@@ -214,12 +167,12 @@ async def entrypoint(ctx: JobContext):
         print(f"Error initializing Deepgram STT: {e}")
         raise
     
-    groq = openai.LLM.with_groq(parallel_tool_calls=True)
+    groq = llm.LLM.with_groq(temperature=0.7,parallel_tool_calls=True)
+
+    
     
     # Create the function context with our tools
-    fnc_ctx = AssistantFunction(metadata)
-    
-    latest_image: rtc.VideoFrame | None = None
+    fnc_ctx = AssistantFunction(metadata,chroma_client)
     assistant = VoicePipelineAgent(
         vad=silero.VAD.load(), 
         stt=stt,
@@ -232,47 +185,47 @@ async def entrypoint(ctx: JobContext):
 
     chat = rtc.ChatManager(ctx.room)
 
-    # Flag to track if the assistant is currently speaking
-    is_speaking = False
+    
 
-    async def _answer(text: str, use_image: bool = False):
+    async def _answer(text: str,context=None):
         """
-        Answer the user's message with the given text and optionally the latest
-        image captured from the video track.
+        Answer the user's message with the given text and optionally the context provided.
         """
-        nonlocal is_speaking
         
-        content: list[str | ChatImage] = [text]
-        if use_image and latest_image:
-            content.append(ChatImage(image=latest_image))
+        
+        content: list[str] = [text]
 
         chat_context.messages.append(ChatMessage(role="user", content=content))
-        
+        if context:
+            chat_context.messages.append(ChatMessage(role="tool", content=f"Context: {context}"))
         # Now get the full response from the LLM (which might use the retrieve_context function)
-        stream = groq.chat(chat_ctx=chat_context, fnc_ctx=fnc_ctx)
+        stream = groq.chat(chat_ctx=chat_context,temperature=0.7)
         await assistant.say(stream, allow_interruptions=True)
 
     @chat.on("message_received")
     def on_message_received(msg: rtc.ChatMessage):
         """This event triggers whenever we get a new message from the user."""
-        if msg.message and not is_speaking:
-            asyncio.create_task(_answer(msg.message, use_image=False))
+        if msg.message :
+            asyncio.create_task(_answer(msg.message))
 
     @assistant.on("function_calls_finished")
     def on_function_calls_finished(called_functions: list[agents.llm.CalledFunction]):
         """This event triggers when an assistant's function call completes."""
+        print("I have been called")
         if len(called_functions) == 0:
             return
 
         user_msg = called_functions[0].call_info.arguments.get("user_msg")
-        if user_msg and not is_speaking:
-            asyncio.create_task(_answer(user_msg, use_image=True))
+        context = called_functions[0].result
+        print(context)
+        if user_msg:
+            asyncio.create_task(_answer(user_msg,context=context))
 
     assistant.start(ctx.room)
-
     await asyncio.sleep(1)
-
-    await assistant.say("Hi, I am Vaanii, your language tutor. Feel free to ask me questions about your lessons or practice conversation with me.", allow_interruptions=True)
+    await assistant.say("Hi, I am Vaanii, your language tutor.", allow_interruptions=True)
 
 if __name__ == "__main__":
-    cli.run_app(WorkerOptions(entrypoint_fnc=entrypoint))
+    db_client = initializeMongoClient()
+    chroma_client = initializeChromaClient()
+    cli.run_app(WorkerOptions(entrypoint_fnc=lambda ctx : entrypoint(ctx=ctx,db_client=db_client,chroma_client=chroma_client)))
