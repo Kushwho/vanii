@@ -217,7 +217,7 @@ async def entrypoint(ctx: JobContext,db_client,chroma_client):
 
         user_msg = called_functions[0].call_info.arguments.get("user_msg")
         context = called_functions[0].result
-        print(context)
+        # print(context)
         if user_msg:
             asyncio.create_task(_answer(user_msg,context=context))
 
