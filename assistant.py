@@ -17,13 +17,7 @@ from livekit.plugins.deepgram import tts
 from livekit.agents import tokenize
 
 
-try:
-    client = initializeMongoClient()
-    prompt_collection = client["VaniiWeb"]["onboardings"]
-    user_collection =   client["VaniiWeb"]["users"]
-except Exception as e:
-    print(f"Error initializing MongoDB client: {e}")
-    raise
+
 
 class AssistantFunction(agents.llm.FunctionContext):
     """This class is used to define functions that will be called by the assistant."""
@@ -73,14 +67,16 @@ def replace_words(assistant: VoicePipelineAgent, text: str | AsyncIterable[str])
 
 
 
-async def entrypoint(ctx: JobContext):
+async def entrypoint(ctx: JobContext,client):
     await ctx.connect()
     print(f"Room name: {ctx.room.name}")
-    prompt_data = {}
+    prompt_collection = client["VaniiWeb"]["onboardings"]
+    user_collection =   client["VaniiWeb"]["users"]
     user_data = {}
+    prompt_data = {}
     try:
         mongo_id = ObjectId(ctx.room.name)
-        print(f"User Id: {ctx.room.name}")
+        # print(f"User Id: {ctx.room.name}")
         prompt_data = prompt_collection.find_one(filter={
             "user" : mongo_id
         })
@@ -89,8 +85,6 @@ async def entrypoint(ctx: JobContext):
         })
     except Exception as e:
         print(f"Error fetching prompt data from MongoDB: {e}")
-
-
     system_prompt = f'''You are Vaanii, an AI language tutor designed to help learners improve their language skills through personalized, conversational practice. Adapt your teaching style, content, and interaction based on the learner's profile:
         * User Name: {user_data.get('fullname',"")}
         * Native Language: {prompt_data.get('nativeLanguage', 'English')}
@@ -205,4 +199,5 @@ async def entrypoint(ctx: JobContext):
 
 
 if __name__ == "__main__":
-    cli.run_app(WorkerOptions(entrypoint_fnc=entrypoint))
+    client = initializeMongoClient()
+    cli.run_app(WorkerOptions(entrypoint_fnc=lambda ctx : entrypoint(ctx=ctx,client=client)))
