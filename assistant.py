@@ -17,6 +17,7 @@ from livekit.plugins.deepgram import tts
 from livekit.agents import tokenize
 from dotenv import load_dotenv
 import json
+from functools import partial
 
 load_dotenv()
 
@@ -89,9 +90,7 @@ def replace_words(assistant: VoicePipelineAgent, text: str | AsyncIterable[str])
 
 
 
-async def entrypoint(ctx: JobContext):
-    db_client = initializeMongoClient()
-    chroma_client = initializeChromaClient()
+async def entrypoint(ctx: JobContext,db_client,chroma_client):
     prompt_collection = db_client["VaniiWeb"]["onboardings"]
     user_collection = db_client["VaniiWeb"]["users"]
     await ctx.connect()
@@ -227,4 +226,13 @@ async def entrypoint(ctx: JobContext):
     await assistant.say("Hi, I am Vaanii, your tutor.", allow_interruptions=True)
 
 if __name__ == "__main__":
-    cli.run_app(WorkerOptions(entrypoint_fnc=entrypoint,load_threshold=0.99))
+    db_client = initializeMongoClient()
+    chroma_client = initializeChromaClient()
+    
+    cli.run_app(
+        WorkerOptions(
+            entrypoint_fnc=partial(entrypoint, db_client=db_client, chroma_client=chroma_client),
+            load_threshold=0.99
+        )
+    )
+
