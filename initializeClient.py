@@ -54,3 +54,6 @@ def initializeChromaClient():
         # Print the error and exit the app
         print(f"❌ Error connecting to Chroma DB: {e}")
         sys.exit(1)  # Exit the application with status code 1
+
+
+

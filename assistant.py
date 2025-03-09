@@ -17,10 +17,31 @@ from livekit.plugins.deepgram import tts
 from livekit.agents import tokenize
 from dotenv import load_dotenv
 import json
-from functools import partial
+
 
 load_dotenv()
 
+
+db_client = None
+chroma_client = None
+
+
+
+def get_mongo_client():
+    global db_client
+    if db_client is None:
+        print("✅ Initializing MongoDB Client...")
+        db_client = initializeMongoClient()
+    return db_client
+
+
+
+def get_chroma_client():
+    global chroma_client
+    if chroma_client is None:
+        print("✅ Initializing ChromaDB Client...")
+        chroma_client = initializeChromaClient()
+    return chroma_client
 
 class AssistantFunction(agents.llm.FunctionContext):
     """This class is used to define functions that will be called by the assistant."""
@@ -90,7 +111,9 @@ def replace_words(assistant: VoicePipelineAgent, text: str | AsyncIterable[str])
 
 
 
-async def entrypoint(ctx: JobContext,db_client,chroma_client):
+async def entrypoint(ctx: JobContext):
+    db_client = get_mongo_client()
+    chroma_client = get_chroma_client()
     prompt_collection = db_client["VaniiWeb"]["onboardings"]
     user_collection = db_client["VaniiWeb"]["users"]
     await ctx.connect()
@@ -153,7 +176,7 @@ async def entrypoint(ctx: JobContext,db_client,chroma_client):
     try:
         stt = DeepgramSTT(
             language="en-IN",
-            model="nova-2-general",
+            model="nova-2",
             interim_results=True,
             smart_format=True,
             punctuate=True,
@@ -226,12 +249,12 @@ async def entrypoint(ctx: JobContext,db_client,chroma_client):
     await assistant.say("Hi, I am Vaanii, your tutor.", allow_interruptions=True)
 
 if __name__ == "__main__":
-    db_client = initializeMongoClient()
-    chroma_client = initializeChromaClient()
-    
+    get_mongo_client()
+    get_chroma_client()
+
     cli.run_app(
         WorkerOptions(
-            entrypoint_fnc=partial(entrypoint, db_client=db_client, chroma_client=chroma_client),
+            entrypoint_fnc=entrypoint,
             load_threshold=0.99
         )
     )
