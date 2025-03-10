@@ -254,7 +254,7 @@ async def entrypoint(ctx: JobContext):
 
     assistant.start(ctx.room)
     await asyncio.sleep(1)
-    await assistant.say(f"Hi, I am Vaanii, your tutor for your chapter {metadata["chapter"]}.", allow_interruptions=True)
+    await assistant.say(f"Hi, I am Vaanii, your tutor for your chapter {metadata['chapter']}.", allow_interruptions=True)
 
 if __name__ == "__main__":
     get_mongo_client()
