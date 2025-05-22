@@ -18,4 +18,4 @@ COPY . /app
 
 
 # Set the default command to run the app using Gunicorn with eventlet
-CMD ["python3", "assistant.py", "start"]
+CMD ["python3", "assistant2.py", "start"]

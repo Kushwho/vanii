@@ -15,9 +15,9 @@ from bson.objectid import ObjectId
 from livekit.plugins.azure import TTS
 from livekit.plugins.deepgram import tts
 from livekit.agents import tokenize
+from livekit.agents import BackgroundAudioPlayer, AudioConfig, BuiltinAudioClip, Agent
 from dotenv import load_dotenv
 import json
-
 
 load_dotenv()
 
@@ -68,13 +68,15 @@ class AssistantFunction(agents.llm.FunctionContext):
             ),
         ],
     ):
-        print(f"Retrieving context for: {query}")
-        print(self.metadata)
+        # print(f"Retrieving context for: {query}")
+        # print(self.metadata)
         # Indicate thinking to the user
+        
         result = "Relevant context not found"
         
         try:
             # Define your metadata filter
+    
             metadata_filter = {
                 "$and": [
                     {"category": {"$eq": f"{self.metadata['subject']}"}},
@@ -242,7 +244,7 @@ async def entrypoint(ctx: JobContext):
     @assistant.on("function_calls_finished")
     def on_function_calls_finished(called_functions: list[agents.llm.CalledFunction]):
         """This event triggers when an assistant's function call completes."""
-        print("I have been called")
+        # print("I have been called")
         if len(called_functions) == 0:
             return
 
