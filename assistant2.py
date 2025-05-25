@@ -226,13 +226,14 @@ async def entrypoint(ctx: JobContext):
     # Initialize speech recognition, text-to-speech, and LLM
     try:
         stt = DeepgramSTT(
-            language="en-IN",
-            model="nova-2",
+            language="multi",
+            model="nova-3",
             interim_results=True,
             smart_format=True,
             punctuate=True,
             filler_words=True,
             profanity_filter=False,
+            energy_filter=True
         )
         tts_engine = tts.TTS(
             model="aura-asteria-en",
