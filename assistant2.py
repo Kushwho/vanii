@@ -231,21 +231,21 @@ class VaaniiTutor(Agent):
 
     
     # Override the tts_node to apply the replace_special_chars function
-    async def tts_node(
-        self, text: AsyncIterable[str], model_settings: ModelSettings
-    ) -> AsyncIterable[rtc.AudioFrame]:
-        """Process text through TTS with special character replacement."""
+    # async def tts_node(
+    #     self, text: AsyncIterable[str], model_settings: ModelSettings
+    # ) -> AsyncIterable[rtc.AudioFrame]:
+    #     """Process text through TTS with special character replacement."""
         
-        # Apply special character replacement to the text
-        async def process_text():
-            async for chunk in text:
-                # Apply the replacement function to each text chunk
-                processed_chunk = re.sub(r'[^a-zA-Z0-9\s]', '', chunk)
-                yield processed_chunk
+    #     # Apply special character replacement to the text
+    #     async def process_text():
+    #         async for chunk in text:
+    #             # Apply the replacement function to each text chunk
+    #             processed_chunk = re.sub(r'[^a-zA-Z0-9\s]', '', chunk)
+    #             yield processed_chunk
         
-        # Pass the processed text to the default TTS node
-        async for frame in Agent.default.tts_node(self, process_text(), model_settings):
-            yield frame
+    #     # Pass the processed text to the default TTS node
+    #     async for frame in Agent.default.tts_node(self, process_text(), model_settings):
+    #         yield frame
 
 async def entrypoint(ctx: JobContext):
     """Main entrypoint for the Vaanii Tutor agent."""
@@ -283,7 +283,7 @@ async def entrypoint(ctx: JobContext):
             for msg in chat_history_items:
                 content = msg.get("content")
                 role = msg.get("role", "")
-                
+
                 # Handle different content formats safely
                 if content is None:
                     message = ""
@@ -293,11 +293,13 @@ async def entrypoint(ctx: JobContext):
                     message = content
                 else:
                     message = ""
-                
-                chat_history.append({
-                    "message": message,
-                    "sender": role,
-                })
+
+                # Only add messages that are not empty and have a valid role
+                if message and message.strip() and role:
+                    chat_history.append({
+                        "message": message.strip(),
+                        "sender": role,
+                    })
             
             # Update session status and endTime, and append new chat history
             update_data = {
@@ -594,6 +596,7 @@ if __name__ == "__main__":
             WorkerOptions(
                 entrypoint_fnc=entrypoint,
                 load_threshold=0.99,
+                port=8080
             )
         )
     except Exception as e:
