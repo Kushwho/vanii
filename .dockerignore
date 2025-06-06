@@ -1,0 +1,142 @@
+# .dockerignore - Prevents Docker from copying unnecessary files
+
+# ===== PYTHON =====
+# Virtual environments
+venv/
+.venv/
+venv.bak/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# ===== DEVELOPMENT FILES =====
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# PEP 582
+__pypackages__/
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# ===== GIT =====
+.git/
+.gitignore
+.gitattributes
+
+# ===== LOGS =====
+*.log
+logs/
+
+
+
+# ===== NODE.JS (if any) =====
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ===== DOCUMENTATION =====
+README.md
+*.md
+docs/
+
+# ===== TESTING =====
+.pytest_cache/
+tests/
+test_*
+*_test.py
+
+# ===== DEPLOYMENT =====
+Dockerfile*
+docker-compose*
+.dockerignore
+cloudbuild.yaml
+deploy.sh
+
+# ===== MISC =====
+.gitkeep
+.DS_Store
+*.tmp
+*.temp
+temp/
+tmp/
+
+# ===== LOCAL DEVELOPMENT =====
+# Local configuration files
+config.local.json
+settings.local.py
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Backup files
+*.bak
+*.backup
+
+# ===== CLOUD/CI FILES =====
+.github/
+.gitlab-ci.yml
+.travis.yml
+.circleci/

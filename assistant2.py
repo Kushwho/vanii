@@ -579,10 +579,19 @@ async def entrypoint(ctx: JobContext):
     except Exception as e:
         logger.error(f"Error sending greeting message: {e}", exc_info=True)
 
+
+def get_port():
+    """Get port from environment variable or default to 8080."""
+    import os
+    return int(os.environ.get('PORT', 8080))
+
+
 if __name__ == "__main__":
     logger.info("Starting Vaanii Tutor application")
-    
     # Initialize resources
+
+    port = get_port()
+    logger.info(f"Using port: {port}")
     try:
         get_mongo_client()
         logger.info("Resources initialized successfully")
@@ -596,7 +605,7 @@ if __name__ == "__main__":
             WorkerOptions(
                 entrypoint_fnc=entrypoint,
                 load_threshold=0.99,
-                port=8080
+                port=port
             )
         )
     except Exception as e:
