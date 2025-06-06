@@ -18,7 +18,7 @@ from livekit.agents import (
 from livekit.plugins import silero
 
 from livekit.plugins.deepgram import STT as DeepgramSTT
-from livekit.plugins.deepgram import tts
+from livekit.plugins.deepgram import tts as deepgram_tts
 from initializeClient import initializeMongoClient
 from livekit.plugins import groq
 from livekit import api
@@ -268,7 +268,7 @@ async def entrypoint(ctx: JobContext):
     async def save_chat_history():
         """Save chat history to database on session end."""
         try:
-            session_id = metadata.get("sessionId")
+            session_id = ctx.room.name
             
             if not session_id:
                 logger.warning("No session ID found in metadata for saving chat history")
@@ -476,9 +476,45 @@ async def entrypoint(ctx: JobContext):
             energy_filter=True
         )
         
-        tts_engine = tts.TTS(
-            model="aura-asteria-en",
-        )
+        # TTS Configuration with Google TTS and Deepgram TTS fallback
+        tts_engine = None
+
+        # Try Google TTS first
+        try:
+            from livekit.plugins import google
+            logger.info("Attempting to initialize Google TTS...")
+            tts_engine = google.TTS(
+                voice_name="en-IN-Chirp3-HD-Achernar",  # Use voice_name instead of voice
+                language="en-IN",
+                gender="female"
+            )
+            logger.info("✅ Google TTS initialized successfully")
+        except Exception as e:
+            logger.warning(f"❌ Google TTS initialization failed: {e}")
+            logger.info("🔄 Falling back to Deepgram TTS...")
+
+            # Fallback to Deepgram TTS
+            try:
+                tts_engine = deepgram_tts.TTS(
+                    model="aura-asteria-en",
+                )
+                logger.info("✅ Deepgram TTS initialized successfully as fallback")
+            except Exception as deepgram_error:
+                logger.error(f"❌ Both Google TTS and Deepgram TTS failed to initialize!")
+                logger.error(f"Google TTS error: {e}")
+                logger.error(f"Deepgram TTS error: {deepgram_error}")
+                raise Exception("No TTS engine could be initialized")
+
+        # Log which TTS engine is being used
+        if hasattr(tts_engine, '__class__'):
+            tts_class_name = tts_engine.__class__.__name__
+            if 'google' in tts_class_name.lower():
+                logger.info("🎤 Using Google TTS for speech synthesis")
+            elif 'deepgram' in tts_class_name.lower():
+                logger.info("🎤 Using Deepgram TTS for speech synthesis")
+            else:
+                logger.info(f"🎤 Using {tts_class_name} for speech synthesis")
+       
         
         llm_engine = groq.LLM(
             model="llama3-8b-8192",
@@ -497,7 +533,7 @@ async def entrypoint(ctx: JobContext):
         session = AgentSession(
             stt=stt,
             llm=llm_engine,
-            tts=tts_engine,
+            tts=tts_engine,  # Use the initialized TTS engine (Google with Deepgram fallback)
             vad=silero.VAD.load(),
         )
         logger.info("Agent session created successfully")
