@@ -353,6 +353,7 @@ async def entrypoint(ctx: JobContext):
     metadata = {}  # Default values
     
     try:
+        print(ctx.room)
         if ctx.room.metadata:
             metadata = json.loads(ctx.room.metadata)
             logger.info(f"Loaded metadata: {metadata}")
@@ -545,7 +546,7 @@ async def entrypoint(ctx: JobContext):
     try:
         tutor = VaaniiTutor(
             metadata=metadata,
-            chat_ctx=chat_context
+            chat_ctx=chat_context,
         )
         logger.info("Vaanii Tutor agent created successfully")
     except Exception as e:
